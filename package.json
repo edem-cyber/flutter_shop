@@ -1,12 +1,12 @@
 {
   "name": "user_db",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Node.js RESTful API project",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Aman Srivastava",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
