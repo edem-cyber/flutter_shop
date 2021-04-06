@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const userRoute = require("./routes/user");
+const productsRoute = require("./routes/products");
+const ordersRoute = require("./routes/orders");
 
 const app = express();
 mongoose
@@ -39,6 +41,8 @@ app.use((req, res, next) => {
 });
 
 app.use("/api", userRoute);
+app.use("/products", productsRoute);
+app.use("/orders", ordersRoute);
 
 app.use((req, res, next) => {
   let err = new Error("Not Found");

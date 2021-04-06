@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get("/", (req, res, next) => {
   console.log("connected");
-  res.json({ message: "Connected" });
+  res.status(200).json({ message: "Connected" });
 });
 
 router.post("/signup", (req, res, next) => {
