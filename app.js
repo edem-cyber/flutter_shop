@@ -1,13 +1,16 @@
+// Importing packages
 const express = require("express");
-
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const morgan = require("morgan");
 
+//Importing routes
 const userRoute = require("./routes/user");
 const productsRoute = require("./routes/products");
 const ordersRoute = require("./routes/orders");
 
 const app = express();
+
+//Connecting mongo Atlas
 mongoose
   .connect(
     "mongodb+srv://aman:aman@flutterdb.qau8e.mongodb.net/FlutterDB?retryWrites=true&w=majority",
@@ -18,15 +21,17 @@ mongoose
     }
   )
   .then(() => {
-    console.log("Connected to the database");
+    console.log("Connected to the database"); // successful connection to mongo atlas
   })
   .catch(() => {
-    console.log("Failed");
+    console.log("Failed"); // unsuccessful
   });
 
+//Setting up parser to parse the body  (express.json replaced old body-parser)
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+//Setting up CORS Policy
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -40,14 +45,30 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api", userRoute);
+//Using morgan to log every request
+//It is middleware which uses next function after logging the request
+app.use(morgan("dev"));
+
+//Using routes
+app.use("/user", userRoute);
 app.use("/products", productsRoute);
 app.use("/orders", ordersRoute);
 
+//Handling error likes invalid pages
 app.use((req, res, next) => {
   let err = new Error("Not Found");
   err.status = 404;
   next(err);
+});
+
+//Handling error in database
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.json({
+    error: {
+      message: err.message,
+    },
+  });
 });
 
 module.exports = app;
