@@ -8,6 +8,7 @@ const userSchema = mongoose.Schema({
   lastname: { type: String, required: true },
   address: { type: String },
   phone: { type: String },
+  seller: { type: Boolean, required: true },
 });
 
 userSchema.plugin(emailValidator, {
