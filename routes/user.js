@@ -35,7 +35,6 @@ router.post("/signup", (req, res, next) => {
 
 router.post("/login", (req, res, next) => {
   let userSave;
-  console.log(req.body.email);
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (!user) {
@@ -54,7 +53,10 @@ router.post("/login", (req, res, next) => {
             });
           }
           const token = jwt.sign(
-            { email: userSave.email, userId: userSave._id },
+            {
+              email: userSave.email,
+              userId: userSave._id,
+            },
             "this_is_a_secret_key_by_@man_Sr1vastava",
             {
               expiresIn: "1h",
@@ -64,6 +66,9 @@ router.post("/login", (req, res, next) => {
             token: token,
             expiresIn: 1,
             userId: userSave._id,
+            isAdmim:
+              userSave.email ==
+              "aman.srivastava101@gmail.com",
           });
         })
         .catch((err) => {
