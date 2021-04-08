@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const Product = require("../models/product");
 
+// setting up storage location and filename pattern
 const stroage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./uploads/");
@@ -11,6 +12,7 @@ const stroage = multer.diskStorage({
   },
 });
 
+// setting up file filter using mimetype
 const fileFilter = (req, file, cb) => {
   if (
     file.mimetype === "image/jpeg" ||
@@ -33,6 +35,7 @@ const upload = multer({
 
 const router = express.Router();
 
+// returns the list of products when successful request is made
 router.get("/", (req, res, next) => {
   Product.find()
     .exec()
@@ -56,6 +59,8 @@ router.get("/", (req, res, next) => {
     });
 });
 
+// request is in form-data type (contains key value pair wher value can be text or file) which
+// is different from json to upload image file
 router.post(
   "/",
   upload.single("productImage"),
@@ -83,6 +88,7 @@ router.post(
   }
 );
 
+//return the detail of requested product
 router.get("/:id", (req, res, next) => {
   Product.findById(req.params.id)
     .exec()
@@ -100,6 +106,7 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
+// patch the requested properties in the given product
 router.patch("/:id", (req, res, next) => {
   const id = req.params.id;
   const updateOps = {};
@@ -121,6 +128,7 @@ router.patch("/:id", (req, res, next) => {
   });
 });
 
+// delete the product
 router.delete("/:id", (req, res, next) => {
   Product.remove({ _id: req.params.id })
     .exec()
