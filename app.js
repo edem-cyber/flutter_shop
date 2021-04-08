@@ -49,6 +49,9 @@ app.use((req, res, next) => {
 //It is middleware which uses next function after logging the request
 app.use(morgan("dev"));
 
+//making uploads directory public
+app.use("/uploads", express.static("uploads"));
+
 //Using routes
 app.use("/user", userRoute);
 app.use("/products", productsRoute);
