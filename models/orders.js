@@ -4,8 +4,11 @@ const orderSchema = mongoose.Schema({
   date: { type: String, required: true },
   products: [
     {
-      type: mongoose.Schema.Types.ObjectId(),
-      ref: "Product",
+      product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+      },
+      quantity: { type: Number, default: 1 },
     },
   ],
 });
