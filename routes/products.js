@@ -5,10 +5,10 @@ const Product = require("../models/product");
 // setting up storage location and filename pattern
 const stroage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./uploads/");
+    cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
-    cb(null, new Date().toISOString + file.filename);
+    cb(null, Date.now() + file.originalname);
   },
 });
 
@@ -44,11 +44,13 @@ router.get("/", (req, res, next) => {
         count: docs.length,
         products: docs.map((doc) => {
           return {
+            id: doc._id,
             name: doc.name,
             price: doc.price,
             description: doc.description,
             seller: doc.seller,
-            productImage: doc.productImage,
+            productImage:
+              "192.168.0.195:3000/" + doc.productImage,
           };
         }),
       };
@@ -65,12 +67,14 @@ router.post(
   "/",
   upload.single("productImage"),
   (req, res, next) => {
+    console.log(req.file);
     const product = new Product({
       name: req.body.name,
       price: req.body.price,
       description: req.body.description,
       seller: req.body.seller,
-      image: req.file.path,
+      productImage:
+        req.file.destination + req.file.filename,
     });
     product
       .save()
@@ -108,12 +112,11 @@ router.get("/:id", (req, res, next) => {
 
 // patch the requested properties in the given product
 router.patch("/:id", (req, res, next) => {
-  const id = req.params.id;
-  const updateOps = {};
-  for (const ops of req.body) {
-    updateOps[ops.propName] = ops.save;
-  }
-  Product.updateOne({ _id: id }, { $set: updateOps })
+  Product.updateOne(
+    { _id: req.params.id },
+    { $set: req.body },
+    { upsert: true, new: true }
+  )
     .exec()
     .then((result) => {
       res
@@ -130,15 +133,16 @@ router.patch("/:id", (req, res, next) => {
 
 // delete the product
 router.delete("/:id", (req, res, next) => {
-  Product.remove({ _id: req.params.id })
-    .exec()
-    .then((res) => {
+  console.log(req.params.id);
+  Product.deleteOne({ _id: req.params.id })
+    .then((result) => {
       res.status(200).json({
         message: "Product deleted successfully",
       });
     })
     .catch((err) => {
-      res.status(500).json({ error: err });
+      console.log(err);
+      res.status(500).json(err);
     });
 });
 
