@@ -67,7 +67,6 @@ router.post(
   "/",
   upload.single("productImage"),
   (req, res, next) => {
-    console.log(req.file);
     const product = new Product({
       name: req.body.name,
       price: req.body.price,
@@ -114,26 +113,23 @@ router.get("/:id", (req, res, next) => {
 router.patch("/:id", (req, res, next) => {
   Product.updateOne(
     { _id: req.params.id },
-    { $set: req.body },
-    { upsert: true, new: true }
+    { $set: req.body }
   )
     .exec()
     .then((result) => {
-      res
-        .status(200)
-        .json({ message: "Product updated successfully!" });
+      res.status(200).json({
+        message: "Product updated successfully",
+      });
     })
     .catch((err) => {
-      res.status(500).json({ error: err });
+      res.status(500).json({
+        error: err,
+      });
     });
-  res.status(200).json({
-    message: "product updated successfully",
-  });
 });
 
 // delete the product
 router.delete("/:id", (req, res, next) => {
-  console.log(req.params.id);
   Product.deleteOne({ _id: req.params.id })
     .then((result) => {
       res.status(200).json({
@@ -141,7 +137,6 @@ router.delete("/:id", (req, res, next) => {
       });
     })
     .catch((err) => {
-      console.log(err);
       res.status(500).json(err);
     });
 });
