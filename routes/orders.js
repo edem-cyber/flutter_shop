@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/", (req, res, next) => {
   Order.find()
-    .select("product quantity _id date")
+    .select("products quantity _id date")
     .exec()
     .then((docs) => {
       const respone = {
@@ -14,7 +14,8 @@ router.get("/", (req, res, next) => {
           return {
             id: doc._id,
             date: doc.date,
-            product: doc.product,
+            products: doc.products,
+            quantity: doc.quantity,
           };
         }),
       };
@@ -30,7 +31,7 @@ router.get("/", (req, res, next) => {
 router.post("/", (req, res, next) => {
   const order = new Order({
     date: req.body.date,
-    product: req.body.productId,
+    products: req.body.products,
     quantity: req.body.quantity,
   });
   order
@@ -38,7 +39,7 @@ router.post("/", (req, res, next) => {
     .then((result) => {
       res.status(201).json({
         message: "Order created!",
-        product: result,
+        result: result,
       });
     })
     .catch((error) => {
@@ -50,13 +51,19 @@ router.post("/", (req, res, next) => {
 
 router.get("/:id", (req, res, next) => {
   Order.findById(req.params.id)
-    .populate("product")
+    .populate("products")
     .exec()
-    .then((res) => {
-      res.status(200).json(res);
+    .then((result) => {
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(404).json({
+          message: "No valid entry found",
+        });
+      }
     })
-    .catch((err) => {
-      res.status(500).json(err);
+    .catch((error) => {
+      res.status(500).json({ error: error });
     });
 });
 

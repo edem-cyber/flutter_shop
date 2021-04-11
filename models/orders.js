@@ -8,7 +8,7 @@ const orderSchema = mongoose.Schema({
       ref: "Product",
     },
   ],
-  quantity: { type: Number, default: 1 },
+  quantity: [{ type: Number, default: 1 }],
 });
 
 module.exports = mongoose.model("Order", orderSchema);
