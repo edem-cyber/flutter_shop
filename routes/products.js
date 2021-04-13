@@ -1,5 +1,7 @@
 const express = require("express");
 const multer = require("multer");
+
+const checkAuth = require("../middleware/auth");
 const Product = require("../models/product");
 
 // setting up storage location and filename pattern
@@ -65,6 +67,7 @@ router.get("/", (req, res, next) => {
 // is different from json to upload image file
 router.post(
   "/",
+  checkAuth,
   upload.single("productImage"),
   (req, res, next) => {
     const product = new Product({
@@ -110,7 +113,7 @@ router.get("/:id", (req, res, next) => {
 });
 
 // patch the requested properties in the given product
-router.patch("/:id", (req, res, next) => {
+router.patch("/:id", checkAuth, (req, res, next) => {
   Product.updateOne(
     { _id: req.params.id },
     { $set: req.body }
@@ -129,7 +132,7 @@ router.patch("/:id", (req, res, next) => {
 });
 
 // delete the product
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", checkAuth, (req, res, next) => {
   Product.deleteOne({ _id: req.params.id })
     .then((result) => {
       res.status(200).json({

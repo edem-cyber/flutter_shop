@@ -82,6 +82,7 @@ router.post("/login", (req, res, next) => {
             {
               email: userSave.email,
               userId: userSave._id,
+              role: userSave.role,
             },
             "this_is_a_secret_key_by_@man_Sr1vastava",
             {

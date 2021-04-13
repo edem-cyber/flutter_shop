@@ -1,10 +1,11 @@
 const express = require("express");
+const checkAuth = require("../middleware/auth");
 const Order = require("../models/orders");
 const Product = require("../models/product");
 
 const router = express.Router();
 
-router.get("/", (req, res, next) => {
+router.get("/", checkAuth, (req, res, next) => {
   Order.find()
     .select("products quantity _id date")
     .exec()
@@ -29,7 +30,7 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.post("/", (req, res, next) => {
+router.post("/", checkAuth, (req, res, next) => {
   const list = req.body.products; //...an array filled with values
   var flag = true;
 
@@ -89,7 +90,7 @@ router.post("/", (req, res, next) => {
   // }
 });
 
-router.get("/:id", (req, res, next) => {
+router.get("/:id", checkAuth, (req, res, next) => {
   Order.findById(req.params.id)
     .populate("products")
     .exec()
@@ -107,7 +108,7 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", checkAuth, (req, res, next) => {
   Order.deleteOne({ _id: req.params.id })
     .exec()
     .then((result) => {
