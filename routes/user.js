@@ -1,7 +1,6 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-
+const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const auth = require("../middleware/auth");
 
@@ -13,25 +12,51 @@ router.get("/", (req, res, next) => {
 });
 
 router.post("/signup", (req, res, next) => {
-  bcrypt.hash(req.body.password, 10).then((hash) => {
-    const user = new User({
-      email: req.body.email,
-      password: hash,
-    });
-    user
-      .save()
-      .then((result) => {
-        res.status(201).json({
-          message: "User Created",
-          user: result,
+  User.find({ email: req.body.email })
+    .exec()
+    .then((doc) => {
+      if (doc.length >= 1) {
+        res.status(409).json({
+          error: "Email-ID already exists!",
         });
-      })
-      .catch((err) => {
-        res.status(500).json({
-          err: err,
-        });
+      } else {
+        bcrypt
+          .hash(req.body.password, 10, (err, hash) => {
+            if (err)
+              return res.status(500).json({ error: err });
+            const user = new User({
+              email: req.body.email,
+              password: hash,
+              firstname: req.body.firstname,
+              lastname: req.body.lastname,
+              role: req.body.role,
+            });
+            user
+              .save()
+              .then((result) => {
+                res.status(201).json({
+                  message: "Account successfully created!",
+                  user: user,
+                });
+              })
+              .catch((err) => {
+                res.status(500).json({
+                  error: err,
+                });
+              });
+          })
+          .catch((err) => {
+            res.status(500).json({
+              error: err,
+            });
+          });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: err,
       });
-  });
+    });
 });
 
 router.post("/login", (req, res, next) => {

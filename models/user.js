@@ -2,13 +2,18 @@ const mongoose = require("mongoose");
 const emailValidator = require("mongoose-unique-validator");
 
 const userSchema = mongoose.Schema({
-  email: { type: String, required: true, unique: true },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+  },
   password: { type: String, required: true },
   firstname: { type: String, required: true },
   lastname: { type: String, required: true },
   address: { type: String },
   phone: { type: String },
-  seller: { type: Boolean, required: true },
+  role: { type: Number, default: 1 },
 });
 
 userSchema.plugin(emailValidator, {

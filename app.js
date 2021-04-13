@@ -14,7 +14,9 @@ const app = express();
 //Connecting mongo Atlas
 mongoose
   .connect(
-    "mongodb+srv://aman:aman@flutterdb.qau8e.mongodb.net/FlutterDB?retryWrites=true&w=majority",
+    "mongodb+srv://aman:" +
+      process.env.MONGO_ATLAS_PW +
+      "@flutterdb.qau8e.mongodb.net/FlutterDB?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
