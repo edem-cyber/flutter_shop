@@ -6,7 +6,7 @@ const Product = require("../models/product");
 const router = express.Router();
 
 router.get("/", checkAuth, (req, res, next) => {
-  Order.find()
+  Order.find({ user: req.userData.userId })
     .select("products quantity _id date")
     .exec()
     .then((docs) => {
