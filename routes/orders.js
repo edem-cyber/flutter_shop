@@ -63,6 +63,7 @@ router.post("/", checkAuth, (req, res, next) => {
     // const index = data.find(null);
     if (flag) {
       const order = new Order({
+        user: req.body.user,
         date: req.body.date,
         products: req.body.products,
         quantity: req.body.quantity,
@@ -86,8 +87,6 @@ router.post("/", checkAuth, (req, res, next) => {
       });
     }
   });
-  // if (products.length > 0) {
-  // }
 });
 
 router.get("/:id", checkAuth, (req, res, next) => {
@@ -95,7 +94,7 @@ router.get("/:id", checkAuth, (req, res, next) => {
     .populate("products")
     .exec()
     .then((result) => {
-      if (result) {
+      if (result && result.user == req.userData.userId) {
         res.status(200).json(result);
       } else {
         res.status(404).json({
@@ -109,7 +108,10 @@ router.get("/:id", checkAuth, (req, res, next) => {
 });
 
 router.delete("/:id", checkAuth, (req, res, next) => {
-  Order.deleteOne({ _id: req.params.id })
+  Order.deleteOne({
+    _id: req.params.id,
+    user: req.userData.userId,
+  })
     .exec()
     .then((result) => {
       res.status(200).json({

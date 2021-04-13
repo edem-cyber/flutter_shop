@@ -14,6 +14,12 @@ const userSchema = mongoose.Schema({
   address: { type: String },
   phone: { type: String },
   role: { type: Number, default: 1 },
+  favorite: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
+    },
+  ],
 });
 
 userSchema.plugin(emailValidator, {

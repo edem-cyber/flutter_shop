@@ -2,13 +2,27 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
-const auth = require("../middleware/auth");
+
+const checkAuth = require("../middleware/auth");
+const adminCheck = require("../middleware/adminCheck");
 
 const router = express.Router();
 
-router.get("/", (req, res, next) => {
-  console.log("connected");
-  res.status(200).json({ message: "Connected" });
+router.get("/", checkAuth, adminCheck, (req, res, next) => {
+  User.find()
+    .select("email firstname lastname role")
+    .exec()
+    .then((docs) => {
+      res.status(200).json({
+        message: "All Users",
+        users: docs,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: err,
+      });
+    });
 });
 
 router.post("/signup", (req, res, next) => {
