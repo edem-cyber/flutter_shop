@@ -66,7 +66,6 @@ exports.user_login = (req, res, next) => {
   let userSave;
   User.findOne({ email: req.body.email })
     .then((user) => {
-      console.log(user);
       if (!user) {
         return res.status(404).json({
           message: "Invalid email-id or password",
@@ -76,7 +75,6 @@ exports.user_login = (req, res, next) => {
       return bcrypt
         .compare(req.body.password, user.password)
         .then((result) => {
-          console.log(result);
           if (!result) {
             return res.status(404).json({
               message: "Invalid email-id or password",
