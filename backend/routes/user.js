@@ -86,7 +86,6 @@ router.post("/login", (req, res, next) => {
       return bcrypt
         .compare(req.body.password, user.password)
         .then((result) => {
-          console.log(result);
           if (!result) {
             return res.status(404).json({
               message: "Invalid email-id or password",
@@ -107,9 +106,7 @@ router.post("/login", (req, res, next) => {
             token: token,
             expiresIn: 1,
             userId: userSave._id,
-            isAdmim:
-              userSave.email ==
-              "aman.srivastava101@gmail.com",
+            role: userSave.role,
           });
         })
         .catch((err) => {
