@@ -37,6 +37,7 @@ nodemon.json
 /shop_app/Web
 /shop_app/ios
 /shop_app/android
+/shop_app/build
 
 # Web related
 lib/generated_plugin_registrant.dart
