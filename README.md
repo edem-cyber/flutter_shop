@@ -1,3 +1,3 @@
 # SoulShop
 
-A shopping shop developed fith flutter
+A shopping shop developed with flutter
