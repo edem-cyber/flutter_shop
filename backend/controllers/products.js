@@ -74,34 +74,82 @@ exports.products_get_one = (req, res, next) => {
 };
 
 exports.products_patch_product = (req, res, next) => {
-  Product.updateOne(
-    { _id: req.params.id, sellerId: req.userData.userId },
-    { $set: req.body }
-  )
-    .exec()
-    .then((result) => {
-      res.status(200).json({
-        message: "Product updated successfully",
+  if(req.userData.userId == process.env.ADMIN_ID){
+    
+    Product.updateOne(
+      { _id: req.params.id},
+      { $set: req.body }
+    )
+      .exec()
+      .then((result) => {
+        res.status(200).json({
+          message: "Product updated successfully",
+        });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          error: err,
+        });
       });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        error: err,
-      });
-    });
+   }else{
+
+     Product.updateOne(
+       { _id: req.params.id, sellerId: req.userData.userId },
+       { $set: req.body }
+     )
+       .exec()
+       .then((result) => {
+         res.status(200).json({
+           message: "Product updated successfully",
+         });
+       })
+       .catch((err) => {
+         res.status(500).json({
+           error: err,
+         });
+       });
+   }
 };
 
 exports.products_delete_product = (req, res, next) => {
-  Product.deleteOne({
+  if(req.userData.userId == process.env.ADMIN_ID){
+    Product.deleteOne({
     _id: req.params.id,
-    sellerId: req.userData.userId,
   })
     .then((result) => {
-      res.status(200).json({
-        message: "Product deleted successfully",
+      if(result.deletedCount==0){
+        return res.status(404).json({
+          error: "Product not found!"
+        });
+      }
+      return res.status(200).json({
+        message: "Product deleted successfully!",
       });
     })
     .catch((err) => {
-      res.status(500).json(err);
+      // console.log(err); 
+      return res.status(500).json({error:err});
     });
+
+  }else{
+
+    Product.deleteOne({
+      _id: req.params.id,
+      sellerId: req.userData.userId,
+    })
+      .then((result) => {
+        if(result.deletedCount==0){
+          return res.status(404).json({
+          error: "Unauthorized action or item not found!"
+          });
+        }
+        return res.status(200).json({
+          message: "Product deleted successfully",
+        });
+      })
+      .catch((err) => {
+        // console.log(err); 
+        return res.status(500).json(err);
+      });
+  }
 };

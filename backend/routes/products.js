@@ -1,9 +1,8 @@
 const express = require("express");
 const multer = require("multer");
 
-const checkAuth = require("../middleware/auth");
-
 const ProductController = require("../controllers/products");
+const auth = require("../middleware/auth");
 
 // setting up storage location and filename pattern
 const stroage = multer.diskStorage({
@@ -45,7 +44,7 @@ router.get("/", ProductController.products_get_all);
 // is different from json to upload image file
 router.post(
   "/",
-  checkAuth,
+  auth,
   upload.single("productImage"),
   ProductController.products_add_product
 );
@@ -56,14 +55,14 @@ router.get("/:id", ProductController.products_get_one);
 // patch the requested properties in the given product
 router.patch(
   "/:id",
-  checkAuth,
+  auth,
   ProductController.products_patch_product
 );
 
 // delete the product
 router.delete(
   "/:id",
-  checkAuth,
+  auth,
   ProductController.products_delete_product
 );
 

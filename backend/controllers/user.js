@@ -99,10 +99,27 @@ exports.user_login = (req, res, next) => {
           });
         })
         .catch((err) => {
-          res.json({ error: err });
+          res.status(500).json({ error: err });
         });
     })
     .catch((err) => {
-      res.json({ error: err });
+      res.status(500).json({ error: err });
     });
 };
+
+exports.user_delete = (req,res,next)=>{
+  User.deleteOne({_id:req.params.id}).then((result)=>{
+    if(result.deletedCount==0){
+      return res.status(404).json({
+        error: "User not found!"
+      });
+    }
+    return res.status(200).json({
+      message: "User deleted successfully!"
+    });
+  }).catch((err)=>{
+    res.status(500).json({
+      error: err
+    });
+  })
+}

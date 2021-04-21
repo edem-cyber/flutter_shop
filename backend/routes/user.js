@@ -20,4 +20,6 @@ router.post("/signup", UserController.user_signup);
 
 router.post("/login", UserController.user_login);
 
+router.delete("/:id",checkAuth,UserController.user_delete);
+
 module.exports = router;
