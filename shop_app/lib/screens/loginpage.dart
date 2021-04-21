@@ -108,7 +108,10 @@ class _LoginPageState extends State<LoginPage>
         width: widget.screenSize.width,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.purple, Colors.blue],
+            colors: [
+              Colors.purple,
+              Colors.blue,
+            ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),

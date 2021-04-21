@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/provider/authProvider.dart';
+import 'package:shop_app/provider/productProvider.dart';
 
-import './screens/homepage.dart';
+import './screens/mainPage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +20,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (ctx) => AuthProvider(),
         ),
+        ChangeNotifierProxyProvider<AuthProvider, ProductProvider>(
+          create: (context) => ProductProvider('', '', []),
+          update: (context, auth, previous) => ProductProvider(auth.token,
+              auth.userId, previous == null ? [] : previous.products),
+        )
       ],
       child: GestureDetector(
         onTap: () {
