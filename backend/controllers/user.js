@@ -68,7 +68,7 @@ exports.user_login = (req, res, next) => {
     .then((user) => {
       if (!user) {
         return res.status(404).json({
-          message: "Invalid email-id or password",
+          error: "Invalid email-id or password",
         });
       }
       userSave = user;
@@ -77,7 +77,7 @@ exports.user_login = (req, res, next) => {
         .then((result) => {
           if (!result) {
             return res.status(404).json({
-              message: "Invalid email-id or password",
+              error: "Invalid email-id or password",
             });
           }
           const token = jwt.sign(
@@ -99,10 +99,10 @@ exports.user_login = (req, res, next) => {
           });
         })
         .catch((err) => {
-          res.json({ err: err });
+          res.json({ error: err });
         });
     })
     .catch((err) => {
-      res.json({ err: err });
+      res.json({ error: err });
     });
 };
