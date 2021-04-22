@@ -1,9 +1,11 @@
 //@dart=2.9
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/provider/authProvider.dart';
 import 'package:shop_app/provider/productProvider.dart';
+import 'package:shop_app/screens/product_detail_screen.dart';
 
 import './screens/mainPage.dart';
 
@@ -40,9 +42,21 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'SoulShop',
           theme: ThemeData(
-            primarySwatch: Colors.purple,
+            primarySwatch: Colors.blue,
+            textTheme: TextTheme(
+              headline6: GoogleFonts.poppins(
+                  fontWeight: FontWeight.bold, color: Colors.white),
+              bodyText1: GoogleFonts.raleway(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+              subtitle2: GoogleFonts.notoSans(fontSize: 16),
+            ),
           ),
           home: MainScreen(),
+          routes: {
+            ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
+          },
         ),
       ),
     );

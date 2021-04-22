@@ -103,322 +103,329 @@ class _LoginPageState extends State<LoginPage>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        height: widget.screenSize.height,
-        width: widget.screenSize.width,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.purple,
-              Colors.blue,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+    return Scaffold(
+      body: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          height: widget.screenSize.height,
+          width: widget.screenSize.width,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.purple,
+                Colors.blue,
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
           ),
-        ),
-        child: Center(
-          child: isLoading
-              ? CircularProgressIndicator()
-              : Container(
-                  width: 350,
-                  padding: const EdgeInsets.all(8),
-                  height: widget.screenSize.height * 0.85,
-                  color: Colors.white,
-                  child: Form(
-                    key: _formKey,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.symmetric(vertical: 40),
-                            child: Text(
-                              isSignUp ? 'Sign Up' : 'LOGIN',
-                              style: TextStyle(
-                                  fontSize: 28, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          AnimatedContainer(
-                            height: isSignUp ? 50 : 0,
-                            duration: Duration(milliseconds: 300),
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 5),
-                            child: FadeTransition(
-                              opacity: _opacityAnimation,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      color: Colors.grey[300],
-                                      child: TextFormField(
-                                        validator: isSignUp
-                                            ? (value) {
-                                                if (value!.isEmpty) {
-                                                  return 'Invalid!';
-                                                }
-                                              }
-                                            : null,
-                                        onSaved: (newValue) {
-                                          authData['fName'] =
-                                              newValue.toString();
-                                        },
-                                        decoration: InputDecoration(
-                                            contentPadding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 10),
-                                            border: InputBorder.none,
-                                            hintText: 'First Name'),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      color: Colors.grey[300],
-                                      child: TextFormField(
-                                        validator: isSignUp
-                                            ? (value) {
-                                                if (value!.isEmpty) {
-                                                  return 'Invalid!';
-                                                }
-                                              }
-                                            : null,
-                                        onSaved: (newValue) {
-                                          authData['lName'] =
-                                              newValue.toString();
-                                        },
-                                        decoration: InputDecoration(
-                                            contentPadding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 10),
-                                            border: InputBorder.none,
-                                            hintText: 'Last Name'),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+          child: Center(
+            child: isLoading
+                ? CircularProgressIndicator()
+                : Container(
+                    width: 350,
+                    padding: const EdgeInsets.all(8),
+                    height: widget.screenSize.height * 0.85,
+                    color: Colors.white,
+                    child: Form(
+                      key: _formKey,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.symmetric(vertical: 40),
+                              child: Text(
+                                isSignUp ? 'Sign Up' : 'LOGIN',
+                                style: TextStyle(
+                                    fontSize: 28, fontWeight: FontWeight.bold),
                               ),
                             ),
-                          ),
-                          if (isSignUp)
-                            Container(
-                              height: 50,
-                              color: Colors.grey[300],
+                            AnimatedContainer(
+                              height: isSignUp ? 50 : 0,
+                              duration: Duration(milliseconds: 300),
                               margin: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 5),
-                              child: DropdownButtonFormField(
-                                items: [
-                                  DropdownMenuItem(
-                                    child: Text('Buyer'),
-                                    value: 1,
+                              child: FadeTransition(
+                                opacity: _opacityAnimation,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        color: Colors.grey[300],
+                                        child: TextFormField(
+                                          validator: isSignUp
+                                              ? (value) {
+                                                  if (value!.isEmpty) {
+                                                    return 'Invalid!';
+                                                  }
+                                                }
+                                              : null,
+                                          onSaved: (newValue) {
+                                            authData['fName'] =
+                                                newValue.toString();
+                                          },
+                                          decoration: InputDecoration(
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                              border: InputBorder.none,
+                                              hintText: 'First Name'),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        color: Colors.grey[300],
+                                        child: TextFormField(
+                                          validator: isSignUp
+                                              ? (value) {
+                                                  if (value!.isEmpty) {
+                                                    return 'Invalid!';
+                                                  }
+                                                }
+                                              : null,
+                                          onSaved: (newValue) {
+                                            authData['lName'] =
+                                                newValue.toString();
+                                          },
+                                          decoration: InputDecoration(
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                              border: InputBorder.none,
+                                              hintText: 'Last Name'),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            if (isSignUp)
+                              Container(
+                                height: 50,
+                                color: Colors.grey[300],
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 5),
+                                child: DropdownButtonFormField(
+                                  items: [
+                                    DropdownMenuItem(
+                                      child: Text('Buyer'),
+                                      value: 1,
+                                    ),
+                                    DropdownMenuItem(
+                                      child: Text('Seller'),
+                                      value: 0,
+                                    ),
+                                  ],
+                                  value: selected,
+                                  onChanged: isSignUp
+                                      ? (value) {
+                                          setState(() {
+                                            selected =
+                                                int.parse(value.toString());
+                                          });
+                                        }
+                                      : null,
+                                  dropdownColor: Colors.grey[300],
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                    ),
                                   ),
-                                  DropdownMenuItem(
-                                    child: Text('Seller'),
-                                    value: 0,
-                                  ),
-                                ],
-                                value: selected,
-                                onChanged: isSignUp
-                                    ? (value) {
-                                        setState(() {
-                                          selected =
-                                              int.parse(value.toString());
-                                        });
-                                      }
-                                    : null,
-                                dropdownColor: Colors.grey[300],
+                                ),
+                              ),
+                            Container(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 5),
+                              decoration:
+                                  BoxDecoration(color: Colors.grey[300]),
+                              child: TextFormField(
+                                keyboardType: TextInputType.emailAddress,
+                                validator: (value) {
+                                  if (value == null ||
+                                      !value.contains('@') ||
+                                      !value.endsWith('.com'))
+                                    return 'Invalid email';
+                                },
+                                onSaved: (newValue) {
+                                  authData['email'] = newValue.toString();
+                                },
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
-                                  contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 10,
+                                  prefixIcon: Icon(
+                                    Icons.email_outlined,
                                   ),
+                                  hintText: 'Email',
                                 ),
                               ),
                             ),
-                          Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 5),
-                            decoration: BoxDecoration(color: Colors.grey[300]),
-                            child: TextFormField(
-                              keyboardType: TextInputType.emailAddress,
-                              validator: (value) {
-                                if (value == null ||
-                                    !value.contains('@') ||
-                                    !value.endsWith('.com'))
-                                  return 'Invalid email';
-                              },
-                              onSaved: (newValue) {
-                                authData['email'] = newValue.toString();
-                              },
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                prefixIcon: Icon(
-                                  Icons.email_outlined,
-                                ),
-                                hintText: 'Email',
-                              ),
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 5),
-                            decoration: BoxDecoration(color: Colors.grey[300]),
-                            child: TextFormField(
-                              obscureText: hidePassword,
-                              controller: _passwordController,
-                              validator: (value) {
-                                if (value == null || value.length < 6)
-                                  return 'Password too short';
-                              },
-                              onSaved: (newValue) {
-                                authData['password'] = newValue.toString();
-                              },
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                prefixIcon: Icon(
-                                  Icons.lock_outline,
-                                ),
-                                focusColor: Colors.grey,
-                                suffixIcon: GestureDetector(
-                                    onTapDown: (details) {
-                                      setState(() {
-                                        hidePassword = false;
-                                      });
-                                    },
-                                    onTapUp: (details) {
-                                      setState(() {
-                                        hidePassword = true;
-                                      });
-                                    },
-                                    child: Icon(
-                                      Icons.visibility,
-                                      color: Colors.grey.shade600,
-                                    )),
-                                hintText: 'Password',
-                              ),
-                            ),
-                          ),
-                          AnimatedContainer(
-                            duration: Duration(milliseconds: 300),
-                            height: isSignUp ? 50 : 0,
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 5),
-                            decoration: BoxDecoration(color: Colors.grey[300]),
-                            child: FadeTransition(
-                              opacity: _opacityAnimation,
+                            Container(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 5),
+                              decoration:
+                                  BoxDecoration(color: Colors.grey[300]),
                               child: TextFormField(
                                 obscureText: hidePassword,
-                                validator: isSignUp
-                                    ? (value) {
-                                        if (value != _passwordController.text) {
-                                          return 'Passwords do not match!';
-                                        }
-                                      }
-                                    : null,
+                                controller: _passwordController,
+                                validator: (value) {
+                                  if (value == null || value.length < 6)
+                                    return 'Password too short';
+                                },
+                                onSaved: (newValue) {
+                                  authData['password'] = newValue.toString();
+                                },
                                 decoration: InputDecoration(
-                                  contentPadding:
-                                      EdgeInsets.symmetric(vertical: 15),
                                   border: InputBorder.none,
-                                  prefixIcon: !isSignUp
-                                      ? null
-                                      : Icon(
-                                          Icons.lock_outline,
-                                        ),
+                                  prefixIcon: Icon(
+                                    Icons.lock_outline,
+                                  ),
                                   focusColor: Colors.grey,
                                   suffixIcon: GestureDetector(
-                                    onTapDown: (details) {
-                                      setState(() {
-                                        hidePassword = false;
-                                      });
-                                    },
-                                    onTapUp: (details) {
-                                      setState(() {
-                                        hidePassword = true;
-                                      });
-                                    },
-                                    child: !isSignUp
+                                      onTapDown: (details) {
+                                        setState(() {
+                                          hidePassword = false;
+                                        });
+                                      },
+                                      onTapUp: (details) {
+                                        setState(() {
+                                          hidePassword = true;
+                                        });
+                                      },
+                                      child: Icon(
+                                        Icons.visibility,
+                                        color: Colors.grey.shade600,
+                                      )),
+                                  hintText: 'Password',
+                                ),
+                              ),
+                            ),
+                            AnimatedContainer(
+                              duration: Duration(milliseconds: 300),
+                              height: isSignUp ? 50 : 0,
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 5),
+                              decoration:
+                                  BoxDecoration(color: Colors.grey[300]),
+                              child: FadeTransition(
+                                opacity: _opacityAnimation,
+                                child: TextFormField(
+                                  obscureText: hidePassword,
+                                  validator: isSignUp
+                                      ? (value) {
+                                          if (value !=
+                                              _passwordController.text) {
+                                            return 'Passwords do not match!';
+                                          }
+                                        }
+                                      : null,
+                                  decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 15),
+                                    border: InputBorder.none,
+                                    prefixIcon: !isSignUp
                                         ? null
                                         : Icon(
-                                            Icons.visibility,
-                                            color: Colors.grey.shade600,
+                                            Icons.lock_outline,
                                           ),
+                                    focusColor: Colors.grey,
+                                    suffixIcon: GestureDetector(
+                                      onTapDown: (details) {
+                                        setState(() {
+                                          hidePassword = false;
+                                        });
+                                      },
+                                      onTapUp: (details) {
+                                        setState(() {
+                                          hidePassword = true;
+                                        });
+                                      },
+                                      child: !isSignUp
+                                          ? null
+                                          : Icon(
+                                              Icons.visibility,
+                                              color: Colors.grey.shade600,
+                                            ),
+                                    ),
+                                    hintText: 'Confirm Password',
                                   ),
-                                  hintText: 'Confirm Password',
                                 ),
                               ),
                             ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 20),
-                            height: 50,
-                            child: ElevatedButton(
-                              onPressed: submit,
-                              child: Container(
-                                child: Center(
-                                  child: Text(
-                                    isSignUp ? 'Sign Up' : 'LOGIN',
-                                    textAlign: TextAlign.center,
+                            Container(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 20),
+                              height: 50,
+                              child: ElevatedButton(
+                                onPressed: submit,
+                                child: Container(
+                                  child: Center(
+                                    child: Text(
+                                      isSignUp ? 'Sign Up' : 'LOGIN',
+                                      textAlign: TextAlign.center,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.resolveWith(getColor),
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.resolveWith(
+                                          getColor),
+                                ),
                               ),
                             ),
-                          ),
-                          // Flexible(
-                          //   fit: FlexFit.loose,
-                          //   child: SizedBox(),
-                          // ),
-                          Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  isSignUp
-                                      ? 'Already a member?'
-                                      : 'Not a member?',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      isSignUp = !isSignUp;
-                                    });
-                                    if (isSignUp) {
-                                      _controller.forward();
-                                    } else {
-                                      _controller.reverse();
-                                    }
-                                  },
-                                  child: Text(
-                                    isSignUp ? ' Login' : ' Sign up now',
+                            // Flexible(
+                            //   fit: FlexFit.loose,
+                            //   child: SizedBox(),
+                            // ),
+                            Container(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    isSignUp
+                                        ? 'Already a member?'
+                                        : 'Not a member?',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Colors.grey,
-                                      decoration: TextDecoration.underline,
-                                      decorationThickness: 2,
-                                      decorationStyle:
-                                          TextDecorationStyle.dotted,
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
+                                  TextButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        isSignUp = !isSignUp;
+                                      });
+                                      if (isSignUp) {
+                                        _controller.forward();
+                                      } else {
+                                        _controller.reverse();
+                                      }
+                                    },
+                                    child: Text(
+                                      isSignUp ? ' Login' : ' Sign up now',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.grey,
+                                        decoration: TextDecoration.underline,
+                                        decorationThickness: 2,
+                                        decorationStyle:
+                                            TextDecorationStyle.dotted,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-        ));
+          )),
+    );
   }
 }
