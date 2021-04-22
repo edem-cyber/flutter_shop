@@ -10,9 +10,9 @@ class MainScreen extends StatelessWidget {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: Consumer<AuthProvider>(
-        builder: (context, auth, _) =>
-            !auth.isAuth ? LoginPage(screenSize) : HomePage(),
-      ),
+          builder: (context, auth, _) =>
+              // !auth.isAuth ? LoginPage(screenSize) : HomePage(),
+              HomePage()),
     );
   }
 }

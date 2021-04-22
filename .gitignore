@@ -1,4 +1,5 @@
 /backend/node_modules
+/backend/uploads
 nodemon.json
 
 # Miscellaneous

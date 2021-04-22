@@ -73,7 +73,8 @@ class _LoginPageState extends State<LoginPage>
             authData['email']!,
             authData['password']!,
             authData['fName']!,
-            authData['lName']!);
+            authData['lName']!,
+            selected);
       } else {
         await Provider.of<AuthProvider>(context, listen: false).login(
           authData['email']!,

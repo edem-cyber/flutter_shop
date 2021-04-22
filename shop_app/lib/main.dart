@@ -1,3 +1,5 @@
+//@dart=2.9
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/provider/authProvider.dart';
@@ -38,7 +40,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'SoulShop',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.purple,
           ),
           home: MainScreen(),
         ),

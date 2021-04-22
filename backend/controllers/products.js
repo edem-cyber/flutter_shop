@@ -14,7 +14,7 @@ exports.products_get_all = (req, res, next) => {
             description: doc.description,
             seller: doc.seller,
             productImage:
-              "192.168.0.195:3000/" + doc.productImage,
+              "http://192.168.0.195:3000/" + doc.productImage,
           };
         }),
       };
@@ -59,9 +59,17 @@ exports.products_add_product = (req, res, next) => {
 exports.products_get_one = (req, res, next) => {
   Product.findById(req.params.id)
     .exec()
-    .then((result) => {
-      if (result) {
-        res.status(200).json(result);
+    .then((doc) => {
+      if (doc) {
+        res.status(200).json({
+           id: doc._id,
+            name: doc.name,
+            price: doc.price,
+            description: doc.description,
+            seller: doc.seller,
+            productImage:
+              "http://192.168.0.195:3000/" + doc.productImage,
+        });
       } else {
         res.status(404).json({
           message: "No valid entry found",

@@ -59,14 +59,15 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<void> signup(
-      String email, String password, String fname, String lname) async {
+  Future<void> signup(String email, String password, String fname, String lname,
+      int role) async {
     final data = json.encode(
       {
         'email': email,
         'password': password,
         'firstname': fname,
         'lastname': lname,
+        'role': role,
       },
     );
 
