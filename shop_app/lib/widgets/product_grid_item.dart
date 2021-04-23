@@ -46,7 +46,11 @@ class _ProductGridItemState extends State<ProductGridItem> {
         child: AnimatedContainer(
           duration: Duration(milliseconds: 300),
           decoration: BoxDecoration(
-            color: isHovering ? Colors.grey.shade200 : Colors.white,
+            color: isHovering
+                ? Colors.grey.shade200
+                : Theme.of(context).brightness == Brightness.dark
+                    ? Colors.grey.shade800
+                    : Colors.white,
             boxShadow: [
               BoxShadow(
                 blurRadius: isHovering ? 8 : 4,
@@ -79,7 +83,10 @@ class _ProductGridItemState extends State<ProductGridItem> {
                           imageUrl: widget.product.image,
                           placeholder: (context, url) {
                             return LottieBuilder.asset(
-                                "assets/images/loading.json",height: 60,width: 60,);
+                              "assets/images/loading.json",
+                              height: 60,
+                              width: 60,
+                            );
                           },
                         )),
                   ),

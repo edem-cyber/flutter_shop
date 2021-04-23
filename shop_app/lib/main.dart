@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'SoulShop',
           theme: ThemeData(
+            // brightness: Brightness.dark,
             primarySwatch: Colors.blue,
             textTheme: TextTheme(
               headline6: GoogleFonts.poppins(
