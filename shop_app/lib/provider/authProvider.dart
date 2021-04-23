@@ -34,7 +34,8 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> authenticate(String urlpath, Object data) async {
-    final Uri url = Uri.http("192.168.0.195:3000", 'user/$urlpath');
+    final Uri url =
+        Uri.http("fluttershop-backend.herokuapp.com", 'user/$urlpath');
     try {
       final response = await http.post(
         url,

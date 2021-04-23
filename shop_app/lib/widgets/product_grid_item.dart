@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shop_app/models/product.dart';
 import 'package:shop_app/screens/mainPage.dart';
 import 'package:shop_app/screens/product_detail_screen.dart';
@@ -25,18 +26,6 @@ class _ProductGridItemState extends State<ProductGridItem> {
 
   @override
   Widget build(BuildContext context) {
-    Image image = Image.network(
-      widget.product.image,
-      color: isHovering ? Colors.grey.shade300 : null,
-      colorBlendMode: BlendMode.colorBurn,
-    );
-    Completer<ui.Image> completer = new Completer<ui.Image>();
-    image.image
-        .resolve(new ImageConfiguration())
-        .addListener(ImageStreamListener((info, _) {
-      print(info.image.width > info.image.height &&
-          widget.screenSize == ScreenSize.small);
-    }));
     return MouseRegion(
       onEnter: (event) {
         setState(() {
@@ -82,10 +71,19 @@ class _ProductGridItemState extends State<ProductGridItem> {
                                 widget.screenSize == ScreenSize.medium
                             ? 6
                             : 10),
-                    child: Image.network(
-                      widget.product.image,
-                      color: isHovering ? Colors.grey.shade300 : null,
-                      colorBlendMode: BlendMode.colorBurn,
+                    child: Container(
+                      constraints:
+                          BoxConstraints(minWidth: 800, minHeight: 200),
+                      child: FadeInImage(
+                        placeholder: AssetImage('assets/images/loading.gif'),
+                        image: NetworkImage(
+                          widget.product.image,
+                        ),
+                        fit: BoxFit.cover,
+
+                        // color: isHovering ? Colors.grey.shade300 : null,
+                        // colorBlendMode: BlendMode.colorBurn,
+                      ),
                     ),
                   ),
                   if (widget.screenSize != ScreenSize.small)

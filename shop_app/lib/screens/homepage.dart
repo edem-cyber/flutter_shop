@@ -33,23 +33,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _isLoading
-          ? null
-          : AppBar(
-              title: Text(
-                'FlutterStore',
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              bottomOpacity: 1,
-              centerTitle: true,
-              actions: [
-                IconButton(
-                  icon: Icon(Icons.shopping_bag_outlined),
-                  onPressed: () {},
-                )
-              ],
-            ),
-      drawer: _isLoading ? null : Drawer(),
       body: Container(
         child: Center(
           child: _isLoading

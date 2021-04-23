@@ -12,7 +12,7 @@ class ProductProvider with ChangeNotifier {
   ProductProvider(this._authToken, this._userId, this.products);
 
   Future<void> getProducts() async {
-    final Uri url = Uri.http("192.168.0.195:3000", 'products');
+    final Uri url = Uri.http("fluttershop-backend.herokuapp.com", 'products');
     final response = await http.get(url);
     final responeData = json.decode(response.body);
     final productData = responeData['products'] as List<dynamic>;

@@ -42,9 +42,23 @@ exports.user_signup = (req, res, next) => {
             user
               .save()
               .then((result) => {
+                const token = jwt.sign(
+                  {
+                    email: result.email,
+                    userId: result._id,
+                    role: res.role,
+                  },
+                  "this_is_a_secret_key_by_@man_Sr1vastava",
+                  {
+                    expiresIn: "1h",
+                  }
+                );
                 res.status(201).json({
                   message: "Account successfully created!",
-                  user: user,
+                  token: token,
+                  expiresIn: 1,
+                  userId: result._id,
+                  role: result.role,
                 });
               })
               .catch((err) => {
@@ -107,19 +121,21 @@ exports.user_login = (req, res, next) => {
     });
 };
 
-exports.user_delete = (req,res,next)=>{
-  User.deleteOne({_id:req.params.id}).then((result)=>{
-    if(result.deletedCount==0){
-      return res.status(404).json({
-        error: "User not found!"
+exports.user_delete = (req, res, next) => {
+  User.deleteOne({ _id: req.params.id })
+    .then((result) => {
+      if (result.deletedCount == 0) {
+        return res.status(404).json({
+          error: "User not found!",
+        });
+      }
+      return res.status(200).json({
+        message: "User deleted successfully!",
       });
-    }
-    return res.status(200).json({
-      message: "User deleted successfully!"
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: err,
+      });
     });
-  }).catch((err)=>{
-    res.status(500).json({
-      error: err
-    });
-  })
-}
+};
