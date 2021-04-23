@@ -12,9 +12,10 @@ exports.products_get_all = (req, res, next) => {
             name: doc.name,
             price: doc.price,
             description: doc.description,
+            category: doc.category,
             seller: doc.seller,
             productImage:
-              "http://192.168.0.195:3000/" + doc.productImage,
+              "https://fluttershop-backend.herokuapp.com/" + doc.productImage,
           };
         }),
       };
@@ -31,6 +32,7 @@ exports.products_add_product = (req, res, next) => {
       name: req.body.name,
       price: req.body.price,
       description: req.body.description,
+      category: req.body.category,
       seller: req.body.seller,
       sellerId: req.userData.userId,
       productImage:
@@ -66,9 +68,10 @@ exports.products_get_one = (req, res, next) => {
             name: doc.name,
             price: doc.price,
             description: doc.description,
+            category: doc.category,
             seller: doc.seller,
             productImage:
-              "http://192.168.0.195:3000/" + doc.productImage,
+              "https://fluttershop-backend.herokuapp.com/" + doc.productImage,
         });
       } else {
         res.status(404).json({
