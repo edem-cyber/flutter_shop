@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/provider/authProvider.dart';
-import 'package:shop_app/screens/loginpage.dart';
-import 'package:shop_app/widgets/rotatingAppDrawer.dart';
+import 'package:shop_app/screens/homepage.dart';
+
+
 
 enum ScreenSize {
   extraLarge,
@@ -26,8 +27,9 @@ class MainScreen extends StatelessWidget {
       size = ScreenSize.small;
     }
     return Consumer<AuthProvider>(
-        builder: (context, auth, _) => !auth.isAuth
-            ? LoginPage(screenSize)
-            : RotatingAppDrawer(size, screenSize));
+        builder: (context, auth, _) => 
+        // !auth.isAuth
+        //     ? LoginPage(screenSize)
+           HomePage(size, screenSize));
   }
 }

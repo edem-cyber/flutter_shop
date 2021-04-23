@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -72,19 +73,15 @@ class _ProductGridItemState extends State<ProductGridItem> {
                             ? 6
                             : 10),
                     child: Container(
-                      constraints:
-                          BoxConstraints(minWidth: 800, minHeight: 200),
-                      child: FadeInImage(
-                        placeholder: AssetImage('assets/images/loading.gif'),
-                        image: NetworkImage(
-                          widget.product.image,
-                        ),
-                        fit: BoxFit.cover,
-
-                        // color: isHovering ? Colors.grey.shade300 : null,
-                        // colorBlendMode: BlendMode.colorBurn,
-                      ),
-                    ),
+                        constraints:
+                            BoxConstraints(minWidth: 800, minHeight: 200),
+                        child: CachedNetworkImage(
+                          imageUrl: widget.product.image,
+                          placeholder: (context, url) {
+                            return LottieBuilder.asset(
+                                "assets/images/loading.json",height: 60,width: 60,);
+                          },
+                        )),
                   ),
                   if (widget.screenSize != ScreenSize.small)
                     AnimatedPositioned(
