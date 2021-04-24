@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/screens/add_product_screen.dart';
 
 import 'package:shop_app/screens/mainPage.dart';
 import 'package:shop_app/widgets/custom_app_drawer.dart';
@@ -17,6 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var _isLoading = false;
+  var role = 0;
   List<String> _categories = [
     "Grocery",
     "Mobiles",
@@ -58,7 +60,15 @@ class _HomePageState extends State<HomePage> {
                 IconButton(
                   icon: Icon(Icons.shopping_bag_outlined),
                   onPressed: () {},
-                )
+                ),
+                if (role == 0)
+                  IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed(AddProductScreen.routeName);
+                    },
+                  )
               ],
             ),
       drawer: CustomDrawer(),

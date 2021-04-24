@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/provider/authProvider.dart';
 import 'package:shop_app/provider/productProvider.dart';
+import 'package:shop_app/screens/add_product_screen.dart';
 import 'package:shop_app/screens/product_detail_screen.dart';
 
 import './screens/mainPage.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
           home: MainScreen(),
           routes: {
             ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
+            AddProductScreen.routeName: (ctx) => AddProductScreen(),
           },
         ),
       ),

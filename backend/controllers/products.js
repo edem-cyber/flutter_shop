@@ -13,7 +13,7 @@ exports.products_get_all = (req, res, next) => {
             price: doc.price,
             description: doc.description,
             category: doc.category,
-            seller: doc.seller,
+            
             productImage:
               "https://fluttershop-backend.herokuapp.com/" + doc.productImage,
           };
@@ -69,7 +69,7 @@ exports.products_get_one = (req, res, next) => {
             price: doc.price,
             description: doc.description,
             category: doc.category,
-            seller: doc.seller,
+            
             productImage:
               "https://fluttershop-backend.herokuapp.com/" + doc.productImage,
         });
