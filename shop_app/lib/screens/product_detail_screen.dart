@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hover_effect/hover_effect.dart';
+
 import 'package:provider/provider.dart';
 import 'package:shop_app/provider/productProvider.dart';
 
