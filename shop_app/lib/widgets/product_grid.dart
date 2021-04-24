@@ -23,9 +23,9 @@ class ProductGrid extends StatelessWidget {
             : size == ScreenSize.extraLarge
                 ? 4
                 : 3,
-        mainAxisSpacing: 12,
-        crossAxisSpacing: 8,
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        mainAxisSpacing: 16,
+        crossAxisSpacing: 16,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         itemCount: product.length,
         itemBuilder: (context, index) {
           return ProductGridItem(

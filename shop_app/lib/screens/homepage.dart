@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'package:shop_app/screens/mainPage.dart';
@@ -16,6 +17,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var _isLoading = false;
+  List<String> _categories = [
+    "Grocery",
+    "Mobiles",
+    "Fashion",
+    "Electronics",
+    "Home",
+    "Appliances",
+    "Beauty, Toy & More",
+  ];
+
   @override
   void initState() {
     setState(() {
@@ -56,8 +67,40 @@ class _HomePageState extends State<HomePage> {
         child: Center(
           child: _isLoading
               ? CircularProgressIndicator()
-              : ProductGrid(widget.size, widget.screenSize),
+              : Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      height: 50,
+                      width: widget.screenSize.width,
+                      child: ListView.builder(
+                        itemBuilder: (context, index) => Card(
+                          child: Container(
+                            child: Center(
+                              child: Text(
+                                _categories[index],
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.raleway(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                          ),
+                        ),
+                        itemCount: _categories.length,
+                        scrollDirection: Axis.horizontal,
+                      ),
+                    ),
+                    Expanded(
+                      child: ProductGrid(widget.size, widget.screenSize),
+                    ),
+                  ],
+                ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.sort),
       ),
     );
   }

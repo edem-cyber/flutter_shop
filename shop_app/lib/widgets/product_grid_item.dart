@@ -123,17 +123,24 @@ class _ProductGridItemState extends State<ProductGridItem> {
                 ],
               ),
               Container(
-                padding: const EdgeInsets.only(left: 16, top: 4),
+                padding: widget.screenSize == ScreenSize.small
+                    ? const EdgeInsets.only(left: 4, top: 4, right: 4)
+                    : const EdgeInsets.only(left: 16, top: 4, right: 16),
                 child: Text(
                   widget.product.name,
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle2!
+                      .copyWith(fontSize: 18),
                 ),
               ),
               Container(
-                padding: const EdgeInsets.only(left: 16, bottom: 4),
+                padding: widget.screenSize == ScreenSize.small
+                    ? const EdgeInsets.only(left: 4, bottom: 4, right: 4)
+                    : const EdgeInsets.only(left: 16, bottom: 4, right: 16),
                 child: Text(
                   '₹ ${widget.product.price.toString()}',
-                  style: Theme.of(context).textTheme.subtitle2,
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
               ),
             ],
