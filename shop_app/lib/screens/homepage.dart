@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/provider/productProvider.dart';
+
 import 'package:shop_app/screens/mainPage.dart';
 import 'package:shop_app/widgets/custom_app_drawer.dart';
 import 'package:shop_app/widgets/product_grid.dart';
+import 'package:shop_app/provider/productProvider.dart';
 
 class HomePage extends StatefulWidget {
   final ScreenSize size;
