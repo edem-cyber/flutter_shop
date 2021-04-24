@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
     "Appliances",
     "Beauty, Toy & More",
   ];
-  var selected = "";
+  int selected = 0;
   var sort = -1;
   @override
   void initState() {
@@ -94,17 +94,16 @@ class _HomePageState extends State<HomePage> {
                             child: InkWell(
                               onTap: () {
                                 setState(() {
-                                  if (index == 0) {
-                                    selected = "";
-                                  } else {
-                                    selected = _categories[index];
-                                  }
+                                  selected = index;
                                 });
                               },
                               child: Container(
                                 constraints: widget.size == ScreenSize.small
                                     ? null
                                     : BoxConstraints(minWidth: 200),
+                                color: selected == index
+                                    ? Colors.blue.shade200
+                                    : null,
                                 child: Center(
                                   child: Text(
                                     _categories[index],
@@ -123,8 +122,8 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Expanded(
-                        child: ProductGrid(
-                            widget.size, widget.screenSize, selected, sort),
+                        child: ProductGrid(widget.size, widget.screenSize,
+                            selected == 0 ? "" : _categories[selected], sort),
                       ),
                     ],
                   ),
