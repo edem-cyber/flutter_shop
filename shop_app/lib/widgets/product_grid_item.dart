@@ -74,8 +74,10 @@ class _ProductGridItemState extends State<ProductGridItem> {
                             ? 6
                             : 10),
                     child: Container(
-                        constraints:
-                            BoxConstraints(minWidth: 800, minHeight: 200),
+                        constraints: widget.screenSize == ScreenSize.small
+                            ? BoxConstraints(
+                                minWidth: 800, minHeight: 200, maxHeight: 200)
+                            : BoxConstraints(minWidth: 800, minHeight: 200),
                         child: CachedNetworkImage(
                           imageUrl: widget.product.image,
                           placeholder: (context, url) {
@@ -132,6 +134,8 @@ class _ProductGridItemState extends State<ProductGridItem> {
                       .textTheme
                       .subtitle2!
                       .copyWith(fontSize: 18),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               Container(

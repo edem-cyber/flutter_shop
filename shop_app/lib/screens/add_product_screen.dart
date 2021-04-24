@@ -189,8 +189,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           value: 'Home',
                         ),
                         DropdownMenuItem(
-                          child: Text('Appliances'),
-                          value: 'Appliances',
+                          child: Text('Appliance'),
+                          value: 'Appliance',
                         ),
                         DropdownMenuItem(
                           child: Text('Beauty, Toy & More'),

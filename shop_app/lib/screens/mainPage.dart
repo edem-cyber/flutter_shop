@@ -3,6 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:shop_app/provider/authProvider.dart';
 import 'package:shop_app/screens/homepage.dart';
 
+import 'homepage.dart';
+import 'loginpage.dart';
+import 'loginpage.dart';
+import 'loginpage.dart';
+
 enum ScreenSize {
   extraLarge,
   large,
@@ -24,10 +29,14 @@ class MainScreen extends StatelessWidget {
     } else {
       size = ScreenSize.small;
     }
-    return Consumer<AuthProvider>(
-        builder: (context, auth, _) =>
-            // !auth.isAuth
-            //     ? LoginPage(screenSize)
-            HomePage(size, screenSize));
+    return Consumer<AuthProvider>(builder: (context, auth, _) {
+      if (!auth.isAuth) {
+        return FutureBuilder(
+          future: auth.tryAutoLogin(),
+          builder: (context, snapshot) => LoginPage(screenSize),
+        );
+      }
+      return HomePage(size, screenSize);
+    });
   }
 }

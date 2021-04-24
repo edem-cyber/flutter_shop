@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:shop_app/models/HttpException.dart';
+import 'package:shop_app/provider/secureStorage.dart';
 
 class AuthProvider with ChangeNotifier {
   String _token = '';
@@ -11,6 +12,7 @@ class AuthProvider with ChangeNotifier {
   String _userId = '';
   // late Timer _authTimer;
   int _role = 1;
+  final SecureStroage secureStroage = SecureStroage();
 
   bool get isAuth {
     return token != '';
@@ -54,6 +56,11 @@ class AuthProvider with ChangeNotifier {
           hours: responseData['expiresIn'],
         ),
       );
+
+      secureStroage.writeSecureStorage('token', _token);
+      secureStroage.writeSecureStorage('userId', _userId);
+      secureStroage.writeSecureStorage('role', _role.toString());
+      secureStroage.writeSecureStorage('expiry', _expiryDate.toIso8601String());
       notifyListeners();
     } catch (error) {
       throw error;
@@ -78,5 +85,15 @@ class AuthProvider with ChangeNotifier {
   Future<void> login(String email, String password) async {
     final data = json.encode({'email': email, 'password': password});
     return authenticate('login', data);
+  }
+
+  Future<bool> tryAutoLogin() async {
+    Map<String, String> data = await secureStroage.realStorage();
+    _userId = data['userId']!;
+    _token = data['token']!;
+    _role = int.parse(data['role']!);
+    _expiryDate = DateTime.parse(data['expiry']!);
+    notifyListeners();
+    return true;
   }
 }
