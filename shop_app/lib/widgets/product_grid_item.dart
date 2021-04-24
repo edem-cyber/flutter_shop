@@ -74,7 +74,8 @@ class _ProductGridItemState extends State<ProductGridItem> {
                             ? 6
                             : 10),
                     child: Container(
-                        padding: const EdgeInsets.only(top: 8),
+                        padding:
+                            const EdgeInsets.only(top: 8, left: 2, right: 2),
                         constraints: widget.screenSize == ScreenSize.small
                             ? BoxConstraints(
                                 minWidth: 800, minHeight: 200, maxHeight: 200)

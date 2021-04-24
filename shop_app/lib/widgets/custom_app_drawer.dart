@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomDrawer extends StatelessWidget {
+  final int role;
+  CustomDrawer(this.role);
   @override
   Widget build(BuildContext context) {
     Widget drawerHeader = Container(
@@ -52,6 +54,7 @@ class CustomDrawer extends StatelessWidget {
           option(context, 'My Account', Icons.person),
           option(context, 'My Cart', Icons.shopping_cart),
           option(context, 'My Favorite', Icons.favorite),
+          option(context, 'My Products', Icons.list),
           option(context, 'My Settings', Icons.settings),
           option(context, 'About Us', Icons.help_outline),
           option(context, 'Rate Us', Icons.star),

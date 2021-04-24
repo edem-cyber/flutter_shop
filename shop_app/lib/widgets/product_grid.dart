@@ -11,13 +11,19 @@ class ProductGrid extends StatelessWidget {
   final ScreenSize size;
   final Size screenSize;
   final String category;
-  ProductGrid(this.size, this.screenSize, this.category);
+  final int sort;
+  ProductGrid(this.size, this.screenSize, this.category, this.sort);
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<ProductProvider>(context);
     List<Product> products =
         category == "" ? provider.products : provider.getByCategory(category);
-
+    sort == -1
+        // ignore: unnecessary_statements
+        ? null
+        : sort != 0
+            ? products.sort((a, b) => a.price.compareTo(b.price))
+            : products.sort((a, b) => b.price.compareTo(a.price));
     return CupertinoScrollbar(
       thickness: 4,
       radius: Radius.circular(20),
