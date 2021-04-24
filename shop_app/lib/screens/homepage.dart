@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
     "Appliances",
     "Beauty, Toy & More",
   ];
-
+  var selected = "";
   @override
   void initState() {
     setState(() {
@@ -47,6 +47,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print(selected);
     return Scaffold(
       appBar: _isLoading
           ? null
@@ -86,19 +87,27 @@ class _HomePageState extends State<HomePage> {
                       width: widget.screenSize.width,
                       child: ListView.builder(
                         itemBuilder: (context, index) => Card(
-                          child: Container(
-                            constraints: widget.size == ScreenSize.small
-                                ? null
-                                : BoxConstraints(minWidth: 200),
-                            child: Center(
-                              child: Text(
-                                _categories[index],
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.raleway(
-                                    fontWeight: FontWeight.bold),
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                selected = _categories[index];
+                              });
+                            },
+                            child: Container(
+                              constraints: widget.size == ScreenSize.small
+                                  ? null
+                                  : BoxConstraints(minWidth: 200),
+                              child: Center(
+                                child: Text(
+                                  _categories[index],
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.raleway(
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
                             ),
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
                           ),
                         ),
                         itemCount: _categories.length,
@@ -106,7 +115,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Expanded(
-                      child: ProductGrid(widget.size, widget.screenSize),
+                      child:
+                          ProductGrid(widget.size, widget.screenSize, selected),
                     ),
                   ],
                 ),

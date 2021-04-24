@@ -10,10 +10,14 @@ import 'package:shop_app/widgets/product_grid_item.dart';
 class ProductGrid extends StatelessWidget {
   final ScreenSize size;
   final Size screenSize;
-  ProductGrid(this.size, this.screenSize);
+  final String category;
+  ProductGrid(this.size, this.screenSize, this.category);
   @override
   Widget build(BuildContext context) {
-    List<Product> product = Provider.of<ProductProvider>(context).products;
+    var provider = Provider.of<ProductProvider>(context);
+    List<Product> products =
+        category == "" ? provider.products : provider.getByCategory(category);
+
     return CupertinoScrollbar(
       thickness: 4,
       radius: Radius.circular(20),
@@ -26,10 +30,10 @@ class ProductGrid extends StatelessWidget {
         mainAxisSpacing: 16,
         crossAxisSpacing: 16,
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: product.length,
+        itemCount: products.length,
         itemBuilder: (context, index) {
           return ProductGridItem(
-            product: product[index],
+            product: products[index],
             screenSize: size,
           );
         },

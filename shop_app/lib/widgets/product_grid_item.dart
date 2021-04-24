@@ -50,9 +50,9 @@ class _ProductGridItemState extends State<ProductGridItem> {
                     : Colors.white,
             boxShadow: [
               BoxShadow(
-                blurRadius: isHovering ? 8 : 4,
+                blurRadius: isHovering ? 10 : 6,
                 spreadRadius: isHovering ? 4 : 0,
-                offset: Offset(4, 6),
+                offset: Offset(0, 6),
                 color: Colors.black38,
               )
             ],
@@ -74,6 +74,7 @@ class _ProductGridItemState extends State<ProductGridItem> {
                             ? 6
                             : 10),
                     child: Container(
+                        padding: const EdgeInsets.only(top: 8),
                         constraints: widget.screenSize == ScreenSize.small
                             ? BoxConstraints(
                                 minWidth: 800, minHeight: 200, maxHeight: 200)
@@ -126,7 +127,7 @@ class _ProductGridItemState extends State<ProductGridItem> {
               ),
               Container(
                 padding: widget.screenSize == ScreenSize.small
-                    ? const EdgeInsets.only(left: 4, top: 4, right: 4)
+                    ? const EdgeInsets.only(left: 10, top: 4, right: 10)
                     : const EdgeInsets.only(left: 16, top: 4, right: 16),
                 child: Text(
                   widget.product.name,
@@ -134,17 +135,19 @@ class _ProductGridItemState extends State<ProductGridItem> {
                       .textTheme
                       .subtitle2!
                       .copyWith(fontSize: 18),
+                  textAlign: TextAlign.center,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
               Container(
                 padding: widget.screenSize == ScreenSize.small
-                    ? const EdgeInsets.only(left: 4, bottom: 4, right: 4)
-                    : const EdgeInsets.only(left: 16, bottom: 4, right: 16),
+                    ? const EdgeInsets.only(left: 10, bottom: 8, right: 10)
+                    : const EdgeInsets.only(left: 16, bottom: 8, right: 16),
                 child: Text(
                   '₹ ${widget.product.price.toString()}',
                   style: Theme.of(context).textTheme.bodyText1,
+                  textAlign: TextAlign.center,
                 ),
               ),
             ],

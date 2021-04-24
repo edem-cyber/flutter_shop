@@ -26,6 +26,7 @@ class ProductProvider with ChangeNotifier {
           price: p['price'],
           description: p['description'],
           image: p['productImage'],
+          category: p['category'],
         ),
       );
     });
@@ -65,5 +66,11 @@ class ProductProvider with ChangeNotifier {
     var response = await request.send();
     print(response.statusCode);
     print(response.reasonPhrase);
+  }
+
+  List<Product> getByCategory(String category) {
+    List<Product> _p =
+        products.where((element) => element.category == category).toList();
+    return _p;
   }
 }
