@@ -23,7 +23,6 @@ class ProductProvider with ChangeNotifier {
           id: p['id'],
           name: p['name'],
           price: p['price'],
-          seller: p['seller'],
           description: p['description'],
           image: p['productImage'],
         ),

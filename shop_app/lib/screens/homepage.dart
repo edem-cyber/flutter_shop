@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:shop_app/screens/add_product_screen.dart';
 
 import 'package:shop_app/screens/mainPage.dart';
@@ -86,6 +87,9 @@ class _HomePageState extends State<HomePage> {
                       child: ListView.builder(
                         itemBuilder: (context, index) => Card(
                           child: Container(
+                            constraints: widget.size == ScreenSize.small
+                                ? null
+                                : BoxConstraints(minWidth: 200),
                             child: Center(
                               child: Text(
                                 _categories[index],
