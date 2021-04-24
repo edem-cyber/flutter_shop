@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/provider/productProvider.dart';
 
 import '../models/product.dart';
 
@@ -18,12 +20,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
   File _image;
   final picker = ImagePicker();
   String selected = "Grocery";
-  Map<String, dynamic> product = {
+  var isLoading = false;
+  Map<String, String> product = {
     'name': '',
     'price': '',
     'description': '',
     'category': '',
-    'image': '',
+    'path': '',
   };
 
   Future getImage() async {
@@ -32,10 +35,40 @@ class _AddProductScreenState extends State<AddProductScreen> {
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
+        print(_image.path);
       } else {
         print('No image selected.');
       }
     });
+  }
+
+  submit() async {
+    if (!_form.currentState.validate()) return;
+    _form.currentState.save();
+    setState(() {
+      isLoading = true;
+    });
+
+    await Provider.of<ProductProvider>(context, listen: false)
+        .addProduct(product);
+  }
+
+  openDialog(String msg) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('An Error Occured!'),
+        content: Text(msg),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text("Okay!"),
+          )
+        ],
+      ),
+    );
   }
 
   @override
@@ -76,6 +109,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       ),
                       validator: (value) =>
                           value.isEmpty ? "Field is required!" : null,
+                      onSaved: (newValue) {
+                        product['name'] = newValue;
+                      },
                     ),
                   ),
                   Container(
@@ -102,6 +138,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       ),
                       validator: (value) =>
                           value.isEmpty ? "Field is required!" : null,
+                      onSaved: (newValue) => product['price'] = newValue,
                     ),
                   ),
                   Container(
@@ -121,6 +158,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       ),
                       validator: (value) =>
                           value.isEmpty ? "Field is required!" : null,
+                      onSaved: (newValue) => product['description'] = newValue,
                     ),
                   ),
                   Container(
@@ -165,6 +203,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           selected = value.toString();
                         });
                       },
+                      onSaved: (newValue) => product['category'] = newValue,
                       decoration: InputDecoration(
                         icon: Icon(Icons.category_outlined),
                       ),
@@ -216,7 +255,25 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       ],
                     ),
                   ),
-                  ElevatedButton(onPressed: () {}, child: Text('Submit'))
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 12),
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_image == null) {
+                          openDialog('Image not Selected!');
+                        }
+                        product['path'] = _image.path;
+                        submit();
+                      },
+                      child: Text('Submit'),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            Theme.of(context).accentColor),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),

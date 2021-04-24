@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:shop_app/provider/authProvider.dart';
 import 'package:shop_app/screens/homepage.dart';
 
-
-
 enum ScreenSize {
   extraLarge,
   large,
@@ -27,9 +25,9 @@ class MainScreen extends StatelessWidget {
       size = ScreenSize.small;
     }
     return Consumer<AuthProvider>(
-        builder: (context, auth, _) => 
-        // !auth.isAuth
-        //     ? LoginPage(screenSize)
-           HomePage(size, screenSize));
+        builder: (context, auth, _) =>
+            // !auth.isAuth
+            //     ? LoginPage(screenSize)
+            HomePage(size, screenSize));
   }
 }

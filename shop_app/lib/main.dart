@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             // brightness: Brightness.dark,
             primarySwatch: Colors.blue,
-            accentColor: Colors.deepOrange,
+            accentColor: Colors.purple,
             textTheme: TextTheme(
               headline6: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold, color: Colors.white),

@@ -28,12 +28,12 @@ exports.products_get_all = (req, res, next) => {
 
 exports.products_add_product = (req, res, next) => {
   if (req.userData.role == 0) {
+    console.log(req.file.mimetype);
     const product = new Product({
       name: req.body.name,
       price: req.body.price,
       description: req.body.description,
       category: req.body.category,
-      seller: req.body.seller,
       sellerId: req.userData.userId,
       productImage:
         req.file.destination + req.file.filename,
@@ -69,7 +69,6 @@ exports.products_get_one = (req, res, next) => {
             price: doc.price,
             description: doc.description,
             category: doc.category,
-            
             productImage:
               "https://fluttershop-backend.herokuapp.com/" + doc.productImage,
         });
