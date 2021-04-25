@@ -29,14 +29,16 @@ class MainScreen extends StatelessWidget {
     } else {
       size = ScreenSize.small;
     }
-    return Consumer<AuthProvider>(builder: (context, auth, _) {
-      if (!auth.isAuth) {
-        return FutureBuilder(
-          future: auth.tryAutoLogin(),
-          builder: (context, snapshot) => LoginPage(screenSize),
-        );
-      }
-      return HomePage(size, screenSize, auth.role);
-    });
+    return Consumer<AuthProvider>(
+      builder: (context, auth, _) {
+        if (!auth.isAuth) {
+          return FutureBuilder(
+            future: auth.tryAutoLogin(),
+            builder: (context, snapshot) => LoginPage(screenSize),
+          );
+        }
+        return HomePage(size, screenSize, auth.role);
+      },
+    );
   }
 }

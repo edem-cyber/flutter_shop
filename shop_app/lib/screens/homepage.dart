@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:shop_app/screens/add_product_screen.dart';
 
 import 'package:shop_app/screens/mainPage.dart';
+import 'package:shop_app/screens/searchpage.dart';
 import 'package:shop_app/widgets/custom_app_drawer.dart';
 import 'package:shop_app/widgets/product_grid.dart';
 import 'package:shop_app/provider/productProvider.dart';
@@ -60,6 +61,12 @@ class _HomePageState extends State<HomePage> {
               ),
               centerTitle: widget.role == 1,
               actions: [
+                IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(SearchPage.routeName);
+                  },
+                ),
                 IconButton(
                   icon: Icon(Icons.shopping_bag_outlined),
                   onPressed: () {},

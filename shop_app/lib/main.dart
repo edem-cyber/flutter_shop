@@ -7,6 +7,7 @@ import 'package:shop_app/provider/authProvider.dart';
 import 'package:shop_app/provider/productProvider.dart';
 import 'package:shop_app/screens/add_product_screen.dart';
 import 'package:shop_app/screens/product_detail_screen.dart';
+import 'package:shop_app/screens/searchpage.dart';
 
 import './screens/mainPage.dart';
 
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
           routes: {
             ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
             AddProductScreen.routeName: (ctx) => AddProductScreen(),
+            SearchPage.routeName: (ctx) => SearchPage(),
           },
         ),
       ),

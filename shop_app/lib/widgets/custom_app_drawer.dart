@@ -58,6 +58,7 @@ class CustomDrawer extends StatelessWidget {
           option(context, 'My Settings', Icons.settings),
           option(context, 'About Us', Icons.help_outline),
           option(context, 'Rate Us', Icons.star),
+          option(context, 'Log out', Icons.logout),
         ],
       ),
     );

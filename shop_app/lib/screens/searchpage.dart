@@ -21,7 +21,7 @@ class _SearchPageState extends State<SearchPage> {
 
   search(String query) {
     if (query == "") {
-      product = Provider.of<ProductProvider>(context, listen: false).productss;
+      product = Provider.of<ProductProvider>(context, listen: false).products;
     } else {
       product = product.where((element) {
         return element.name.toLowerCase().startsWith(query) == true;
