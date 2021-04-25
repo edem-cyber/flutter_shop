@@ -45,9 +45,8 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'SoulShop',
           theme: ThemeData(
-            // brightness: Brightness.dark,
-            primarySwatch: Colors.blue,
-            accentColor: Colors.purple,
+            primarySwatch: Colors.indigo,
+            accentColor: Colors.deepPurple,
             fontFamily: 'Poppins',
             textTheme: TextTheme(
               headline6: GoogleFonts.poppins(
@@ -64,7 +63,7 @@ class MyApp extends StatelessWidget {
             ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
             AddProductScreen.routeName: (ctx) => AddProductScreen(),
             SearchPage.routeName: (ctx) => SearchPage(),
-            ProductImageHover.routeName:(ctx)=>ProductImageHover(),
+            ProductImageHover.routeName: (ctx) => ProductImageHover(),
           },
         ),
       ),

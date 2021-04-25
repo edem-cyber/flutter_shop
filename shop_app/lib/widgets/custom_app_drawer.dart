@@ -12,9 +12,7 @@ class CustomDrawer extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage(Theme.of(context).brightness == Brightness.dark
-                ? 'assets/images/app_drawer_dark.jpg'
-                : 'assets/images/app_drawer.jpg'),
+            image: AssetImage('assets/images/app_drawer.jpg'),
             fit: BoxFit.cover),
       ),
       child: Column(
