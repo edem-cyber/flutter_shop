@@ -96,4 +96,13 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
     return true;
   }
+
+  void logout() async {
+    _expiryDate = DateTime.now();
+    _role = -1;
+    _token = "";
+    _userId = "";
+    notifyListeners();
+    secureStroage.deleteStorage();
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/provider/authProvider.dart';
+import 'package:shop_app/screens/admin_page.dart';
 import 'package:shop_app/screens/homepage.dart';
 
 import 'homepage.dart';
@@ -37,7 +38,9 @@ class MainScreen extends StatelessWidget {
             builder: (context, snapshot) => LoginPage(screenSize),
           );
         }
-        return HomePage(size, screenSize, auth.role);
+        return auth.role == 0 || auth.role == 1
+            ? HomePage(size, screenSize, auth.role)
+            : AdminPage();
       },
     );
   }

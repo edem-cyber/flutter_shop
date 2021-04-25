@@ -12,4 +12,9 @@ class SecureStroage {
     var data = await storage.readAll();
     return data;
   }
+
+  Future deleteStorage() async {
+    await storage.deleteAll();
+    return;
+  }
 }
