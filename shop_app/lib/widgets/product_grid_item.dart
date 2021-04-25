@@ -80,15 +80,18 @@ class _ProductGridItemState extends State<ProductGridItem> {
                             ? BoxConstraints(
                                 minWidth: 800, minHeight: 200, maxHeight: 200)
                             : BoxConstraints(minWidth: 800, minHeight: 200),
-                        child: CachedNetworkImage(
-                          imageUrl: widget.product.image,
-                          placeholder: (context, url) {
-                            return LottieBuilder.asset(
-                              "assets/images/loading.json",
-                              height: 60,
-                              width: 60,
-                            );
-                          },
+                        child: Hero(
+                          tag: widget.product.id,
+                          child: CachedNetworkImage(
+                            imageUrl: widget.product.image,
+                            placeholder: (context, url) {
+                              return LottieBuilder.asset(
+                                "assets/images/loading.json",
+                                height: 60,
+                                width: 60,
+                              );
+                            },
+                          ),
                         )),
                   ),
                   if (widget.screenSize != ScreenSize.small)

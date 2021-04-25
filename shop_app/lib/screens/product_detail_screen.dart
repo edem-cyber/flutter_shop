@@ -1,4 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 import 'package:provider/provider.dart';
 import 'package:shop_app/provider/productProvider.dart';
@@ -12,19 +15,87 @@ class ProductDetailScreen extends StatelessWidget {
       context,
       listen: false,
     ).findById(productId);
+    List<String> _des = loadedProduct.description.split("     ");
+    List<Widget> des = _des.map((element) {
+      return Text(
+        "\u2022  $element",
+        textAlign: TextAlign.start,
+        style: Theme.of(context).textTheme.subtitle2,
+      );
+    }).toList();
     return Scaffold(
       appBar: AppBar(),
       body: Container(
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              loadedProduct.name,
-            ),
-          ],
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                constraints: BoxConstraints(
+                    minHeight: 200,
+                    maxHeight: 500,
+                    // minWidth: ,
+                    maxWidth: 400),
+                decoration: BoxDecoration(border: Border.all(width: 1)),
+                child: Center(
+                  child: Hero(
+                    tag: productId,
+                    child: CachedNetworkImage(
+                      imageUrl: loadedProduct.image,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+              Text(
+                loadedProduct.name,
+                style: GoogleFonts.poppins(
+                    fontSize: 24, fontWeight: FontWeight.w600),
+              ),
+              Text('${loadedProduct.price}',
+                  style: GoogleFonts.poppins(
+                      fontSize: 18, fontWeight: FontWeight.bold)),
+              Text('Seller - ##TODO',
+                  style: GoogleFonts.poppins(fontSize: 16, color: Colors.blue)),
+              SizedBox(
+                height: 16,
+              ),
+              Text('Features',
+                  style: GoogleFonts.poppins(
+                      fontSize: 18, fontWeight: FontWeight.bold)),
+              ...des,
+            ],
+          ),
         ),
+      ),
+      bottomNavigationBar: Row(
+        children: [
+          Expanded(
+            child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.orange),
+              ),
+              onPressed: () {},
+              child: Container(
+                height: 60,
+                child: Center(child: Text('Add to cart')),
+              ),
+            ),
+          ),
+          Expanded(
+            child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.green),
+              ),
+              onPressed: () {},
+              child: Container(
+                height: 60,
+                child: Center(child: Text('Buy')),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
