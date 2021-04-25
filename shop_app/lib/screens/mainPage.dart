@@ -36,7 +36,7 @@ class MainScreen extends StatelessWidget {
           builder: (context, snapshot) => LoginPage(screenSize),
         );
       }
-      return HomePage(size, screenSize);
+      return HomePage(size, screenSize, auth.role);
     });
   }
 }

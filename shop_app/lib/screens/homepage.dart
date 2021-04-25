@@ -13,14 +13,14 @@ import 'package:shop_app/provider/productProvider.dart';
 class HomePage extends StatefulWidget {
   final ScreenSize size;
   final Size screenSize;
-  HomePage(this.size, this.screenSize);
+  final int role;
+  HomePage(this.size, this.screenSize, this.role);
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   var _isLoading = false;
-  var role = 0;
   List<String> _categories = [
     "All",
     "Grocery",
@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
     "Appliances",
     "Beauty, Toy & More",
   ];
-  int selected = 0;
+  int selected = 2;
   var sort = -1;
   @override
   void initState() {
@@ -58,14 +58,13 @@ class _HomePageState extends State<HomePage> {
                 'FlutterStore',
                 style: Theme.of(context).textTheme.headline6,
               ),
-              bottomOpacity: 1,
-              centerTitle: true,
+              centerTitle: widget.role == 1,
               actions: [
                 IconButton(
                   icon: Icon(Icons.shopping_bag_outlined),
                   onPressed: () {},
                 ),
-                if (role == 0)
+                if (widget.role == 0)
                   IconButton(
                     icon: Icon(Icons.add),
                     onPressed: () {
@@ -75,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                   )
               ],
             ),
-      drawer: CustomDrawer(role),
+      drawer: CustomDrawer(widget.role),
       body: HawkFabMenu(
         fabColor: Theme.of(context).accentColor,
         body: Container(
@@ -87,6 +86,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
+                        margin: const EdgeInsets.only(bottom: 5),
                         height: 50,
                         width: widget.screenSize.width,
                         child: ListView.builder(
