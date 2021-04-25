@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 
 import 'package:provider/provider.dart';
 import 'package:shop_app/provider/productProvider.dart';
+import 'package:shop_app/screens/product_hower_image.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   static const routeName = '/product-detail';
@@ -15,13 +16,15 @@ class ProductDetailScreen extends StatelessWidget {
       context,
       listen: false,
     ).findById(productId);
-    List<String> _des = loadedProduct.description.split("     ");
+    List<String> _des = loadedProduct.description.split("  ");
     List<Widget> des = _des.map((element) {
-      return Text(
-        "\u2022  $element",
-        textAlign: TextAlign.start,
-        style: Theme.of(context).textTheme.subtitle2,
-      );
+      return element.trim() == ""
+          ? SizedBox()
+          : Text(
+              "\u2022  $element",
+              textAlign: TextAlign.start,
+              style: Theme.of(context).textTheme.subtitle2,
+            );
     }).toList();
     return Scaffold(
       appBar: AppBar(),
@@ -31,19 +34,25 @@ class ProductDetailScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                constraints: BoxConstraints(
-                    minHeight: 200,
-                    maxHeight: 500,
-                    // minWidth: ,
-                    maxWidth: 400),
-                decoration: BoxDecoration(border: Border.all(width: 1)),
-                child: Center(
-                  child: Hero(
-                    tag: productId,
-                    child: CachedNetworkImage(
-                      imageUrl: loadedProduct.image,
-                      fit: BoxFit.cover,
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).pushNamed(ProductImageHover.routeName,
+                      arguments: loadedProduct.image);
+                },
+                child: Container(
+                  constraints: BoxConstraints(
+                      minHeight: 200,
+                      maxHeight: 500,
+                      // minWidth: ,
+                      maxWidth: 400),
+                  decoration: BoxDecoration(border: Border.all(width: 1)),
+                  child: Center(
+                    child: Hero(
+                      tag: productId,
+                      child: CachedNetworkImage(
+                        imageUrl: loadedProduct.image,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
@@ -65,6 +74,9 @@ class ProductDetailScreen extends StatelessWidget {
                   style: GoogleFonts.poppins(
                       fontSize: 18, fontWeight: FontWeight.bold)),
               ...des,
+              SizedBox(
+                height: 16,
+              ),
             ],
           ),
         ),

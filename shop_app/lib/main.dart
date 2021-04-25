@@ -7,6 +7,7 @@ import 'package:shop_app/provider/authProvider.dart';
 import 'package:shop_app/provider/productProvider.dart';
 import 'package:shop_app/screens/add_product_screen.dart';
 import 'package:shop_app/screens/product_detail_screen.dart';
+import 'package:shop_app/screens/product_hower_image.dart';
 import 'package:shop_app/screens/searchpage.dart';
 
 import './screens/mainPage.dart';
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
             // brightness: Brightness.dark,
             primarySwatch: Colors.blue,
             accentColor: Colors.purple,
+            fontFamily: 'Poppins',
             textTheme: TextTheme(
               headline6: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold, color: Colors.white),
@@ -62,6 +64,7 @@ class MyApp extends StatelessWidget {
             ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
             AddProductScreen.routeName: (ctx) => AddProductScreen(),
             SearchPage.routeName: (ctx) => SearchPage(),
+            ProductImageHover.routeName:(ctx)=>ProductImageHover(),
           },
         ),
       ),

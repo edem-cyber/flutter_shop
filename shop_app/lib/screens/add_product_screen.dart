@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/provider/productProvider.dart';
@@ -75,7 +76,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Product'),
+        title: Text(
+          'Add Product',
+          style: GoogleFonts.poppins(),
+        ),
       ),
       body: Form(
         key: _form,
@@ -106,6 +110,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         ),
                         icon: Icon(Icons.shopping_basket_outlined),
                         labelText: 'Name',
+                        labelStyle: GoogleFonts.poppins(),
                       ),
                       validator: (value) =>
                           value.isEmpty ? "Field is required!" : null,
@@ -135,6 +140,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           ),
                         ),
                         labelText: 'Price',
+                        labelStyle: GoogleFonts.poppins(),
                       ),
                       validator: (value) =>
                           value.isEmpty ? "Field is required!" : null,
@@ -155,6 +161,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         ),
                         icon: Icon(Icons.note_outlined),
                         labelText: 'Description',
+                        labelStyle: GoogleFonts.poppins(),
                       ),
                       validator: (value) =>
                           value.isEmpty ? "Field is required!" : null,
@@ -169,31 +176,52 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     child: DropdownButtonFormField(
                       items: [
                         DropdownMenuItem(
-                          child: Text('Grocery'),
+                          child: Text(
+                            'Grocery',
+                            style: GoogleFonts.poppins(),
+                          ),
                           value: 'Grocery',
                         ),
                         DropdownMenuItem(
-                          child: Text('Mobile'),
-                          value: 'Mobile',
+                          child: Text(
+                            'Mobile',
+                            style: GoogleFonts.poppins(),
+                          ),
+                          value: 'Mobiles',
                         ),
                         DropdownMenuItem(
-                          child: Text('Fashion'),
+                          child: Text(
+                            'Fashion',
+                            style: GoogleFonts.poppins(),
+                          ),
                           value: 'Fashion',
                         ),
                         DropdownMenuItem(
-                          child: Text('Electronics'),
+                          child: Text(
+                            'Electronics',
+                            style: GoogleFonts.poppins(),
+                          ),
                           value: 'Electronics',
                         ),
                         DropdownMenuItem(
-                          child: Text('Home'),
+                          child: Text(
+                            'Home',
+                            style: GoogleFonts.poppins(),
+                          ),
                           value: 'Home',
                         ),
                         DropdownMenuItem(
-                          child: Text('Appliance'),
-                          value: 'Appliance',
+                          child: Text(
+                            'Appliance',
+                            style: GoogleFonts.poppins(),
+                          ),
+                          value: 'Appliances',
                         ),
                         DropdownMenuItem(
-                          child: Text('Beauty, Toy & More'),
+                          child: Text(
+                            'Beauty, Toy & More',
+                            style: GoogleFonts.poppins(),
+                          ),
                           value: 'Beauty, Toy & More',
                         ),
                       ],
@@ -209,6 +237,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       ),
                     ),
                   ),
+                  SizedBox(height: 20),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -241,7 +270,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           children: [
                             ElevatedButton(
                               onPressed: getImage,
-                              child: Text('Add Image'),
+                              child: Text(
+                                'Add Image',
+                                style: GoogleFonts.poppins(),
+                              ),
                               style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
@@ -249,34 +281,40 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                 ),
                               ),
                             ),
-                            Text('Max size: 2MB')
+                            Text(
+                              'Max size: 2MB',
+                              style: GoogleFonts.poppins(),
+                            )
                           ],
                         )
                       ],
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 12),
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (_image == null) {
-                          openDialog('Image not Selected!');
-                        }
-                        product['path'] = _image.path;
-                        submit();
-                      },
-                      child: Text('Submit'),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            Theme.of(context).accentColor),
-                      ),
-                    ),
-                  )
                 ],
               ),
             ),
+          ),
+        ),
+      ),
+      bottomNavigationBar: Container(
+        // margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        width: double.infinity,
+        height: 60,
+        child: ElevatedButton(
+          onPressed: () {
+            if (_image == null) {
+              openDialog('Image not Selected!');
+            }
+            product['path'] = _image.path;
+            submit();
+          },
+          child: Text(
+            'Submit',
+            style: GoogleFonts.poppins(fontSize: 18),
+          ),
+          style: ButtonStyle(
+            backgroundColor:
+                MaterialStateProperty.all(Theme.of(context).accentColor),
           ),
         ),
       ),
