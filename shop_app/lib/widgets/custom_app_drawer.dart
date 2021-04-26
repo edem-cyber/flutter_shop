@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/provider/authProvider.dart';
+import 'package:shop_app/screens/my_account_page.dart';
 
 class CustomDrawer extends StatelessWidget {
   final int role;
@@ -52,26 +53,18 @@ class CustomDrawer extends StatelessWidget {
         children: [
           drawerHeader,
           option(context, 'My Orders', Icons.shopping_bag, () {}),
-          option(context, 'My Account', Icons.person, () {}),
+          option(context, 'My Account', Icons.person, () {
+            Navigator.of(context).pushNamed(MyAccountPage.routeName);
+          }),
           option(context, 'My Cart', Icons.shopping_cart, () {}),
           option(context, 'My Favorite', Icons.favorite, () {}),
           option(context, 'My Products', Icons.list, () {}),
           option(context, 'My Settings', Icons.settings, () {}),
           option(context, 'About Us', Icons.help_outline, () {}),
           option(context, 'Rate Us', Icons.star, () {}),
-          ListTile(
-            leading: Icon(
-              Icons.logout,
-              size: 24,
-            ),
-            title: Text(
-              'Log out',
-              style: GoogleFonts.poppins(fontSize: 14),
-            ),
-            onTap: () {
-              Provider.of<AuthProvider>(context, listen: false).logout();
-            },
-          ),
+          option(context, 'Log Out', Icons.logout, () {
+            Provider.of<AuthProvider>(context, listen: false).logout();
+          })
         ],
       ),
     );
@@ -88,7 +81,9 @@ class CustomDrawer extends StatelessWidget {
         name,
         style: GoogleFonts.poppins(fontSize: 14),
       ),
-      onTap: function(),
+      onTap: () {
+        function();
+      },
     );
   }
 }

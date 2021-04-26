@@ -12,13 +12,25 @@ class User with ChangeNotifier {
 
   User(this._token, this._userId, this._role);
 
+  String get userId {
+    return _userId;
+  }
+
+  String get token {
+    return _token;
+  }
+
+  int get role {
+    return _role;
+  }
+
   Future getUsers() async {
     final Uri url = Uri.http("fluttershop-backend.herokuapp.com", 'user');
     var response =
         await http.get(url, headers: {"Authorization": "Bearer $_token"});
     var responseData = json.decode(response.body);
     var data = responseData['users'] as List<dynamic>;
-    print(data);
+
     List<user.User> temp = [];
     data.forEach(
       (element) {

@@ -8,6 +8,7 @@ import 'package:shop_app/provider/productProvider.dart';
 import 'package:shop_app/provider/userProvider.dart';
 import 'package:shop_app/screens/add_product_screen.dart';
 import 'package:shop_app/screens/adminScreens/userDetailScreen_admin.dart';
+import 'package:shop_app/screens/my_account_page.dart';
 import 'package:shop_app/screens/product_detail_screen.dart';
 import 'package:shop_app/screens/product_hower_image.dart';
 import 'package:shop_app/screens/searchpage.dart';
@@ -72,6 +73,7 @@ class MyApp extends StatelessWidget {
             SearchPage.routeName: (ctx) => SearchPage(),
             ProductImageHover.routeName: (ctx) => ProductImageHover(),
             UserDetailScreenAdmin.routeName: (ctx) => UserDetailScreenAdmin(),
+            MyAccountPage.routeName: (ctx) => MyAccountPage(),
           },
         ),
       ),
