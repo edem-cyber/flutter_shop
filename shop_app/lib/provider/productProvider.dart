@@ -17,6 +17,7 @@ class ProductProvider with ChangeNotifier {
     final response = await http.get(url);
     final responeData = json.decode(response.body);
     final productData = responeData['products'] as List<dynamic>;
+    print(productData);
     final List<Product> loadedProduct = [];
     productData.forEach((p) {
       loadedProduct.add(
@@ -27,6 +28,7 @@ class ProductProvider with ChangeNotifier {
           description: p['description'],
           image: p['productImage'],
           category: p['category'],
+          sellerId: p['sellerId'],
         ),
       );
     });
@@ -37,6 +39,13 @@ class ProductProvider with ChangeNotifier {
 
   Product findById(String id) {
     return products.firstWhere((product) => product.id == id);
+  }
+
+  List<Product> findBySeller(String id) {
+    return products.where((element) {
+      print(element.sellerId);
+      return element.sellerId == id;
+    }).toList();
   }
 
   Future<void> addProduct(Map<String, String> m) async {

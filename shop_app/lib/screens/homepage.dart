@@ -4,6 +4,7 @@ import 'package:hawk_fab_menu/hawk_fab_menu.dart';
 import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:shop_app/screens/add_product_screen.dart';
+import 'package:shop_app/screens/adminScreens/admin_page.dart';
 
 import 'package:shop_app/screens/mainPage.dart';
 import 'package:shop_app/screens/searchpage.dart';
@@ -82,85 +83,91 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
       drawer: CustomDrawer(widget.role),
-      body: HawkFabMenu(
-        fabColor: Theme.of(context).accentColor,
-        body: Container(
-          padding: const EdgeInsets.only(top: 8),
-          child: Center(
-            child: _isLoading
-                ? CircularProgressIndicator()
-                : Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 5),
-                        height: 50,
-                        width: widget.screenSize.width,
-                        child: ListView.builder(
-                          itemBuilder: (context, index) => Card(
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  selected = index;
-                                });
-                              },
-                              child: Container(
-                                constraints: widget.size == ScreenSize.small
-                                    ? null
-                                    : BoxConstraints(minWidth: 200),
-                                color: selected == index
-                                    ? Colors.blue.shade200
-                                    : null,
-                                child: Center(
-                                  child: Text(
-                                    _categories[index],
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.raleway(
-                                        fontWeight: FontWeight.bold),
+      body: widget.role == 12101998
+          ? AdminPage()
+          : HawkFabMenu(
+              fabColor: Theme.of(context).accentColor,
+              body: Container(
+                padding: const EdgeInsets.only(top: 8),
+                child: Center(
+                  child: _isLoading
+                      ? CircularProgressIndicator()
+                      : Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(bottom: 5),
+                              height: 50,
+                              width: widget.screenSize.width,
+                              child: ListView.builder(
+                                itemBuilder: (context, index) => Card(
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        selected = index;
+                                      });
+                                    },
+                                    child: Container(
+                                      constraints:
+                                          widget.size == ScreenSize.small
+                                              ? null
+                                              : BoxConstraints(minWidth: 200),
+                                      color: selected == index
+                                          ? Colors.blue.shade200
+                                          : null,
+                                      child: Center(
+                                        child: Text(
+                                          _categories[index],
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.raleway(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20),
+                                    ),
                                   ),
                                 ),
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
+                                itemCount: _categories.length,
+                                scrollDirection: Axis.horizontal,
                               ),
                             ),
-                          ),
-                          itemCount: _categories.length,
-                          scrollDirection: Axis.horizontal,
+                            Expanded(
+                              child: ProductGrid(
+                                  widget.size,
+                                  widget.screenSize,
+                                  selected == 0 ? "" : _categories[selected],
+                                  sort),
+                            ),
+                          ],
                         ),
-                      ),
-                      Expanded(
-                        child: ProductGrid(widget.size, widget.screenSize,
-                            selected == 0 ? "" : _categories[selected], sort),
-                      ),
-                    ],
-                  ),
-          ),
-        ),
-        items: [
-          HawkFabMenuItem(
-            label: 'Price: High to Low',
-            ontap: () {
-              setState(() {
-                sort = 0;
-              });
-            },
-            icon: Icon(Icons.arrow_upward),
-            labelColor: Colors.white,
-            labelBackgroundColor: Colors.blue,
-          ),
-          HawkFabMenuItem(
-            label: 'Price: Low to High',
-            ontap: () {
-              setState(() {
-                sort = 1;
-              });
-            },
-            icon: Icon(Icons.arrow_downward),
-            color: Theme.of(context).accentColor,
-            labelColor: Colors.blue,
-          ),
-        ],
-      ),
+                ),
+              ),
+              items: [
+                HawkFabMenuItem(
+                  label: 'Price: High to Low',
+                  ontap: () {
+                    setState(() {
+                      sort = 0;
+                    });
+                  },
+                  icon: Icon(Icons.arrow_upward),
+                  labelColor: Colors.white,
+                  labelBackgroundColor: Colors.blue,
+                ),
+                HawkFabMenuItem(
+                  label: 'Price: Low to High',
+                  ontap: () {
+                    setState(() {
+                      sort = 1;
+                    });
+                  },
+                  icon: Icon(Icons.arrow_downward),
+                  color: Theme.of(context).accentColor,
+                  labelColor: Colors.blue,
+                ),
+              ],
+            ),
     );
   }
 }

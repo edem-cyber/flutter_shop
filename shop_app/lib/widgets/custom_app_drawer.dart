@@ -6,6 +6,7 @@ import 'package:shop_app/provider/authProvider.dart';
 class CustomDrawer extends StatelessWidget {
   final int role;
   CustomDrawer(this.role);
+
   @override
   Widget build(BuildContext context) {
     Widget drawerHeader = Container(

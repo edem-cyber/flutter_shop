@@ -5,7 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/provider/authProvider.dart';
 import 'package:shop_app/provider/productProvider.dart';
+import 'package:shop_app/provider/userProvider.dart';
 import 'package:shop_app/screens/add_product_screen.dart';
+import 'package:shop_app/screens/adminScreens/userDetailScreen_admin.dart';
 import 'package:shop_app/screens/product_detail_screen.dart';
 import 'package:shop_app/screens/product_hower_image.dart';
 import 'package:shop_app/screens/searchpage.dart';
@@ -31,7 +33,12 @@ class MyApp extends StatelessWidget {
           create: (context) => ProductProvider('', '', []),
           update: (context, auth, previous) => ProductProvider(auth.token,
               auth.userId, previous == null ? [] : previous.products),
-        )
+        ),
+        ChangeNotifierProxyProvider<AuthProvider, User>(
+          create: (context) => User('', '', -1),
+          update: (context, auth, previous) =>
+              User(auth.token, auth.userId, auth.role),
+        ),
       ],
       child: GestureDetector(
         onTap: () {
@@ -64,6 +71,7 @@ class MyApp extends StatelessWidget {
             AddProductScreen.routeName: (ctx) => AddProductScreen(),
             SearchPage.routeName: (ctx) => SearchPage(),
             ProductImageHover.routeName: (ctx) => ProductImageHover(),
+            UserDetailScreenAdmin.routeName: (ctx) => UserDetailScreenAdmin(),
           },
         ),
       ),
