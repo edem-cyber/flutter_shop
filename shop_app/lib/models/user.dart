@@ -1,3 +1,7 @@
+//@dart=2.9
+
+import 'package:flutter/foundation.dart';
+
 class User {
   final int role;
   final String firstname;
@@ -6,10 +10,10 @@ class User {
   final String id;
 
   User({
-    required this.email,
-    required this.firstname,
-    required this.lastname,
-    required this.role,
-    required this.id,
+    @required this.email,
+    @required this.firstname,
+    @required this.lastname,
+    @required this.role,
+    @required this.id,
   });
 }
