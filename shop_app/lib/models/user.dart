@@ -8,6 +8,8 @@ class User {
   final String lastname;
   final String email;
   final String id;
+  final String address;
+  final String phoneNo;
 
   User({
     @required this.email,
@@ -15,5 +17,7 @@ class User {
     @required this.lastname,
     @required this.role,
     @required this.id,
+    this.address,
+    this.phoneNo,
   });
 }

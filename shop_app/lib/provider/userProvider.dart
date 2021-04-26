@@ -18,17 +18,19 @@ class User with ChangeNotifier {
         await http.get(url, headers: {"Authorization": "Bearer $_token"});
     var responseData = json.decode(response.body);
     var data = responseData['users'] as List<dynamic>;
+    print(data);
     List<user.User> temp = [];
     data.forEach(
       (element) {
         temp.add(
           new user.User(
-            email: element['email'],
-            firstname: element['firstname'],
-            lastname: element['lastname'],
-            role: element['role'],
-            id: element['_id'],
-          ),
+              email: element['email'],
+              firstname: element['firstname'],
+              lastname: element['lastname'],
+              role: element['role'],
+              id: element['_id'],
+              phoneNo: element['phone'],
+              address: element['address']),
         );
       },
     );
