@@ -23,90 +23,105 @@ class CartPage extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         child: ListView.builder(
           itemBuilder: (context, index) {
-            print(cartItems[index]);
-            return Card(
-              child: Container(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  // mainAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Flexible(
-                      flex: 4,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 120,
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Center(
-                              child: Text(
-                                cartItems[index].title,
-                                style: GoogleFonts.poppins(),
-                                textAlign: TextAlign.start,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "₹ ${cartItems[index].price * cartItems[index].quantity}",
-                              style: Theme.of(context).textTheme.bodyText1,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Flexible(
-                      flex: 2,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            height: 120,
-                            child: Center(
-                              child: CachedNetworkImage(
-                                imageUrl: cartItems[index].image,
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            return Dismissible(
+              key: Key(cartItems[index].id),
+              background: Container(
+                child: Icon(Icons.save_alt),
+                color: Colors.green,
+              ),
+              secondaryBackground: Container(
+                child: Icon(Icons.delete),
+                color: Colors.red,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Card(
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      // mainAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          flex: 4,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              InkWell(
-                                onTap: () {},
-                                child: Card(
-                                    child: Container(
-                                  width: 30,
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Text('-',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center),
-                                )),
+                              Container(
+                                height: 120,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Center(
+                                  child: Text(
+                                    cartItems[index].title,
+                                    style: GoogleFonts.poppins(),
+                                    textAlign: TextAlign.start,
+                                  ),
+                                ),
                               ),
-                              Text('Qty: ${cartItems[index].quantity}'),
-                              InkWell(
-                                onTap: () {},
-                                child: Card(
-                                    child: Container(
-                                  width: 30,
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Text('+',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                )),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "₹ ${cartItems[index].price * cartItems[index].quantity}",
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                ),
                               ),
                             ],
-                          )
-                        ],
-                      ),
-                    )
-                  ],
+                          ),
+                        ),
+                        Flexible(
+                          flex: 2,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                height: 120,
+                                child: Center(
+                                  child: CachedNetworkImage(
+                                    imageUrl: cartItems[index].image,
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  InkWell(
+                                    onTap: () {},
+                                    child: Card(
+                                        child: Container(
+                                      width: 30,
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Text('-',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.center),
+                                    )),
+                                  ),
+                                  Text('Qty: ${cartItems[index].quantity}'),
+                                  InkWell(
+                                    onTap: () {},
+                                    child: Card(
+                                        child: Container(
+                                      width: 30,
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Text('+',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold)),
+                                    )),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ),
             );
