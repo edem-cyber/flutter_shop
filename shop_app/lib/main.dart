@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/provider/authProvider.dart';
+import 'package:shop_app/provider/cartProvider.dart';
 import 'package:shop_app/provider/productProvider.dart';
 import 'package:shop_app/provider/userProvider.dart';
 import 'package:shop_app/screens/add_product_screen.dart';
@@ -39,6 +40,10 @@ class MyApp extends StatelessWidget {
           create: (context) => User('', '', -1),
           update: (context, auth, previous) =>
               User(auth.token, auth.userId, auth.role),
+        ),
+        ChangeNotifierProxyProvider<AuthProvider, Cart>(
+          create: (context) => Cart(''),
+          update: (context, auth, previous) => Cart(auth.userId),
         ),
       ],
       child: GestureDetector(

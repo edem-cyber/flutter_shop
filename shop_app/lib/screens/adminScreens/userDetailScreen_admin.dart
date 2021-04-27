@@ -14,7 +14,6 @@ class UserDetailScreenAdmin extends StatelessWidget {
     user.User _user = Provider.of<User>(context).findById(userId);
     List<Product> product =
         Provider.of<ProductProvider>(context).findBySeller(userId);
-    print(product.length);
     return Scaffold(
       appBar: AppBar(),
       body: Container(
