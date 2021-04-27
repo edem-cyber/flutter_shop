@@ -6,6 +6,7 @@ import 'package:shop_app/provider/cartProvider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:shop_app/screens/add_product_screen.dart';
 import 'package:shop_app/screens/adminScreens/admin_page.dart';
+import 'package:shop_app/screens/cartPage.dart';
 
 import 'package:shop_app/screens/mainPage.dart';
 import 'package:shop_app/screens/searchpage.dart';
@@ -81,7 +82,9 @@ class _HomePageState extends State<HomePage> {
                     icon: Icon(
                       Icons.shopping_cart,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(CartPage.routeName);
+                    },
                   ),
                 ),
                 if (widget.role == 0)

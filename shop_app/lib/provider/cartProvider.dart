@@ -17,13 +17,14 @@ class Cart with ChangeNotifier {
     return _items.length;
   }
 
-  void addItem(String pId, int price, String title) {
+  void addItem(String pId, int price, String title, String image) {
     if (_items.containsKey(pId)) {
       _items.update(
         pId,
         (value) => CartItem(
             id: value.id,
             price: value.price,
+            image: value.image,
             quantity: value.quantity + 1,
             title: value.title),
       );
@@ -35,6 +36,7 @@ class Cart with ChangeNotifier {
         () => CartItem(
           id: pId,
           price: price,
+          image: image,
           quantity: 1,
           title: title,
         ),

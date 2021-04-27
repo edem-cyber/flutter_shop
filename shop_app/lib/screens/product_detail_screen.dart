@@ -94,6 +94,7 @@ class ProductDetailScreen extends StatelessWidget {
                   loadedProduct.id,
                   loadedProduct.price,
                   loadedProduct.name,
+                  loadedProduct.image,
                 );
               },
               child: Container(
