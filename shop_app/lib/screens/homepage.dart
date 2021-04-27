@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hawk_fab_menu/hawk_fab_menu.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/provider/cartProvider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:shop_app/screens/add_product_screen.dart';
 import 'package:shop_app/screens/adminScreens/admin_page.dart';
 
 import 'package:shop_app/screens/mainPage.dart';
 import 'package:shop_app/screens/searchpage.dart';
+import 'package:shop_app/widgets/badge.dart';
 import 'package:shop_app/widgets/custom_app_drawer.dart';
 import 'package:shop_app/widgets/product_grid.dart';
 import 'package:shop_app/provider/productProvider.dart';
@@ -68,9 +70,19 @@ class _HomePageState extends State<HomePage> {
                     Navigator.of(context).pushNamed(SearchPage.routeName);
                   },
                 ),
-                IconButton(
-                  icon: Icon(Icons.shopping_bag_outlined),
-                  onPressed: () {},
+                Consumer<Cart>(
+                  builder: (context, cart, child) {
+                    return Badge(
+                      child: child,
+                      value: cart.itemCount.toString(),
+                    );
+                  },
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.shopping_cart,
+                    ),
+                    onPressed: () {},
+                  ),
                 ),
                 if (widget.role == 0)
                   IconButton(

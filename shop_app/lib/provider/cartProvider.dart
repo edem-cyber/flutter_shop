@@ -9,6 +9,14 @@ class Cart with ChangeNotifier {
 
   Cart(this._userId);
 
+  Map<String, CartItem> get items {
+    return {..._items};
+  }
+
+  int get itemCount {
+    return _items.length;
+  }
+
   void addItem(String pId, int price, String title) {
     if (_items.containsKey(pId)) {
       _items.update(

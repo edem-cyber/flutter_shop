@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 import 'package:provider/provider.dart';
+import 'package:shop_app/provider/cartProvider.dart';
 import 'package:shop_app/provider/productProvider.dart';
 import 'package:shop_app/screens/product_hower_image.dart';
 
@@ -88,7 +89,13 @@ class ProductDetailScreen extends StatelessWidget {
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.orange),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Provider.of<Cart>(context, listen: false).addItem(
+                  loadedProduct.id,
+                  loadedProduct.price,
+                  loadedProduct.name,
+                );
+              },
               child: Container(
                 height: 60,
                 child: Center(child: Text('Add to cart')),
