@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import 'package:shop_app/models/cart.dart';
+import 'package:shop_app/provider/cartProvider.dart';
 import 'package:shop_app/widgets/cart_item_button.dart';
 import 'package:shop_app/widgets/quantity_control.dart';
 
@@ -54,7 +56,12 @@ class GenCartItem extends StatelessWidget {
                   totalPricrPerItem, QuantityControl(cartItem: cartItem), 3, 2),
               generateRow(
                 CartItemButton(title: 'Save for later', function: () {}),
-                CartItemButton(title: 'Remove', function: () {}),
+                CartItemButton(
+                    title: 'Remove',
+                    function: () {
+                      Provider.of<Cart>(context, listen: false)
+                          .remove(cartItem.id);
+                    }),
                 1,
                 1,
               ),

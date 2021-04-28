@@ -131,7 +131,7 @@ class _ProductGridItemState extends State<ProductGridItem> {
               ),
               Container(
                 padding: widget.screenSize == ScreenSize.small
-                    ? const EdgeInsets.only(left: 10, top: 4, right: 10)
+                    ? const EdgeInsets.only(left: 8, top: 4, right: 8)
                     : const EdgeInsets.only(left: 16, top: 4, right: 16),
                 child: Text(
                   widget.product.name,
@@ -139,7 +139,6 @@ class _ProductGridItemState extends State<ProductGridItem> {
                       .textTheme
                       .subtitle2!
                       .copyWith(fontSize: 18),
-                  textAlign: TextAlign.center,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
