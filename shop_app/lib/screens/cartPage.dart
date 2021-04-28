@@ -22,24 +22,40 @@ class CartPage extends StatelessWidget {
         ),
       ),
       body: Container(
-          height: size.height,
-          width: size.width,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                ...cartItems.map((cartItem) => GenCartItem(cartItem)).toList(),
-                if (cartItems.length > 0) GenTotalDetail(),
-                if (cartItems.length == 0)
-                  Container(
-                    height: size.height - 100,
-                    width: size.width,
-                    child: Center(
-                      child: Text('Cart is Empty!'),
-                    ),
-                  )
-              ],
+        height: size.height,
+        width: size.width,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              ...cartItems.map((cartItem) => GenCartItem(cartItem)).toList(),
+              if (cartItems.length > 0) GenTotalDetail(),
+              if (cartItems.length == 0)
+                Container(
+                  height: size.height - 100,
+                  width: size.width,
+                  child: Center(
+                    child: Text('Cart is Empty!'),
+                  ),
+                )
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: cartItems.length == 0
+          ? null
+          : ElevatedButton.icon(
+              onPressed: () {},
+              icon: Icon(Icons.shopping_cart_outlined),
+              label: Container(
+                child: Center(
+                  child: Text(
+                    'Place Order!',
+                    style: GoogleFonts.poppins(),
+                  ),
+                ),
+                height: 60,
+              ),
             ),
-          )),
     );
   }
 }
