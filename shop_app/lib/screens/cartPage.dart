@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/models/cart.dart';
 import 'package:shop_app/provider/cartProvider.dart';
+import 'package:shop_app/widgets/quantity_control.dart';
 
 class CartPage extends StatelessWidget {
   static const routeName = "/cart-page";
@@ -11,7 +12,6 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var list = Provider.of<Cart>(context).items;
     var cartItems = list.values.toList();
-    print(list);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -23,104 +23,98 @@ class CartPage extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         child: ListView.builder(
           itemBuilder: (context, index) {
-            return Dismissible(
-              key: Key(cartItems[index].id),
-              background: Container(
-                child: Icon(Icons.save_alt),
-                color: Colors.green,
+            var image = Container(
+              padding: const EdgeInsets.all(8),
+              height: 120,
+              child: Center(
+                child: CachedNetworkImage(
+                  imageUrl: cartItems[index].image,
+                ),
               ),
-              secondaryBackground: Container(
-                child: Icon(Icons.delete),
-                color: Colors.red,
+            );
+            var totalPricrPerItem = Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "₹ ${cartItems[index].price * cartItems[index].quantity}",
+                style: Theme.of(context).textTheme.bodyText1,
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Card(
-                  child: Container(
-                    padding: const EdgeInsets.all(4),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      // mainAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Flexible(
-                          flex: 4,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 120,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Center(
-                                  child: Text(
-                                    cartItems[index].title,
-                                    style: GoogleFonts.poppins(),
-                                    textAlign: TextAlign.start,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  "₹ ${cartItems[index].price * cartItems[index].quantity}",
-                                  style: Theme.of(context).textTheme.bodyText1,
-                                ),
-                              ),
-                            ],
+            );
+            var itemTitle = Container(
+              height: 120,
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Center(
+                child: Text(
+                  cartItems[index].title,
+                  style: GoogleFonts.poppins(),
+                  textAlign: TextAlign.start,
+                ),
+              ),
+            );
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Card(
+                child: Container(
+                  padding: const EdgeInsets.all(4),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Flexible(
+                            child: itemTitle,
+                            flex: 3,
                           ),
-                        ),
-                        Flexible(
-                          flex: 2,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(8),
-                                height: 120,
-                                child: Center(
-                                  child: CachedNetworkImage(
-                                    imageUrl: cartItems[index].image,
-                                  ),
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                          Flexible(
+                            child: image,
+                            flex: 2,
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Flexible(
+                            child: totalPricrPerItem,
+                            flex: 3,
+                            fit: FlexFit.tight,
+                          ),
+                          Flexible(
+                            child: QuantityControl(cartItem: cartItems[index]),
+                            flex: 2,
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton.icon(
+                              onPressed: () {},
+                              icon: Icon(Icons.favorite),
+                              label: Text('Save for later'),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  InkWell(
-                                    onTap: () {},
-                                    child: Card(
-                                        child: Container(
-                                      width: 30,
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Text('-',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                          textAlign: TextAlign.center),
-                                    )),
-                                  ),
-                                  Text('Qty: ${cartItems[index].quantity}'),
-                                  InkWell(
-                                    onTap: () {},
-                                    child: Card(
-                                        child: Container(
-                                      width: 30,
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Text('+',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                    )),
-                                  ),
+                                  Icon(Icons.favorite),
+                                  Text('Remove')
                                 ],
-                              )
-                            ],
+                              ),
+                            ),
                           ),
-                        )
-                      ],
-                    ),
+                          Expanded(
+                            child: Container(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [Icon(Icons.delete), Text('Remove')],
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
                 ),
               ),
