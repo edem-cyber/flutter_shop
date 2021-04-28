@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/models/cart.dart';
 
 import 'package:shop_app/provider/cartProvider.dart';
 import 'package:shop_app/widgets/cart_item.dart';
+import 'package:shop_app/widgets/cart_total.dart';
 
 class CartPage extends StatelessWidget {
   static const routeName = "/cart-page";
@@ -25,7 +28,15 @@ class CartPage extends StatelessWidget {
             child: Column(
               children: [
                 ...cartItems.map((cartItem) => GenCartItem(cartItem)).toList(),
-                Text('Some addition info here'),
+                if (cartItems.length > 0) GenTotalDetail(),
+                if (cartItems.length == 0)
+                  Container(
+                    height: size.height - 100,
+                    width: size.width,
+                    child: Center(
+                      child: Text('Cart is Empty!'),
+                    ),
+                  )
               ],
             ),
           )),
