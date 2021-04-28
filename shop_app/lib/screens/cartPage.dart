@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/models/cart.dart';
 import 'package:shop_app/provider/cartProvider.dart';
+import 'package:shop_app/widgets/cart_item_button.dart';
 import 'package:shop_app/widgets/quantity_control.dart';
 
 class CartPage extends StatelessWidget {
@@ -23,7 +24,7 @@ class CartPage extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         child: ListView.builder(
           itemBuilder: (context, index) {
-            var image = Container(
+            Widget image = Container(
               padding: const EdgeInsets.all(8),
               height: 120,
               child: Center(
@@ -32,14 +33,14 @@ class CartPage extends StatelessWidget {
                 ),
               ),
             );
-            var totalPricrPerItem = Padding(
+            Widget totalPricrPerItem = Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 "₹ ${cartItems[index].price * cartItems[index].quantity}",
                 style: Theme.of(context).textTheme.bodyText1,
               ),
             );
-            var itemTitle = Container(
+            Widget itemTitle = Container(
               height: 120,
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Center(
@@ -54,66 +55,21 @@ class CartPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Card(
                 child: Container(
-                  padding: const EdgeInsets.all(4),
+                  // padding: const EdgeInsets.all(4),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          Flexible(
-                            child: itemTitle,
-                            flex: 3,
-                          ),
-                          Flexible(
-                            child: image,
-                            flex: 2,
-                          )
-                        ],
+                      generateRow(itemTitle, image, 3, 2),
+                      generateRow(totalPricrPerItem,
+                          QuantityControl(cartItem: cartItems[index]), 3, 2),
+                      generateRow(
+                        CartItemButton(
+                            title: 'Save for later', function: () {}),
+                        CartItemButton(title: 'Remove', function: () {}),
+                        1,
+                        1,
                       ),
-                      Row(
-                        children: [
-                          Flexible(
-                            child: totalPricrPerItem,
-                            flex: 3,
-                            fit: FlexFit.tight,
-                          ),
-                          Flexible(
-                            child: QuantityControl(cartItem: cartItems[index]),
-                            flex: 2,
-                          )
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: ElevatedButton.icon(
-                              onPressed: () {},
-                              icon: Icon(Icons.favorite),
-                              label: Text('Save for later'),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.favorite),
-                                  Text('Remove')
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [Icon(Icons.delete), Text('Remove')],
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
                     ],
                   ),
                 ),
@@ -123,6 +79,22 @@ class CartPage extends StatelessWidget {
           itemCount: cartItems.length,
         ),
       ),
+    );
+  }
+
+  Row generateRow(Widget item1, Widget item2, int? flex1, int? flex2) {
+    return Row(
+      children: [
+        Flexible(
+          child: item1,
+          flex: flex1!,
+          fit: FlexFit.tight,
+        ),
+        Flexible(
+          child: item2,
+          flex: flex2!,
+        )
+      ],
     );
   }
 }
