@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/provider/cartProvider.dart';
 import 'package:shop_app/provider/productProvider.dart';
+import 'package:shop_app/screens/cartPage.dart';
 import 'package:shop_app/screens/product_hower_image.dart';
 
 class ProductDetailScreen extends StatelessWidget {
@@ -94,6 +95,18 @@ class ProductDetailScreen extends StatelessWidget {
                   loadedProduct.price,
                   loadedProduct.name,
                   loadedProduct.image,
+                );
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Product added to cart!'),
+                    action: SnackBarAction(
+                      label: 'Go to Cart',
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushReplacementNamed(CartPage.routeName);
+                      },
+                    ),
+                  ),
                 );
               },
               child: Container(
