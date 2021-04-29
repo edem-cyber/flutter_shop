@@ -176,6 +176,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                               labelText: 'Price',
                               labelStyle: GoogleFonts.poppins(),
                             ),
+                            keyboardType: TextInputType.number,
                             validator: (value) =>
                                 value.isEmpty ? "Field is required!" : null,
                             onSaved: (newValue) => product['price'] = newValue,
