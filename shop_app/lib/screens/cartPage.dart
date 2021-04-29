@@ -21,6 +21,7 @@ class CartPage extends StatelessWidget {
         ),
       ),
       body: Container(
+        constraints: BoxConstraints(maxWidth: 960),
         height: size.height,
         width: size.width,
         child: SingleChildScrollView(
