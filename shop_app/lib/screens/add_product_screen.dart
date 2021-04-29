@@ -7,8 +7,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/provider/productProvider.dart';
 
-import '../models/product.dart';
-
 class AddProductScreen extends StatefulWidget {
   static const routeName = "/add-product";
 
