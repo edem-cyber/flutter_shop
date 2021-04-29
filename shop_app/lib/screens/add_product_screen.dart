@@ -126,7 +126,124 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 40,
+                          height: 20,
+                        ),
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 200,
+                                height: 300,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    width: 2,
+                                    color: Colors.grey.shade400,
+                                  ),
+                                ),
+                                child: _image == null
+                                    ? Icon(
+                                        Icons.image_not_supported_outlined,
+                                        color: Colors.grey,
+                                        size: 50,
+                                      )
+                                    : Image.file(
+                                        _image,
+                                        fit: BoxFit.cover,
+                                      ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Column(
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: getImage,
+                                    child: Text(
+                                      'Add Image',
+                                      style: GoogleFonts.poppins(),
+                                    ),
+                                  ),
+                                  Text(
+                                    'Max size: 2MB',
+                                    style: GoogleFonts.poppins(),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
+                          child: DropdownButtonFormField(
+                            items: [
+                              DropdownMenuItem(
+                                child: Text(
+                                  'Grocery',
+                                  style: GoogleFonts.poppins(),
+                                ),
+                                value: 'Grocery',
+                              ),
+                              DropdownMenuItem(
+                                child: Text(
+                                  'Mobile',
+                                  style: GoogleFonts.poppins(),
+                                ),
+                                value: 'Mobiles',
+                              ),
+                              DropdownMenuItem(
+                                child: Text(
+                                  'Fashion',
+                                  style: GoogleFonts.poppins(),
+                                ),
+                                value: 'Fashion',
+                              ),
+                              DropdownMenuItem(
+                                child: Text(
+                                  'Electronics',
+                                  style: GoogleFonts.poppins(),
+                                ),
+                                value: 'Electronics',
+                              ),
+                              DropdownMenuItem(
+                                child: Text(
+                                  'Home',
+                                  style: GoogleFonts.poppins(),
+                                ),
+                                value: 'Home',
+                              ),
+                              DropdownMenuItem(
+                                child: Text(
+                                  'Appliance',
+                                  style: GoogleFonts.poppins(),
+                                ),
+                                value: 'Appliances',
+                              ),
+                              DropdownMenuItem(
+                                child: Text(
+                                  'Beauty, Toy & More',
+                                  style: GoogleFonts.poppins(),
+                                ),
+                                value: 'Beauty, Toy & More',
+                              ),
+                            ],
+                            value: selected,
+                            onChanged: (value) {
+                              setState(() {
+                                selected = value.toString();
+                              });
+                            },
+                            onSaved: (newValue) =>
+                                product['category'] = newValue,
+                            decoration: InputDecoration(
+                              icon: Icon(Icons.category_outlined),
+                            ),
+                          ),
                         ),
                         Container(
                           margin: const EdgeInsets.symmetric(
@@ -201,127 +318,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                               labelText: 'Description',
                               labelStyle: GoogleFonts.poppins(),
                             ),
+                            maxLines: 8,
                             validator: (value) =>
                                 value.isEmpty ? "Field is required!" : null,
                             onSaved: (newValue) =>
                                 product['description'] = newValue,
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 4),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 8),
-                          child: DropdownButtonFormField(
-                            items: [
-                              DropdownMenuItem(
-                                child: Text(
-                                  'Grocery',
-                                  style: GoogleFonts.poppins(),
-                                ),
-                                value: 'Grocery',
-                              ),
-                              DropdownMenuItem(
-                                child: Text(
-                                  'Mobile',
-                                  style: GoogleFonts.poppins(),
-                                ),
-                                value: 'Mobiles',
-                              ),
-                              DropdownMenuItem(
-                                child: Text(
-                                  'Fashion',
-                                  style: GoogleFonts.poppins(),
-                                ),
-                                value: 'Fashion',
-                              ),
-                              DropdownMenuItem(
-                                child: Text(
-                                  'Electronics',
-                                  style: GoogleFonts.poppins(),
-                                ),
-                                value: 'Electronics',
-                              ),
-                              DropdownMenuItem(
-                                child: Text(
-                                  'Home',
-                                  style: GoogleFonts.poppins(),
-                                ),
-                                value: 'Home',
-                              ),
-                              DropdownMenuItem(
-                                child: Text(
-                                  'Appliance',
-                                  style: GoogleFonts.poppins(),
-                                ),
-                                value: 'Appliances',
-                              ),
-                              DropdownMenuItem(
-                                child: Text(
-                                  'Beauty, Toy & More',
-                                  style: GoogleFonts.poppins(),
-                                ),
-                                value: 'Beauty, Toy & More',
-                              ),
-                            ],
-                            value: selected,
-                            onChanged: (value) {
-                              setState(() {
-                                selected = value.toString();
-                              });
-                            },
-                            onSaved: (newValue) =>
-                                product['category'] = newValue,
-                            decoration: InputDecoration(
-                              icon: Icon(Icons.category_outlined),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 200,
-                                height: 300,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    width: 2,
-                                    color: Colors.grey.shade400,
-                                  ),
-                                ),
-                                child: _image == null
-                                    ? Icon(
-                                        Icons.image_not_supported_outlined,
-                                        color: Colors.grey,
-                                        size: 50,
-                                      )
-                                    : Image.file(
-                                        _image,
-                                        fit: BoxFit.cover,
-                                      ),
-                              ),
-                              SizedBox(
-                                width: 40,
-                              ),
-                              Column(
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: getImage,
-                                    child: Text(
-                                      'Add Image',
-                                      style: GoogleFonts.poppins(),
-                                    ),
-                                  ),
-                                  Text(
-                                    'Max size: 2MB',
-                                    style: GoogleFonts.poppins(),
-                                  )
-                                ],
-                              )
-                            ],
                           ),
                         ),
                       ],
