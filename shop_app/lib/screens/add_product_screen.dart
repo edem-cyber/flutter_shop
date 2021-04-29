@@ -16,6 +16,8 @@ class AddProductScreen extends StatefulWidget {
 
 class _AddProductScreenState extends State<AddProductScreen> {
   final GlobalKey<FormState> _form = GlobalKey();
+  final FocusNode priceScope = FocusNode();
+  final FocusNode descriptionScope = FocusNode();
   File _image;
   final picker = ImagePicker();
   String selected = "Grocery";
@@ -83,7 +85,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
       builder: (context) => AlertDialog(
         title: Text(
           'An Error Occured!',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? null
+                  : Colors.black),
         ),
         content: Text(msg),
         actions: [
@@ -91,7 +96,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text("Okay!"),
+            child: Text(
+              "Okay!",
+              style: TextStyle(
+                color: Theme.of(context).accentColor,
+              ),
+            ),
           )
         ],
       ),
@@ -261,6 +271,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                               labelText: 'Name',
                               labelStyle: GoogleFonts.poppins(),
                             ),
+                            onFieldSubmitted: (value) =>
+                                FocusScope.of(context).requestFocus(priceScope),
                             validator: (value) =>
                                 value.isEmpty ? "Field is required!" : null,
                             onSaved: (newValue) {
@@ -274,6 +286,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12, vertical: 8),
                           child: TextFormField(
+                            focusNode: priceScope,
+                            onFieldSubmitted: (value) => FocusScope.of(context)
+                                .requestFocus(descriptionScope),
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.all(
@@ -308,6 +323,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12, vertical: 8),
                           child: TextFormField(
+                            focusNode: descriptionScope,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.all(

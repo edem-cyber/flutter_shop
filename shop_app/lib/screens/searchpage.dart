@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/models/product.dart';
 import 'package:shop_app/provider/productProvider.dart';
+import 'package:shop_app/screens/product_detail_screen.dart';
 
 class SearchPage extends StatefulWidget {
   static const routeName = "/search";
@@ -51,10 +52,16 @@ class _SearchPageState extends State<SearchPage> {
           decoration:
               BoxDecoration(border: Border(bottom: BorderSide(width: 1))),
           child: ListTile(
-            leading: CachedNetworkImage(
-              imageUrl: product[index].image,
-              height: 60,
-              width: 60,
+            onTap: () => Navigator.of(context).pushNamed(
+                ProductDetailScreen.routeName,
+                arguments: product[index].id),
+            leading: Hero(
+              tag: product[index].id,
+              child: CachedNetworkImage(
+                imageUrl: product[index].image,
+                height: 60,
+                width: 60,
+              ),
             ),
             title: Text(product[index].name),
           ),
