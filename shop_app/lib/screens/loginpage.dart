@@ -113,8 +113,8 @@ class _LoginPageState extends State<LoginPage>
             colors: Theme.of(context).brightness == Brightness.dark
                 ? [
                     // Colors.blueAccent,
+                    Colors.cyan.withOpacity(0.4),
                     Color(0xFF0D47A1),
-                    Colors.black38,
                   ]
                 : [
                     Colors.purple,
@@ -127,10 +127,13 @@ class _LoginPageState extends State<LoginPage>
         child: Center(
           child: isLoading
               ? CircularProgressIndicator()
-              : Container(
+              : AnimatedContainer(
+                  duration: Duration(milliseconds: 300),
                   width: 350,
                   padding: const EdgeInsets.all(8),
-                  height: widget.screenSize.height * 0.7,
+                  height: isSignUp
+                      ? widget.screenSize.height * 0.7
+                      : widget.screenSize.height * 0.5,
                   color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.black54
                       : Colors.white,
