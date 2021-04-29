@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:shop_app/models/HttpException.dart';
 import 'package:shop_app/models/product.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
@@ -66,11 +67,14 @@ class ProductProvider with ChangeNotifier {
           contentType: new MediaType('image', 'jpeg'),
         ),
       );
-    print(request.fields);
-    print(request.files[0].contentType);
-    var response = await request.send();
-    print(response.statusCode);
-    print(response.reasonPhrase);
+    try {
+      var response = await request.send();
+      if (response.statusCode > 300) {
+        throw HttpException(response.reasonPhrase!);
+      }
+    } catch (error) {
+      throw error;
+    }
   }
 
   List<Product> getByCategory(String category) {
