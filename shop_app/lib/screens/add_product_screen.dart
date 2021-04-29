@@ -271,6 +271,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                               labelText: 'Name',
                               labelStyle: GoogleFonts.poppins(),
                             ),
+                            textInputAction: TextInputAction.next,
                             onFieldSubmitted: (value) =>
                                 FocusScope.of(context).requestFocus(priceScope),
                             validator: (value) =>
@@ -323,6 +324,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12, vertical: 8),
                           child: TextFormField(
+                            textInputAction: TextInputAction.next,
                             focusNode: descriptionScope,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
