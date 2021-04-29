@@ -80,6 +80,7 @@ class _ProductGridItemState extends State<ProductGridItem> {
                             ? BoxConstraints(
                                 minWidth: 800, minHeight: 200, maxHeight: 200)
                             : BoxConstraints(minWidth: 800, minHeight: 200),
+                        color: Colors.white,
                         child: Hero(
                           tag: widget.product.id,
                           child: CachedNetworkImage(

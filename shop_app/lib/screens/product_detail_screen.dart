@@ -46,7 +46,10 @@ class ProductDetailScreen extends StatelessWidget {
                       maxHeight: 500,
                       // minWidth: ,
                       maxWidth: 400),
-                  decoration: BoxDecoration(border: Border.all(width: 1)),
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20)),
                   child: Center(
                     child: Hero(
                       tag: productId,
