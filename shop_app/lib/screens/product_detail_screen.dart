@@ -7,7 +7,6 @@ import 'package:shop_app/models/product.dart';
 import 'package:shop_app/provider/cartProvider.dart';
 import 'package:shop_app/provider/productProvider.dart';
 import 'package:shop_app/screens/cartPage.dart';
-import 'package:shop_app/screens/product_hower_image.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   static const routeName = '/product-detail';
