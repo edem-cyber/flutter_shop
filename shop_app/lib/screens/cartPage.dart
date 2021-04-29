@@ -21,26 +21,30 @@ class CartPage extends StatelessWidget {
         ),
       ),
       body: Container(
-        constraints: BoxConstraints(maxWidth: 960),
         height: size.height,
-        width: size.width,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              ...cartItems.map((cartItem) => GenCartItem(cartItem)).toList(),
-              if (cartItems.length > 0) GenTotalDetail(),
-              if (cartItems.length == 0)
-                Container(
-                  height: size.height - 100,
-                  width: size.width,
-                  child: Center(
-                    child: Text(
-                      'Cart is Empty!',
-                      style: GoogleFonts.poppins(fontSize: 28),
+        // width: double.infinity,
+        alignment: Alignment.topCenter,
+        child: Container(
+          constraints: BoxConstraints(maxWidth: 960),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ...cartItems.map((cartItem) => GenCartItem(cartItem)).toList(),
+                if (cartItems.length > 0) GenTotalDetail(),
+                if (cartItems.length == 0)
+                  Container(
+                    height: size.height - 100,
+                    width: size.width,
+                    child: Center(
+                      child: Text(
+                        'Cart is Empty!',
+                        style: GoogleFonts.poppins(fontSize: 28),
+                      ),
                     ),
-                  ),
-                )
-            ],
+                  )
+              ],
+            ),
           ),
         ),
       ),
