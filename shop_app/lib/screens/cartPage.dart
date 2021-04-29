@@ -34,7 +34,10 @@ class CartPage extends StatelessWidget {
                   height: size.height - 100,
                   width: size.width,
                   child: Center(
-                    child: Text('Cart is Empty!'),
+                    child: Text(
+                      'Cart is Empty!',
+                      style: GoogleFonts.poppins(fontSize: 28),
+                    ),
                   ),
                 )
             ],

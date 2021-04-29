@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
           title: 'SoulShop',
           theme: ThemeData(
             primarySwatch: Colors.indigo,
-            accentColor: Colors.deepPurple,
+            accentColor: Colors.amber,
             fontFamily: 'Poppins',
             textTheme: TextTheme(
               headline6: GoogleFonts.poppins(

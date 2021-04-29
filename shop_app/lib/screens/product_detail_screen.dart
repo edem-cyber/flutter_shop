@@ -102,8 +102,7 @@ class ProductDetailScreen extends StatelessWidget {
                     action: SnackBarAction(
                       label: 'Go to Cart',
                       onPressed: () {
-                        Navigator.of(context)
-                            .pushReplacementNamed(CartPage.routeName);
+                        Navigator.of(context).pushNamed(CartPage.routeName);
                       },
                     ),
                   ),

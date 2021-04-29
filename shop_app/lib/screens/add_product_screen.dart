@@ -274,12 +274,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                 'Add Image',
                                 style: GoogleFonts.poppins(),
                               ),
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                  Theme.of(context).accentColor,
-                                ),
-                              ),
                             ),
                             Text(
                               'Max size: 2MB',
@@ -311,10 +305,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
           child: Text(
             'Submit',
             style: GoogleFonts.poppins(fontSize: 18),
-          ),
-          style: ButtonStyle(
-            backgroundColor:
-                MaterialStateProperty.all(Theme.of(context).accentColor),
           ),
         ),
       ),
