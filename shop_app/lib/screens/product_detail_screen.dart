@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:provider/provider.dart';
+import 'package:shop_app/models/product.dart';
 import 'package:shop_app/provider/cartProvider.dart';
 import 'package:shop_app/provider/productProvider.dart';
 import 'package:shop_app/screens/cartPage.dart';
@@ -27,65 +28,60 @@ class ProductDetailScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.subtitle2,
             );
     }).toList();
+
+    var image = InkWell(
+      onTap: () {
+        Navigator.of(context).pushNamed(ProductImageHover.routeName,
+            arguments: loadedProduct.image);
+      },
+      child: Container(
+        constraints: BoxConstraints(
+            minHeight: 200,
+            maxHeight: 500,
+            // minWidth: ,
+            maxWidth: 400),
+        decoration: BoxDecoration(
+            border: Border.all(width: 1),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20)),
+        child: Center(
+          child: Hero(
+            tag: productId,
+            child: CachedNetworkImage(
+              imageUrl: loadedProduct.image,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      ),
+    );
+
     return Scaffold(
       appBar: AppBar(),
       body: Container(
+        // constraints: BoxConstraints(maxWidth: 1000),
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).pushNamed(ProductImageHover.routeName,
-                      arguments: loadedProduct.image);
-                },
-                child: Container(
-                  constraints: BoxConstraints(
-                      minHeight: 200,
-                      maxHeight: 500,
-                      // minWidth: ,
-                      maxWidth: 400),
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1),
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Center(
-                    child: Hero(
-                      tag: productId,
-                      child: CachedNetworkImage(
-                        imageUrl: loadedProduct.image,
-                        fit: BoxFit.cover,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            print(constraints.maxWidth);
+            return constraints.maxWidth > 960
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(40.0),
+                        child: image,
                       ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                loadedProduct.name,
-                style: GoogleFonts.poppins(
-                    fontSize: 24, fontWeight: FontWeight.w600),
-              ),
-              Text('${loadedProduct.price}',
-                  style: GoogleFonts.poppins(
-                      fontSize: 18, fontWeight: FontWeight.bold)),
-              Text('Seller - ##TODO',
-                  style: GoogleFonts.poppins(fontSize: 16, color: Colors.blue)),
-              SizedBox(
-                height: 16,
-              ),
-              Text('Features',
-                  style: GoogleFonts.poppins(
-                      fontSize: 18, fontWeight: FontWeight.bold)),
-              ...des,
-              SizedBox(
-                height: 16,
-              ),
-            ],
-          ),
+                      Expanded(
+                        child: Container(
+                            padding: const EdgeInsets.all(40),
+                            child: productDetail(
+                                image, loadedProduct, des, false)),
+                      ),
+                    ],
+                  )
+                : productDetail(image, loadedProduct, des, true);
+          },
         ),
       ),
       bottomNavigationBar: Row(
@@ -131,6 +127,41 @@ class ProductDetailScreen extends StatelessWidget {
                 child: Center(child: Text('Buy')),
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  SingleChildScrollView productDetail(
+      InkWell image, Product loadedProduct, List<Widget> des, bool disIamge) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (disIamge) Center(child: image),
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            loadedProduct.name,
+            style:
+                GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w600),
+          ),
+          Text('₹ ${loadedProduct.price}',
+              style: GoogleFonts.poppins(
+                  fontSize: 18, fontWeight: FontWeight.bold)),
+          Text('Seller - ##TODO',
+              style: GoogleFonts.poppins(fontSize: 16, color: Colors.blue)),
+          SizedBox(
+            height: 16,
+          ),
+          Text('Features',
+              style: GoogleFonts.poppins(
+                  fontSize: 18, fontWeight: FontWeight.bold)),
+          ...des,
+          SizedBox(
+            height: 16,
           ),
         ],
       ),

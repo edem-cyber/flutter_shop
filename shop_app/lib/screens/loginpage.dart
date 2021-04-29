@@ -132,8 +132,12 @@ class _LoginPageState extends State<LoginPage>
                   width: 350,
                   padding: const EdgeInsets.all(8),
                   height: isSignUp
-                      ? widget.screenSize.height * 0.7
-                      : widget.screenSize.height * 0.5,
+                      ? widget.screenSize.width > 960
+                          ? widget.screenSize.height * 0.85
+                          : widget.screenSize.height * 0.7
+                      : widget.screenSize.width > 960
+                          ? widget.screenSize.height * 0.6
+                          : widget.screenSize.height * 0.5,
                   color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.black54
                       : Colors.white,
