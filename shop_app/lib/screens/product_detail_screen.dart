@@ -61,6 +61,9 @@ class ProductDetailScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 10,
+              ),
               Text(
                 loadedProduct.name,
                 style: GoogleFonts.poppins(
