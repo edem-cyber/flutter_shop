@@ -29,31 +29,51 @@ class ProductDetailScreen extends StatelessWidget {
             );
     }).toList();
 
-    var image = InkWell(
-      onTap: () {
-        Navigator.of(context).pushNamed(ProductImageHover.routeName,
-            arguments: loadedProduct.image);
-      },
-      child: Container(
-        constraints: BoxConstraints(
-            minHeight: 200,
-            maxHeight: 500,
-            // minWidth: ,
-            maxWidth: 400),
-        decoration: BoxDecoration(
-            border: Border.all(width: 1),
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20)),
-        child: Center(
-          child: Hero(
-            tag: productId,
-            child: CachedNetworkImage(
-              imageUrl: loadedProduct.image,
-              fit: BoxFit.cover,
+    var image = Stack(
+      children: [
+        Container(
+          constraints: BoxConstraints(
+              minHeight: 200,
+              maxHeight: 500,
+              // minWidth: ,
+              maxWidth: 400),
+          decoration: BoxDecoration(
+              border: Border.all(width: 1),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20)),
+          child: Center(
+            child: Hero(
+              tag: productId,
+              child: CachedNetworkImage(
+                imageUrl: loadedProduct.image,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ),
-      ),
+        Positioned(
+          right: 10,
+          top: 10,
+          child: Container(
+            decoration: BoxDecoration(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.black54
+                    : Colors.white,
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 8,
+                    offset: Offset(4, 4),
+                    color: Colors.black38,
+                  )
+                ]),
+            child: IconButton(
+              icon: Icon(Icons.favorite),
+              onPressed: () {},
+            ),
+          ),
+        )
+      ],
     );
 
     return Scaffold(
@@ -134,7 +154,7 @@ class ProductDetailScreen extends StatelessWidget {
   }
 
   SingleChildScrollView productDetail(
-      InkWell image, Product loadedProduct, List<Widget> des, bool disIamge) {
+      Stack image, Product loadedProduct, List<Widget> des, bool disIamge) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
