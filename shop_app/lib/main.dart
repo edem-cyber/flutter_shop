@@ -3,16 +3,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
 import 'package:shop_app/provider/authProvider.dart';
 import 'package:shop_app/provider/cartProvider.dart';
 import 'package:shop_app/provider/productProvider.dart';
 import 'package:shop_app/provider/userProvider.dart';
+
 import 'package:shop_app/screens/add_product_screen.dart';
 import 'package:shop_app/screens/adminScreens/userDetailScreen_admin.dart';
 import 'package:shop_app/screens/cartPage.dart';
 import 'package:shop_app/screens/my_account_page.dart';
 import 'package:shop_app/screens/product_detail_screen.dart';
-import 'package:shop_app/screens/product_hower_image.dart';
 import 'package:shop_app/screens/searchpage.dart';
 
 import './screens/mainPage.dart';

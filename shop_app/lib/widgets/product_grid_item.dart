@@ -114,6 +114,7 @@ class _ProductGridItemState extends State<ProductGridItem> {
                                 width: 40,
                                 child: Icon(
                                   Icons.favorite,
+                                  color: Colors.red,
                                 ),
                               ),
                             ),
@@ -143,6 +144,7 @@ class _ProductGridItemState extends State<ProductGridItem> {
                                 width: 40,
                                 child: Icon(
                                   Icons.add,
+                                  color: Colors.green,
                                 ),
                               ),
                             ),
