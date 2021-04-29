@@ -22,11 +22,18 @@ class CartItemButton extends StatelessWidget {
         height: 50,
         padding: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
-          color: Colors.grey.shade200,
-          border: Border(
-            top: BorderSide(width: 2, color: Colors.grey.shade300),
-            right: BorderSide(width: 1, color: Colors.grey.shade300),
-          ),
+          color: Theme.of(context).brightness == Brightness.dark
+              ? null
+              : Colors.grey.shade200,
+          border: title == "Remove"
+              ? Border(
+                  top: BorderSide(width: 2, color: Colors.grey.shade300),
+                  left: BorderSide(width: 1, color: Colors.grey.shade300),
+                )
+              : Border(
+                  top: BorderSide(width: 2, color: Colors.grey.shade300),
+                  right: BorderSide(width: 1, color: Colors.grey.shade300),
+                ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

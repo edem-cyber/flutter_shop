@@ -116,7 +116,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
               child: Center(
                 child: Container(
                   constraints: BoxConstraints(maxWidth: 800),
-                  color: Colors.white,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? null
+                      : Colors.white,
                   height: MediaQuery.of(context).size.height,
                   child: SingleChildScrollView(
                     child: Column(
@@ -168,7 +170,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                   '₹',
                                   style: TextStyle(
                                       fontSize: 28,
-                                      color: Colors.grey.shade600),
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white70
+                                          : Colors.grey.shade600),
                                 ),
                               ),
                               labelText: 'Price',

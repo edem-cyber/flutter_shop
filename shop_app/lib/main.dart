@@ -58,6 +58,22 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'SoulShop',
+          darkTheme: ThemeData(
+            brightness: Brightness.dark,
+            primarySwatch: Colors.indigo,
+            accentColor: Colors.amber,
+            fontFamily: 'Poppins',
+            textTheme: TextTheme(
+              headline6: GoogleFonts.poppins(
+                  fontWeight: FontWeight.bold, color: Colors.white),
+              bodyText1: GoogleFonts.raleway(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+              subtitle2: GoogleFonts.notoSans(fontSize: 16),
+            ),
+          ),
+          themeMode: ThemeMode.system,
           theme: ThemeData(
             primarySwatch: Colors.indigo,
             accentColor: Colors.amber,
