@@ -2,7 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_app/models/product.dart';
+import 'package:shop_app/provider/cartProvider.dart';
+import 'package:shop_app/screens/cartPage.dart';
 import 'package:shop_app/screens/mainPage.dart';
 import 'package:shop_app/screens/product_detail_screen.dart';
 
@@ -115,7 +118,26 @@ class _ProductGridItemState extends State<ProductGridItem> {
                               ),
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Provider.of<Cart>(context, listen: false)
+                                    .addItem(
+                                        widget.product.id,
+                                        widget.product.price,
+                                        widget.product.name,
+                                        widget.product.image);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('Product added to cart!'),
+                                    action: SnackBarAction(
+                                      label: 'Go to Cart',
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pushNamed(CartPage.routeName);
+                                      },
+                                    ),
+                                  ),
+                                );
+                              },
                               child: Container(
                                 height: 50,
                                 width: 40,

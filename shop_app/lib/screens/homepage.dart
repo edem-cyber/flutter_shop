@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:hawk_fab_menu/hawk_fab_menu.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/provider/cartProvider.dart';
@@ -10,6 +11,7 @@ import 'package:shop_app/screens/cartPage.dart';
 
 import 'package:shop_app/screens/mainPage.dart';
 import 'package:shop_app/screens/searchpage.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:shop_app/widgets/badge.dart';
 import 'package:shop_app/widgets/custom_app_drawer.dart';
 import 'package:shop_app/widgets/product_grid.dart';
@@ -132,9 +134,12 @@ class _HomePageState extends State<HomePage> {
                                             widget.size == ScreenSize.small
                                                 ? null
                                                 : BoxConstraints(minWidth: 200),
-                                        color: selected == index
-                                            ? Colors.blue.shade200
-                                            : null,
+                                        decoration: BoxDecoration(
+                                            color: selected == index
+                                                ? Colors.blue.shade200
+                                                : null,
+                                            borderRadius:
+                                                BorderRadius.circular(4)),
                                         child: Center(
                                           child: Text(
                                             _categories[index],
