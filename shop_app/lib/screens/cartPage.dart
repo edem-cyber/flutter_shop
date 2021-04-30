@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/models/HttpException.dart';
 
 import 'package:shop_app/provider/cartProvider.dart';
 import 'package:shop_app/widgets/cart_item.dart';
@@ -8,11 +10,45 @@ import 'package:shop_app/widgets/cart_total.dart';
 
 class CartPage extends StatelessWidget {
   static const routeName = "/cart-page";
+
   @override
   Widget build(BuildContext context) {
     var list = Provider.of<Cart>(context).items;
     var cartItems = list.values.toList();
     Size size = MediaQuery.of(context).size;
+
+    void placeOrder() async {
+      try {
+        await Provider.of<Cart>(context, listen: false).placeOrder();
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(
+              'Order Placed Successfully!',
+              textAlign: TextAlign.center,
+            ),
+            content: LottieBuilder.asset(
+              'assets/images/success.json',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  'Okay!',
+                  style: TextStyle(color: Theme.of(context).accentColor),
+                ),
+              ),
+            ],
+          ),
+        );
+      } on HttpException catch (err) {
+        print(err);
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -52,7 +88,7 @@ class CartPage extends StatelessWidget {
           ? null
           : ElevatedButton.icon(
               onPressed: () {
-                Provider.of<Cart>(context, listen: false).placeOrder();
+                placeOrder();
               },
               icon: Icon(Icons.shopping_cart_outlined),
               label: Container(
