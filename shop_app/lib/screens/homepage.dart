@@ -1,4 +1,3 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -52,9 +51,6 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         _isLoading = false;
       });
-    });
-    FirebaseMessaging.onBackgroundMessage((message) async {
-      print(message);
     });
     super.initState();
   }
