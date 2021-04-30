@@ -44,7 +44,10 @@ class Cart with ChangeNotifier {
             'quantity': _q
           },
         ),
-        headers: {'Authorization': 'Bearer $_token'});
+        headers: {
+          'Authorization': 'Bearer $_token',
+          'Content-Type': 'application/json'
+        });
     print(response.body);
   }
 
