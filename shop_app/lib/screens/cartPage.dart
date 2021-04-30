@@ -51,7 +51,9 @@ class CartPage extends StatelessWidget {
       bottomNavigationBar: cartItems.length == 0
           ? null
           : ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                Provider.of<Cart>(context, listen: false).placeOrder();
+              },
               icon: Icon(Icons.shopping_cart_outlined),
               label: Container(
                 child: Center(

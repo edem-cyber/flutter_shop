@@ -44,8 +44,8 @@ class MyApp extends StatelessWidget {
               User(auth.token, auth.userId, auth.role),
         ),
         ChangeNotifierProxyProvider<AuthProvider, Cart>(
-          create: (context) => Cart(''),
-          update: (context, auth, previous) => Cart(auth.userId),
+          create: (context) => Cart('', ''),
+          update: (context, auth, previous) => Cart(auth.userId, auth.token),
         ),
       ],
       child: GestureDetector(

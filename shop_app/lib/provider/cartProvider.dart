@@ -1,13 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:shop_app/models/cart.dart';
+import 'package:http/http.dart' as http;
 
 class Cart with ChangeNotifier {
   final String _userId;
+  final String _token;
   Map<String, CartItem> _items = {};
   List<String> _ps = [];
   List<int> _q = [];
 
-  Cart(this._userId);
+  Cart(this._userId, this._token);
 
   Map<String, CartItem> get items {
     return {..._items};
@@ -23,6 +27,25 @@ class Cart with ChangeNotifier {
       total += cartItem.price * cartItem.quantity;
     });
     return total;
+  }
+
+  Future<void> placeOrder() async {
+    final Uri url = Uri.http("fluttershop-backend.herokuapp.com", 'orders');
+    print(_userId);
+    print(_token);
+    print(_ps);
+    print(_q);
+    var response = await http.post(url,
+        body: json.encode(
+          {
+            "user": _userId,
+            'date': DateTime.now().toIso8601String(),
+            'products': _ps,
+            'quantity': _q
+          },
+        ),
+        headers: {'Authorization': 'Bearer $_token'});
+    print(response.body);
   }
 
   void addItem(String pId, int price, String title, String image) {
