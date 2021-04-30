@@ -15,6 +15,7 @@ import 'package:shop_app/screens/cartPage.dart';
 import 'package:shop_app/screens/my_account_page.dart';
 import 'package:shop_app/screens/product_detail_screen.dart';
 import 'package:shop_app/screens/searchpage.dart';
+import 'package:shop_app/widgets/my_orders_page.dart';
 
 import './screens/mainPage.dart';
 
@@ -97,6 +98,7 @@ class MyApp extends StatelessWidget {
             UserDetailScreenAdmin.routeName: (ctx) => UserDetailScreenAdmin(),
             MyAccountPage.routeName: (ctx) => MyAccountPage(),
             CartPage.routeName: (ctx) => CartPage(),
+            MyOrderPage.routeName: (ctx) => MyOrderPage(),
           },
         ),
       ),

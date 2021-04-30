@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:shop_app/models/HttpException.dart';
 import 'package:shop_app/models/cart.dart';
 import 'package:http/http.dart' as http;
+import 'package:shop_app/models/order.dart';
 
 class Cart with ChangeNotifier {
   final String _userId;
@@ -11,6 +12,7 @@ class Cart with ChangeNotifier {
   Map<String, CartItem> _items = {};
   List<String> _ps = [];
   List<int> _q = [];
+  List<Order> _orders = [];
 
   Cart(this._userId, this._token);
 
@@ -30,8 +32,30 @@ class Cart with ChangeNotifier {
     return total;
   }
 
+  List<Order> get orders {
+    return List.from(_orders.reversed);
+  }
+
   Future<void> getOrder() async {
     final Uri url = Uri.http("fluttershop-backend.herokuapp.com", 'orders');
+    var response =
+        await http.get(url, headers: {'Authorization': 'Bearer $_token'});
+    var responseData = json.decode(response.body);
+    var orders = responseData['orders'];
+    int count = responseData['count'];
+    List<Order> o = [];
+    for (int i = 0; i < count; i++) {
+      var x = orders[i];
+      o.add(
+        new Order(
+            id: x['id'],
+            dateTime: DateTime.parse(x['date']),
+            q: x['quantity'],
+            pIds: x['products']),
+      );
+    }
+    _orders = o;
+    notifyListeners();
   }
 
   Future<void> placeOrder() async {
