@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:shop_app/models/HttpException.dart';
 import 'package:shop_app/models/cart.dart';
 import 'package:http/http.dart' as http;
 
@@ -29,26 +30,37 @@ class Cart with ChangeNotifier {
     return total;
   }
 
+  Future<void> getOrder() async {
+    final Uri url = Uri.http("fluttershop-backend.herokuapp.com", 'orders');
+  }
+
   Future<void> placeOrder() async {
     final Uri url = Uri.http("fluttershop-backend.herokuapp.com", 'orders');
     print(_userId);
     print(_token);
     print(_ps);
     print(_q);
-    var response = await http.post(url,
-        body: json.encode(
-          {
-            "user": _userId,
-            'date': DateTime.now().toIso8601String(),
-            'products': _ps,
-            'quantity': _q
-          },
-        ),
-        headers: {
-          'Authorization': 'Bearer $_token',
-          'Content-Type': 'application/json'
-        });
-    print(response.body);
+    try {
+      var response = await http.post(url,
+          body: json.encode(
+            {
+              "user": _userId,
+              'date': DateTime.now().toIso8601String(),
+              'products': _ps,
+              'quantity': _q
+            },
+          ),
+          headers: {
+            'Authorization': 'Bearer $_token',
+            'Content-Type': 'application/json'
+          });
+      var responsedata = json.decode(response.body);
+      if (responsedata['error'] != null) {
+        throw HttpException(responsedata['error']);
+      }
+    } catch (err) {
+      throw err;
+    }
   }
 
   void addItem(String pId, int price, String title, String image) {
