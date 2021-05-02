@@ -148,23 +148,32 @@ exports.products_delete_product = (req, res, next) => {
     });
 
   }else{
-
-    Product.deleteOne({
-      _id: req.params.id,
-      sellerId: req.userData.userId,
-    })
+    console.log(req.userData.userId);
+    console.log(req.params.id);
+    Product.findOne({_id:req.params.id})
       .then((result) => {
-        if(result.deletedCount==0){
+        if(result==null){
           return res.status(404).json({
-          error: "Unauthorized action or item not found!"
+            
+            error: "Unauthorized action or item not found!"
           });
         }
-        return res.status(200).json({
-          message: "Product deleted successfully",
-        });
+        if(result.sellerId != req.userData.userId){
+          return res.status(404).json({
+            error: "Unauthorized action or item not found!"
+          });
+        }
+        Product.deleteOne({_id:req.params.id}).then(()=>{
+           res.status(200).json({
+            message: "Product deleted successfully",
+          })
+        }).catch((err)=>{
+          res.status(500).json({
+            error: err
+          });
+        })
       })
       .catch((err) => {
-        // console.log(err); 
         return res.status(500).json(err);
       });
   }

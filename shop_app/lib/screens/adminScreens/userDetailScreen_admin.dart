@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/models/product.dart';
 import 'package:shop_app/models/user.dart' as user;
@@ -25,10 +26,11 @@ class UserDetailScreenAdmin extends StatelessWidget {
             children: [
               Text(
                 "User information",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6!
-                    .copyWith(color: Colors.black, fontSize: 28),
+                style: Theme.of(context).textTheme.headline6!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? null
+                        : Colors.black,
+                    fontSize: 28),
               ),
               UserInformation(
                 heading: 'Email',
@@ -41,30 +43,78 @@ class UserDetailScreenAdmin extends StatelessWidget {
               UserInformation(heading: 'Address', value: _user.address ?? ''),
               Text(
                 "Products",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6!
-                    .copyWith(color: Colors.black, fontSize: 24),
+                style: Theme.of(context).textTheme.headline6!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? null
+                        : Colors.black,
+                    fontSize: 24),
               ),
               ...product.map((e) {
                 return Card(
-                  child: ListTile(
-                    contentPadding: const EdgeInsets.all(4),
-                    leading: CachedNetworkImage(
-                      imageUrl: e.image,
-                      height: 60,
-                      width: 60,
+                  child: Dismissible(
+                    key: Key(e.id),
+                    direction: DismissDirection.startToEnd,
+                    background: Container(
+                      padding: const EdgeInsets.only(left: 30),
+                      alignment: Alignment.centerLeft,
+                      child: Icon(Icons.delete),
+                      color: Colors.red,
                     ),
-                    title: Text(e.name),
+                    confirmDismiss: (direction) {
+                      return showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text('Are you sure?'),
+                          content: Text('Do you want to remove this item?'),
+                          elevation: 20,
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(false);
+                              },
+                              child: Text(
+                                'No',
+                                style: TextStyle(
+                                    color: Theme.of(context).accentColor),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Provider.of<ProductProvider>(context,
+                                        listen: false)
+                                    .deleteItem(e.id);
+                                Navigator.of(context).pop(true);
+                              },
+                              child: Text('Yes',
+                                  style: TextStyle(
+                                      color: Theme.of(context).accentColor)),
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.all(4),
+                      leading: CachedNetworkImage(
+                        imageUrl: e.image,
+                        height: 60,
+                        width: 60,
+                      ),
+                      title: Text(
+                        e.name,
+                        style: GoogleFonts.poppins(),
+                      ),
+                    ),
                   ),
                 );
               }).toList(),
               Text(
                 "Orders",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6!
-                    .copyWith(color: Colors.black, fontSize: 24),
+                style: Theme.of(context).textTheme.headline6!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? null
+                        : Colors.black,
+                    fontSize: 24),
               ),
             ],
           ),

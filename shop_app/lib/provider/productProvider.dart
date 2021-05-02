@@ -41,6 +41,15 @@ class ProductProvider with ChangeNotifier {
     return products.firstWhere((product) => product.id == id);
   }
 
+  Future<void> deleteItem(String id) async {
+    print(id);
+    final Uri url =
+        Uri.http("fluttershop-backend.herokuapp.com", 'products/$id');
+    var response = await http
+        .delete(url, headers: {'Authorization': 'Beared $_authToken'});
+    print(response.body);
+  }
+
   List<Product> findBySeller(String id) {
     return products.where((element) => element.sellerId == id).toList();
   }
