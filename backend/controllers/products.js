@@ -2,18 +2,22 @@ const Product = require("../models/product");
 
 exports.products_get_all = (req, res, next) => {
   Product.find()
+    .populate('sellerId', 'firstname lastname')
+    .select('id name price description category productImage sellerId')
     .exec()
     .then((docs) => {
       const response = {
         count: docs.length,
         products: docs.map((doc) => {
+          console.log(doc)
           return {
             id: doc._id,
             name: doc.name,
             price: doc.price,
             description: doc.description,
             category: doc.category,
-            sellerName: doc.sellerName,
+            sellerId: doc.sellerId._id,
+            seller: doc.sellerId.firstname + doc.sellerId.lastname,
             productImage:
               "https://fluttershop-backend.herokuapp.com/" + doc.productImage,
           };
