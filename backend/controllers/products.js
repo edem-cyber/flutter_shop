@@ -17,7 +17,7 @@ exports.products_get_all = (req, res, next) => {
             description: doc.description,
             category: doc.category,
             sellerId: doc.sellerId._id,
-            seller: doc.sellerId.firstname + doc.sellerId.lastname,
+            seller: doc.sellerId.firstname +" "+doc.sellerId.lastname,
             productImage:
               "https://fluttershop-backend.herokuapp.com/" + doc.productImage,
           };

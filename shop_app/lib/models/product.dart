@@ -6,6 +6,7 @@ class Product {
   final String category;
   final String image;
   final String sellerId;
+  final String sellerName;
 
   Product({
     required this.id,
@@ -15,5 +16,6 @@ class Product {
     required this.category,
     required this.image,
     required this.sellerId,
+    this.sellerName = '',
   });
 }
