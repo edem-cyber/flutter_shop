@@ -22,14 +22,14 @@ class ProductProvider with ChangeNotifier {
     productData.forEach((p) {
       loadedProduct.add(
         Product(
-          id: p['id'],
-          name: p['name'],
-          price: p['price'],
-          description: p['description'],
-          image: p['productImage'],
-          category: p['category'],
-          sellerId: p['sellerId'],
-        ),
+            id: p['id'],
+            name: p['name'],
+            price: p['price'],
+            description: p['description'],
+            image: p['productImage'],
+            category: p['category'],
+            sellerId: p['sellerId'],
+            sellerName: p['seller']),
       );
     });
     products = loadedProduct;
