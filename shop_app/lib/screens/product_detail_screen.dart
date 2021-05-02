@@ -82,7 +82,6 @@ class ProductDetailScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: LayoutBuilder(
           builder: (context, constraints) {
-            print(constraints.maxWidth);
             return constraints.maxWidth > 960
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -170,7 +169,7 @@ class ProductDetailScreen extends StatelessWidget {
           Text('₹ ${loadedProduct.price}',
               style: GoogleFonts.poppins(
                   fontSize: 18, fontWeight: FontWeight.bold)),
-          Text('Seller - ##TODO',
+          Text('Seller - ${loadedProduct.sellerName}',
               style: GoogleFonts.poppins(fontSize: 16, color: Colors.blue)),
           SizedBox(
             height: 16,
