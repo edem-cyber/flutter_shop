@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/models/order.dart';
 import 'package:shop_app/provider/cartProvider.dart';
-import 'package:shop_app/widgets/order_page_item.dart';
+import 'package:shop_app/widgets/order_page_order.dart';
 
 class MyOrderPage extends StatefulWidget {
   static const routeName = "/my-order-page";
@@ -41,7 +41,7 @@ class _MyOrderPageState extends State<MyOrderPage> {
               width: MediaQuery.of(context).size.width,
               child: ListView.builder(
                 itemBuilder: (context, index) {
-                  return OrderPageItem(order[index].pIds, order[index].q,
+                  return OrderPageOrder(order[index].pIds, order[index].q,
                       order[index].dateTime, order[index].id);
                 },
                 itemCount: order.length,
