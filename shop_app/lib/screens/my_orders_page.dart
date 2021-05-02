@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/models/order.dart';
 import 'package:shop_app/provider/cartProvider.dart';
+import 'package:shop_app/widgets/order_page_item.dart';
 
 class MyOrderPage extends StatefulWidget {
   static const routeName = "/my-order-page";
@@ -29,18 +30,22 @@ class _MyOrderPageState extends State<MyOrderPage> {
   @override
   Widget build(BuildContext context) {
     List<Order> order = Provider.of<Cart>(context).orders;
-
-    print(order);
     return Scaffold(
       appBar: AppBar(),
       body: Loading
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : ListView.builder(
-              itemBuilder: (context, index) =>
-                  Text(order[index].dateTime.toString()),
-              itemCount: order.length,
+          : Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return OrderPageItem(order[index].pIds, order[index].q,
+                      order[index].dateTime, order[index].id);
+                },
+                itemCount: order.length,
+              ),
             ),
     );
   }

@@ -60,10 +60,6 @@ class Cart with ChangeNotifier {
 
   Future<void> placeOrder() async {
     final Uri url = Uri.http("fluttershop-backend.herokuapp.com", 'orders');
-    print(_userId);
-    print(_token);
-    print(_ps);
-    print(_q);
     try {
       var response = await http.post(url,
           body: json.encode(

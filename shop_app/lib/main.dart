@@ -13,9 +13,9 @@ import 'package:shop_app/screens/add_product_screen.dart';
 import 'package:shop_app/screens/adminScreens/userDetailScreen_admin.dart';
 import 'package:shop_app/screens/cartPage.dart';
 import 'package:shop_app/screens/my_account_page.dart';
+import 'package:shop_app/screens/my_orders_page.dart';
 import 'package:shop_app/screens/product_detail_screen.dart';
 import 'package:shop_app/screens/searchpage.dart';
-import 'package:shop_app/widgets/my_orders_page.dart';
 
 import './screens/mainPage.dart';
 
@@ -74,7 +74,7 @@ class MyApp extends StatelessWidget {
               subtitle2: GoogleFonts.notoSans(fontSize: 16),
             ),
           ),
-          themeMode: ThemeMode.system,
+          themeMode: ThemeMode.light,
           theme: ThemeData(
             primarySwatch: Colors.indigo,
             accentColor: Colors.amber,

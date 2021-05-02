@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/provider/authProvider.dart';
-import 'package:shop_app/provider/cartProvider.dart';
 import 'package:shop_app/screens/my_account_page.dart';
-import 'package:shop_app/widgets/my_orders_page.dart';
+import 'package:shop_app/screens/my_orders_page.dart';
 
 class CustomDrawer extends StatelessWidget {
   final int role;

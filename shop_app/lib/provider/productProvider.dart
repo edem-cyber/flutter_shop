@@ -82,4 +82,10 @@ class ProductProvider with ChangeNotifier {
         products.where((element) => element.category == category).toList();
     return _p;
   }
+
+  List<Product> getItemOfProduct(List<dynamic> ids) {
+    List<Product> _p =
+        products.where((element) => ids.contains(element.id)).toList();
+    return _p;
+  }
 }
