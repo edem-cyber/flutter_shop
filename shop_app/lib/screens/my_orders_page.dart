@@ -31,7 +31,12 @@ class _MyOrderPageState extends State<MyOrderPage> {
   Widget build(BuildContext context) {
     List<Order> order = Provider.of<Cart>(context).orders;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(
+          'My Orders',
+          style: Theme.of(context).textTheme.headline6,
+        ),
+      ),
       body: Loading
           ? Center(
               child: CircularProgressIndicator(),
