@@ -74,7 +74,7 @@ class MyApp extends StatelessWidget {
               subtitle2: GoogleFonts.notoSans(fontSize: 16),
             ),
           ),
-          themeMode: ThemeMode.light,
+          themeMode: ThemeMode.system,
           theme: ThemeData(
             primarySwatch: Colors.indigo,
             accentColor: Colors.amber,
