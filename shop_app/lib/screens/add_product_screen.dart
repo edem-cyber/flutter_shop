@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/models/HttpException.dart';
 import 'package:shop_app/provider/productProvider.dart';
 
 class AddProductScreen extends StatefulWidget {
@@ -72,7 +73,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
         ),
       );
     } on HttpException catch (err) {
-      openDialog(err.message);
+      print(err);
+      openDialog(err.msg);
     }
     setState(() {
       isLoading = false;
