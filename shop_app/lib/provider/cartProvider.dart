@@ -36,10 +36,10 @@ class Cart with ChangeNotifier {
     return List.from(_orders.reversed);
   }
 
-  Future<void> getOrder() async {
+  Future<void> getOrder(String userId) async {
     final Uri url = Uri.http("fluttershop-backend.herokuapp.com", 'orders');
-    var response =
-        await http.get(url, headers: {'Authorization': 'Bearer $_token'});
+    var response = await http
+        .get(url, headers: {'Authorization': 'Bearer $_token', 'user': userId});
     var responseData = json.decode(response.body);
     var orders = responseData['orders'];
     int count = responseData['count'];
@@ -55,7 +55,6 @@ class Cart with ChangeNotifier {
       );
     }
     _orders = o;
-    print(_orders);
     notifyListeners();
   }
 

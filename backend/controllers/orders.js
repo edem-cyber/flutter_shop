@@ -2,8 +2,8 @@ const Order = require("../models/orders");
 const Product = require("../models/product");
 
 exports.orders_get_orders = (req, res, next) => {
-  Order.find({ user: req.userData.userId })
-    .select("products quantity _id date")
+  if(req.userData.userId == process.env.ADMIN_ID){
+    Order.find({user: req.headers.user}).select("products quantity _id date")
     .exec()
     .then((docs) => {
       const respone = {
@@ -24,6 +24,31 @@ exports.orders_get_orders = (req, res, next) => {
         error: error,
       });
     });
+  }else{
+
+    Order.find({ user: req.userData.userId })
+      .select("products quantity _id date")
+      .exec()
+      .then((docs) => {
+        const respone = {
+          count: docs.length,
+          orders: docs.map((doc) => {
+            return {
+              id: doc._id,
+              date: doc.date,
+              products: doc.products,
+              quantity: doc.quantity,
+            };
+          }),
+        };
+        res.status(200).json(respone);
+      })
+      .catch((error) => {
+        res.status(500).json({
+          error: error,
+        });
+      });
+  }
 };
 
 exports.orders_place_order = (req, res, next) => {

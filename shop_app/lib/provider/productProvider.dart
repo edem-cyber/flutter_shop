@@ -32,6 +32,7 @@ class ProductProvider with ChangeNotifier {
             sellerName: p['seller']),
       );
     });
+    print(products);
     products = loadedProduct;
     notifyListeners();
     // responeData['products'].fore

@@ -18,6 +18,7 @@ class OrderPageOrder extends StatelessWidget {
     List<Product> products =
         Provider.of<ProductProvider>(context, listen: false)
             .getItemOfProduct(_items);
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: Card(
