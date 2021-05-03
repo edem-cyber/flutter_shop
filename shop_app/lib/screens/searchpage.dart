@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shop_app/models/product.dart';
 import 'package:shop_app/provider/productProvider.dart';
 import 'package:shop_app/screens/product_detail_screen.dart';
+import 'package:shop_app/widgets/searchPageProductItem.dart';
 
 class SearchPage extends StatefulWidget {
   static const routeName = "/search";
@@ -46,28 +47,7 @@ class _SearchPageState extends State<SearchPage> {
           },
         ),
       ),
-      body: ListView.builder(
-        itemBuilder: (context, index) => Container(
-          padding: const EdgeInsets.all(8.0),
-          decoration:
-              BoxDecoration(border: Border(bottom: BorderSide(width: 1))),
-          child: ListTile(
-            onTap: () => Navigator.of(context).pushNamed(
-                ProductDetailScreen.routeName,
-                arguments: product[index].id),
-            leading: Hero(
-              tag: product[index].id,
-              child: CachedNetworkImage(
-                imageUrl: product[index].image,
-                height: 60,
-                width: 60,
-              ),
-            ),
-            title: Text(product[index].name),
-          ),
-        ),
-        itemCount: product.length,
-      ),
+      body: SimpleProductInfo(product: product),
     );
   }
 }

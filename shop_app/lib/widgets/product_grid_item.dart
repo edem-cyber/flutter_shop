@@ -158,14 +158,17 @@ class _ProductGridItemState extends State<ProductGridItem> {
                 padding: widget.screenSize == ScreenSize.small
                     ? const EdgeInsets.only(left: 8, top: 4, right: 8)
                     : const EdgeInsets.only(left: 16, top: 4, right: 16),
-                child: Text(
-                  widget.product.name,
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle2!
-                      .copyWith(fontSize: 18),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                child: Hero(
+                  tag: '${widget.product.id}-name',
+                  child: Text(
+                    widget.product.name,
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle2!
+                        .copyWith(fontSize: 18),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
               Container(

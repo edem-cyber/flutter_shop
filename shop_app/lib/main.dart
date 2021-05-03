@@ -64,6 +64,9 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.indigo,
             accentColor: Colors.amber,
             fontFamily: 'Poppins',
+            pageTransitionsTheme: PageTransitionsTheme(builders: {
+              TargetPlatform.android: ZoomPageTransitionsBuilder()
+            }),
             textTheme: TextTheme(
               headline6: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold, color: Colors.white),
@@ -79,6 +82,9 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.indigo,
             accentColor: Colors.amber,
             fontFamily: 'Poppins',
+            pageTransitionsTheme: PageTransitionsTheme(builders: {
+              TargetPlatform.android: ZoomPageTransitionsBuilder()
+            }),
             textTheme: TextTheme(
               headline6: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold, color: Colors.white),

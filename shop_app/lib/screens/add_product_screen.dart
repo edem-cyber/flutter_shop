@@ -58,7 +58,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
         builder: (context) => AlertDialog(
           title: Text(
             'Successful',
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? null
+                    : Colors.black),
           ),
           content: Text('Product added successfully!'),
           actions: [
@@ -67,7 +70,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
               },
-              child: Text('Okay!'),
+              child: Text(
+                'Okay!',
+                style: TextStyle(
+                  color: Theme.of(context).accentColor,
+                ),
+              ),
             ),
           ],
         ),
