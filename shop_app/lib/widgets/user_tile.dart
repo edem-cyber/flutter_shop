@@ -21,17 +21,25 @@ class UserTile extends StatelessWidget {
         Navigator.of(context)
             .pushNamed(UserDetailScreenAdmin.routeName, arguments: _user.id);
       },
-      tileColor: _user.role == 0 ? Colors.yellow : Colors.lightGreen,
+      tileColor: _user.role == 0 ? Colors.yellow.shade800 : Colors.lightGreen,
       leading: CircleAvatar(
         child: Icon(Icons.person),
       ),
       title: Text(
         '${_user.firstname} ${_user.lastname}',
-        style: Theme.of(context).textTheme.bodyText1,
+        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.black
+                  : null,
+            ),
       ),
       subtitle: Text(
         _user.role == 0 ? 'Seller' : 'Buyer',
-        style: Theme.of(context).textTheme.subtitle2,
+        style: Theme.of(context).textTheme.subtitle2!.copyWith(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.black
+                  : null,
+            ),
       ),
     );
     return Dismissible(
