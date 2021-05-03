@@ -45,12 +45,23 @@ class ProductProvider with ChangeNotifier {
     print(id);
     final Uri url =
         Uri.http("fluttershop-backend.herokuapp.com", 'products/$id');
-    var response = await http
-        .delete(url, headers: {'Authorization': 'Beared $_authToken'});
-    print(response.body);
+    try {
+      var response = await http
+          .delete(url, headers: {'Authorization': 'Beared $_authToken'});
+      var responseData = json.decode(response.body);
+      if (responseData['error'] != null) {
+        throw HttpException(responseData['error']);
+      }
+      products.removeWhere((element) => element.id == id);
+      print(products.length);
+      notifyListeners();
+    } catch (err) {
+      throw err;
+    }
   }
 
   List<Product> findBySeller(String id) {
+    print(products.length);
     return products.where((element) => element.sellerId == id).toList();
   }
 

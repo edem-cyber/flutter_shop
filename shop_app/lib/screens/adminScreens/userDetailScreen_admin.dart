@@ -2,19 +2,50 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/models/HttpException.dart';
+import 'package:shop_app/models/order.dart';
 import 'package:shop_app/models/product.dart';
 import 'package:shop_app/models/user.dart' as user;
+import 'package:shop_app/provider/cartProvider.dart';
 import 'package:shop_app/provider/productProvider.dart';
 import 'package:shop_app/provider/userProvider.dart';
+import 'package:shop_app/widgets/adminUserDetailProduct.dart';
 
-class UserDetailScreenAdmin extends StatelessWidget {
+class UserDetailScreenAdmin extends StatefulWidget {
   static const routeName = "/user-detail-admin";
+
+  @override
+  _UserDetailScreenAdminState createState() => _UserDetailScreenAdminState();
+}
+
+class _UserDetailScreenAdminState extends State<UserDetailScreenAdmin> {
+  late String userId;
+  late user.User _user;
+  late List<Product> product = [];
+  late List<Order> order = [];
+  bool init = false;
+  bool isLoading = false;
+
+  @override
+  void didChangeDependencies() {
+    if (!init) {
+      userId = ModalRoute.of(context)?.settings.arguments as String;
+      _user = Provider.of<User>(context, listen: false).findById(userId);
+      product = Provider.of<ProductProvider>(context).findBySeller(userId);
+      Provider.of<Cart>(context, listen: false).getOrder().then((value) {
+        setState(() {
+          init = true;
+        });
+      });
+    }
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final userId = ModalRoute.of(context)?.settings.arguments as String;
-    user.User _user = Provider.of<User>(context).findById(userId);
-    List<Product> product =
-        Provider.of<ProductProvider>(context).findBySeller(userId);
+    // print(product.length);
+    order = Provider.of<Cart>(context).orders;
+    print(order);
     return Scaffold(
       appBar: AppBar(),
       body: Container(
@@ -50,72 +81,20 @@ class UserDetailScreenAdmin extends StatelessWidget {
                     fontSize: 24),
               ),
               ...product.map((e) {
-                return Card(
-                  child: Dismissible(
-                    key: Key(e.id),
-                    direction: DismissDirection.startToEnd,
-                    background: Container(
-                      padding: const EdgeInsets.only(left: 30),
-                      alignment: Alignment.centerLeft,
-                      child: Icon(Icons.delete),
-                      color: Colors.red,
-                    ),
-                    confirmDismiss: (direction) {
-                      return showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: Text('Are you sure?'),
-                          content: Text('Do you want to remove this item?'),
-                          elevation: 20,
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop(false);
-                              },
-                              child: Text(
-                                'No',
-                                style: TextStyle(
-                                    color: Theme.of(context).accentColor),
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Provider.of<ProductProvider>(context,
-                                        listen: false)
-                                    .deleteItem(e.id);
-                                Navigator.of(context).pop(true);
-                              },
-                              child: Text('Yes',
-                                  style: TextStyle(
-                                      color: Theme.of(context).accentColor)),
-                            )
-                          ],
-                        ),
-                      );
-                    },
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.all(4),
-                      leading: CachedNetworkImage(
-                        imageUrl: e.image,
-                        height: 60,
-                        width: 60,
-                      ),
-                      title: Text(
-                        e.name,
-                        style: GoogleFonts.poppins(),
-                      ),
-                    ),
-                  ),
-                );
+                return AdminUserDetailProduct(e: e);
               }).toList(),
               Text(
                 "Orders",
                 style: Theme.of(context).textTheme.headline6!.copyWith(
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? null
-                        : Colors.black,
-                    fontSize: 24),
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? null
+                          : Colors.black,
+                      fontSize: 24,
+                    ),
               ),
+              ...order.map((e) {
+                return Text(e.id);
+              }).toList()
             ],
           ),
         ),

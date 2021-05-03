@@ -55,6 +55,7 @@ class Cart with ChangeNotifier {
       );
     }
     _orders = o;
+    print(_orders);
     notifyListeners();
   }
 
