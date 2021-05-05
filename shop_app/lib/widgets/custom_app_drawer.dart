@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shop_app/provider/authProvider.dart';
 import 'package:shop_app/screens/my_account_page.dart';
 import 'package:shop_app/screens/my_orders_page.dart';
+import 'package:shop_app/screens/my_product_screen.dart';
 
 class CustomDrawer extends StatelessWidget {
   final int role;
@@ -54,14 +55,19 @@ class CustomDrawer extends StatelessWidget {
         children: [
           drawerHeader,
           option(context, 'My Orders', Icons.shopping_bag, () {
+            Navigator.of(context).pop();
             Navigator.of(context).pushNamed(MyOrderPage.routeName);
           }),
           option(context, 'My Account', Icons.person, () {
+            Navigator.of(context).pop();
             Navigator.of(context).pushNamed(MyAccountPage.routeName);
           }),
           option(context, 'My Cart', Icons.shopping_cart, () {}),
           option(context, 'My Favorite', Icons.favorite, () {}),
-          option(context, 'My Products', Icons.list, () {}),
+          option(context, 'My Products', Icons.list, () {
+            Navigator.of(context).pop();
+            Navigator.of(context).pushNamed(MyProduct.routeName);
+          }),
           option(context, 'My Settings', Icons.settings, () {}),
           option(context, 'About Us', Icons.help_outline, () {}),
           option(context, 'Rate Us', Icons.star, () {}),

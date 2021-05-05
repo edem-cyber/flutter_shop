@@ -16,7 +16,13 @@ class SimpleProductInfo extends StatelessWidget {
     return ListView.builder(
       itemBuilder: (context, index) => Container(
         padding: const EdgeInsets.all(8.0),
-        decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 1))),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              width: 1,
+            ),
+          ),
+        ),
         child: ListTile(
           onTap: () => Navigator.of(context).pushNamed(
               ProductDetailScreen.routeName,
