@@ -1,6 +1,7 @@
 //@dart=2.9
 
 import 'package:flutter/foundation.dart';
+import 'package:shop_app/models/product.dart';
 
 class User {
   final int role;
@@ -10,6 +11,7 @@ class User {
   final String id;
   final String address;
   final String phoneNo;
+  final List<Product> favs;
 
   User({
     @required this.email,
@@ -19,5 +21,6 @@ class User {
     @required this.id,
     this.address,
     this.phoneNo,
+    this.favs,
   });
 }

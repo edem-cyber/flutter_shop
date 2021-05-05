@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:provider/provider.dart';
 import 'package:shop_app/models/product.dart';
+import 'package:shop_app/provider/authProvider.dart';
 import 'package:shop_app/provider/cartProvider.dart';
 import 'package:shop_app/provider/productProvider.dart';
 import 'package:shop_app/screens/cartPage.dart';
@@ -13,6 +14,7 @@ class ProductDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productId = ModalRoute.of(context)?.settings.arguments as String;
+    var isFav = Provider.of<AuthProvider>(context).isFav(productId);
     final loadedProduct = Provider.of<ProductProvider>(
       context,
       listen: false,
@@ -56,7 +58,7 @@ class ProductDetailScreen extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
                 color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.black54
+                    ? Colors.black87
                     : Colors.white,
                 shape: BoxShape.circle,
                 boxShadow: [
@@ -67,8 +69,14 @@ class ProductDetailScreen extends StatelessWidget {
                   )
                 ]),
             child: IconButton(
-              icon: Icon(Icons.favorite),
-              onPressed: () {},
+              icon: Icon(
+                Icons.favorite,
+                color: isFav ? Colors.red : null,
+              ),
+              onPressed: () {
+                Provider.of<AuthProvider>(context, listen: false)
+                    .toggleFavorite(loadedProduct);
+              },
             ),
           ),
         )

@@ -13,6 +13,7 @@ import 'package:shop_app/screens/add_product_screen.dart';
 import 'package:shop_app/screens/adminScreens/userDetailScreen_admin.dart';
 import 'package:shop_app/screens/cartPage.dart';
 import 'package:shop_app/screens/my_account_page.dart';
+import 'package:shop_app/screens/my_favorite_screen.dart';
 import 'package:shop_app/screens/my_orders_page.dart';
 import 'package:shop_app/screens/my_product_screen.dart';
 import 'package:shop_app/screens/product_detail_screen.dart';
@@ -106,6 +107,7 @@ class MyApp extends StatelessWidget {
             CartPage.routeName: (ctx) => CartPage(),
             MyOrderPage.routeName: (ctx) => MyOrderPage(),
             MyProduct.routeName: (ctx) => MyProduct(),
+            MyFavScreen.routeName: (ctx) => MyFavScreen(),
           },
         ),
       ),

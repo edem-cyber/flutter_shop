@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:shop_app/models/HttpException.dart';
+import 'package:shop_app/models/product.dart';
 import 'package:shop_app/provider/secureStorage.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -12,6 +13,8 @@ class AuthProvider with ChangeNotifier {
   String _userId = '';
   // late Timer _authTimer;
   int _role = 1;
+  List<Product> _fav = [];
+
   final SecureStroage secureStroage = SecureStroage();
 
   bool get isAuth {
@@ -33,6 +36,10 @@ class AuthProvider with ChangeNotifier {
 
   int get role {
     return _role;
+  }
+
+  List<Product> get favs {
+    return _fav;
   }
 
   Future<void> authenticate(String urlpath, Object data) async {
@@ -104,5 +111,20 @@ class AuthProvider with ChangeNotifier {
     _userId = "";
     notifyListeners();
     secureStroage.deleteStorage();
+  }
+
+  void toggleFavorite(Product product) {
+    int index = _fav.indexWhere((element) => element.id == product.id);
+    if (index == -1) {
+      _fav.add(product);
+    } else {
+      _fav.removeAt(index);
+    }
+    print(_fav.length);
+    notifyListeners();
+  }
+
+  bool isFav(String id) {
+    return _fav.indexWhere((element) => element.id == id) != -1;
   }
 }
