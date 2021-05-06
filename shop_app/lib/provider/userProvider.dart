@@ -72,12 +72,22 @@ class User with ChangeNotifier {
     return users.firstWhere((element) => element.id == id);
   }
 
+  Future<void> toggleFavFromDB(String route, String pid) async {
+    Uri uri =
+        Uri.parse("https://fluttershop-backend.herokuapp.com/user/$route/$pid");
+    var response =
+        await http.post(uri, headers: {"Authorization": "Bearer $_token"});
+    print(response.body);
+  }
+
   void toggleFavorite(Product product) {
     int index = _fav.indexWhere((element) => element.id == product.id);
     if (index == -1) {
       _fav.add(product);
+      toggleFavFromDB('add', product.id);
     } else {
       _fav.removeAt(index);
+      toggleFavFromDB('remove', product.id);
     }
     print(_fav.length);
     notifyListeners();

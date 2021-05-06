@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hawk_fab_menu/hawk_fab_menu.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/provider/cartProvider.dart';
+import 'package:shop_app/provider/userProvider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:shop_app/screens/add_product_screen.dart';
 import 'package:shop_app/screens/adminScreens/admin_page.dart';
@@ -52,6 +53,7 @@ class _HomePageState extends State<HomePage> {
         _isLoading = false;
       });
     });
+    Provider.of<User>(context, listen: false).getMyDetail();
     super.initState();
   }
 
