@@ -22,6 +22,10 @@ router.post("/login", UserController.user_login);
 
 router.get("/:id",checkAuth, UserController.user_detail);
 
-router.delete("/:id",checkAuth,UserController.user_delete);
+router.delete("/:id",checkAuth,adminCheck,UserController.user_delete);
+
+router.post("/add/:pid",checkAuth,UserController.user_add_fav);
+
+router.post("/remove/:pid",checkAuth,UserController.user_rem_fav);
 
 module.exports = router;

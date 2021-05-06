@@ -110,12 +110,6 @@ exports.user_login = (req, res, next) => {
             expiresIn: 1,
             userId: userSave._id,
             role: userSave.role,
-            email: userSave.email,
-            firstname: userSave.firstname,
-            lastname: userSave.lastname,
-            phone: userSave.phone,
-            address: userSave.address,
-            favorite: userSave.favorite
           });
         })
         .catch((err) => {
@@ -159,9 +153,32 @@ exports.user_detail = (req,res,next)=>{
         error: "You're not authorized"
       })
     }
+    console.log(result);
     res.status(200).json({
       user: result
     });
   }).catch();
+};
+
+exports.user_add_fav = (req,res,next)=>{
+  User.updateOne({_id: req.userData.userId},{$push: {"favorite": req.params.pid}}).then((val)=>{
+    console.log(val);
+    res.status(200).json(val);
+  }).catch((err)=>{
+    res.status(500).json({
+      error: err,
+    });
+  })
+};
+
+exports.user_rem_fav = (req,res,next)=>{
+  User.updateOne({_id: req.userData.userId},{$pull: {"favorite":  req.params.pid}}).then((val)=>{
+    console.log(val);
+    res.status(200).json(val);
+  }).catch((err)=>{
+    res.status(500).json({
+      error: err,
+    });
+  })
 };
 
