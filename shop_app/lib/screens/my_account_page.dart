@@ -88,6 +88,11 @@ class _MyAccountPageState extends State<MyAccountPage> {
                             ),
                             prefixIcon: Icon(Icons.person_outline),
                             labelText: 'First Name'),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'This field cannot be empty';
+                          }
+                        },
                       ),
                       SizedBox(
                         height: 16,
@@ -102,6 +107,11 @@ class _MyAccountPageState extends State<MyAccountPage> {
                             ),
                             prefixIcon: Icon(Icons.person_outline),
                             labelText: 'Last Name'),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "This field cannot be empty";
+                          }
+                        },
                       ),
                       SizedBox(
                         height: 16,
@@ -124,13 +134,19 @@ class _MyAccountPageState extends State<MyAccountPage> {
                       TextFormField(
                         initialValue: details['phone'],
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
                             ),
-                            prefixIcon: Icon(Icons.phone),
-                            labelText: 'Mobile no.'),
+                          ),
+                          prefixIcon: Icon(Icons.phone),
+                          labelText: 'Mobile no.',
+                        ),
+                        validator: (value) {
+                          if (value!.length < 10) {
+                            return "Please enter a valid mobile number!";
+                          }
+                        },
                       )
                     ],
                   ),

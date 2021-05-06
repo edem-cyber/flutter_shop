@@ -1,15 +1,40 @@
+import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/provider/authProvider.dart';
 import 'package:shop_app/screens/my_account_page.dart';
 import 'package:shop_app/screens/my_favorite_screen.dart';
 import 'package:shop_app/screens/my_orders_page.dart';
 import 'package:shop_app/screens/my_product_screen.dart';
+import 'package:thememode_selector/thememode_selector.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
   final int role;
+
   CustomDrawer(this.role);
+
+  @override
+  _CustomDrawerState createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
+  bool isDark = false;
+
+  @override
+  void initState() {
+    isDark = Provider.of<AuthProvider>(context, listen: false).isDark;
+
+    super.initState();
+  }
+
+  toggleDark() {
+    Provider.of<AuthProvider>(context, listen: false).toggleDark();
+    setState(() {
+      isDark = !isDark;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,33 +77,48 @@ class CustomDrawer extends StatelessWidget {
 
     return Drawer(
       elevation: 60,
-      child: Column(
-        children: [
-          drawerHeader,
-          option(context, 'My Orders', Icons.shopping_bag, () {
-            Navigator.of(context).pop();
-            Navigator.of(context).pushNamed(MyOrderPage.routeName);
-          }),
-          option(context, 'My Account', Icons.person, () {
-            Navigator.of(context).pop();
-            Navigator.of(context).pushNamed(MyAccountPage.routeName);
-          }),
-          option(context, 'My Cart', Icons.shopping_cart, () {}),
-          option(context, 'My Favorite', Icons.favorite, () {
-            Navigator.of(context).pop();
-            Navigator.of(context).pushNamed(MyFavScreen.routeName);
-          }),
-          option(context, 'My Products', Icons.list, () {
-            Navigator.of(context).pop();
-            Navigator.of(context).pushNamed(MyProduct.routeName);
-          }),
-          option(context, 'My Settings', Icons.settings, () {}),
-          option(context, 'About Us', Icons.help_outline, () {}),
-          option(context, 'Rate Us', Icons.star, () {}),
-          option(context, 'Log Out', Icons.logout, () {
-            Provider.of<AuthProvider>(context, listen: false).logout();
-          })
-        ],
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          children: [
+            drawerHeader,
+            option(context, 'My Orders', Icons.shopping_bag, () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pushNamed(MyOrderPage.routeName);
+            }),
+            option(context, 'My Account', Icons.person, () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pushNamed(MyAccountPage.routeName);
+            }),
+            option(context, 'My Cart', Icons.shopping_cart, () {}),
+            option(context, 'My Favorite', Icons.favorite, () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pushNamed(MyFavScreen.routeName);
+            }),
+            option(context, 'My Products', Icons.list, () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pushNamed(MyProduct.routeName);
+            }),
+            option(context, 'About Us', Icons.help_outline, () {}),
+            option(context, 'Rate Us', Icons.star, () {}),
+            option(context, 'Log Out', Icons.logout, () {
+              Provider.of<AuthProvider>(context, listen: false).logout();
+            }),
+            Spacer(),
+            ListTile(
+              title: Text(
+                'Switch Mode',
+                style: GoogleFonts.poppins(fontSize: 14),
+              ),
+              trailing: DayNightSwitcher(
+                isDarkModeEnabled: isDark,
+                onStateChanged: (isDarkModeEnabled) {
+                  toggleDark();
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -58,56 +58,61 @@ class MyApp extends StatelessWidget {
             currentFocus.focusedChild?.unfocus();
           }
         },
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'SoulShop',
-          darkTheme: ThemeData(
-            brightness: Brightness.dark,
-            primarySwatch: Colors.indigo,
-            accentColor: Colors.amber,
-            fontFamily: 'Poppins',
-            pageTransitionsTheme: PageTransitionsTheme(builders: {
-              TargetPlatform.android: ZoomPageTransitionsBuilder()
-            }),
-            textTheme: TextTheme(
-              headline6: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold, color: Colors.white),
-              bodyText1: GoogleFonts.raleway(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+        child: Consumer<AuthProvider>(
+          builder: (context, auth, child) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'SoulShop',
+              darkTheme: ThemeData(
+                brightness: Brightness.dark,
+                primarySwatch: Colors.indigo,
+                accentColor: Colors.amber,
+                fontFamily: 'Poppins',
+                pageTransitionsTheme: PageTransitionsTheme(builders: {
+                  TargetPlatform.android: ZoomPageTransitionsBuilder()
+                }),
+                textTheme: TextTheme(
+                  headline6: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold, color: Colors.white),
+                  bodyText1: GoogleFonts.raleway(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  subtitle2: GoogleFonts.notoSans(fontSize: 16),
+                ),
               ),
-              subtitle2: GoogleFonts.notoSans(fontSize: 16),
-            ),
-          ),
-          themeMode: ThemeMode.system,
-          theme: ThemeData(
-            primarySwatch: Colors.indigo,
-            accentColor: Colors.amber,
-            fontFamily: 'Poppins',
-            pageTransitionsTheme: PageTransitionsTheme(builders: {
-              TargetPlatform.android: ZoomPageTransitionsBuilder()
-            }),
-            textTheme: TextTheme(
-              headline6: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold, color: Colors.white),
-              bodyText1: GoogleFonts.raleway(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+              themeMode: auth.isDark ? ThemeMode.dark : ThemeMode.light,
+              theme: ThemeData(
+                primarySwatch: Colors.indigo,
+                accentColor: Colors.amber,
+                fontFamily: 'Poppins',
+                pageTransitionsTheme: PageTransitionsTheme(builders: {
+                  TargetPlatform.android: ZoomPageTransitionsBuilder()
+                }),
+                textTheme: TextTheme(
+                  headline6: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold, color: Colors.white),
+                  bodyText1: GoogleFonts.raleway(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  subtitle2: GoogleFonts.notoSans(fontSize: 16),
+                ),
               ),
-              subtitle2: GoogleFonts.notoSans(fontSize: 16),
-            ),
-          ),
-          home: MainScreen(),
-          routes: {
-            ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
-            AddProductScreen.routeName: (ctx) => AddProductScreen(),
-            SearchPage.routeName: (ctx) => SearchPage(),
-            UserDetailScreenAdmin.routeName: (ctx) => UserDetailScreenAdmin(),
-            MyAccountPage.routeName: (ctx) => MyAccountPage(),
-            CartPage.routeName: (ctx) => CartPage(),
-            MyOrderPage.routeName: (ctx) => MyOrderPage(),
-            MyProduct.routeName: (ctx) => MyProduct(),
-            MyFavScreen.routeName: (ctx) => MyFavScreen(),
+              home: MainScreen(auth),
+              routes: {
+                ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
+                AddProductScreen.routeName: (ctx) => AddProductScreen(),
+                SearchPage.routeName: (ctx) => SearchPage(),
+                UserDetailScreenAdmin.routeName: (ctx) =>
+                    UserDetailScreenAdmin(),
+                MyAccountPage.routeName: (ctx) => MyAccountPage(),
+                CartPage.routeName: (ctx) => CartPage(),
+                MyOrderPage.routeName: (ctx) => MyOrderPage(),
+                MyProduct.routeName: (ctx) => MyProduct(),
+                MyFavScreen.routeName: (ctx) => MyFavScreen(),
+              },
+            );
           },
         ),
       ),

@@ -13,6 +13,7 @@ class AuthProvider with ChangeNotifier {
   String _userId = '';
   // late Timer _authTimer;
   int _role = 1;
+  bool _isDark = false;
 
   final SecureStroage secureStroage = SecureStroage();
 
@@ -35,6 +36,15 @@ class AuthProvider with ChangeNotifier {
 
   int get role {
     return _role;
+  }
+
+  bool get isDark {
+    return _isDark;
+  }
+
+  toggleDark() {
+    _isDark = !_isDark;
+    notifyListeners();
   }
 
   Future<void> authenticate(String urlpath, Object data) async {
