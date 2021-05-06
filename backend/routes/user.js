@@ -20,23 +20,7 @@ router.post("/signup", UserController.user_signup);
 
 router.post("/login", UserController.user_login);
 
-router.get("/:id",checkAuth,(req,res,next)=>{
-  User.findOne({_id: req.params.id}).populate('favorite').select('-password').then((result)=>{
-    if(!result){
-      return res.status(404).json({
-        error: "Not Found!"
-      });
-    }
-    if(result.id != req.userData.userId){
-      return res.status(403).json({
-        error: "You're not authorized"
-      })
-    }
-    res.status(200).json({
-      user: result
-    });
-  }).catch();
-});
+router.get("/:id",checkAuth, UserController.user_detail);
 
 router.delete("/:id",checkAuth,UserController.user_delete);
 
