@@ -78,7 +78,7 @@ exports.user_signup = (req, res, next) => {
 
 exports.user_login = (req, res, next) => {
   let userSave;
-  User.findOne({ email: req.body.email })
+  User.findOne({ email: req.body.email }).populate('favorite')
     .then((user) => {
       if (!user) {
         return res.status(404).json({
@@ -110,6 +110,12 @@ exports.user_login = (req, res, next) => {
             expiresIn: 1,
             userId: userSave._id,
             role: userSave.role,
+            email: userSave.email,
+            firstname: userSave.firstname,
+            lastname: userSave.lastname,
+            phone: userSave.phone,
+            address: userSave.address,
+            favorite: userSave.favorite
           });
         })
         .catch((err) => {

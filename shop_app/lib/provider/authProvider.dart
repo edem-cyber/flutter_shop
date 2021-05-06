@@ -13,7 +13,6 @@ class AuthProvider with ChangeNotifier {
   String _userId = '';
   // late Timer _authTimer;
   int _role = 1;
-  List<Product> _fav = [];
 
   final SecureStroage secureStroage = SecureStroage();
 
@@ -36,10 +35,6 @@ class AuthProvider with ChangeNotifier {
 
   int get role {
     return _role;
-  }
-
-  List<Product> get favs {
-    return _fav;
   }
 
   Future<void> authenticate(String urlpath, Object data) async {
@@ -111,20 +106,5 @@ class AuthProvider with ChangeNotifier {
     _userId = "";
     notifyListeners();
     secureStroage.deleteStorage();
-  }
-
-  void toggleFavorite(Product product) {
-    int index = _fav.indexWhere((element) => element.id == product.id);
-    if (index == -1) {
-      _fav.add(product);
-    } else {
-      _fav.removeAt(index);
-    }
-    print(_fav.length);
-    notifyListeners();
-  }
-
-  bool isFav(String id) {
-    return _fav.indexWhere((element) => element.id == id) != -1;
   }
 }

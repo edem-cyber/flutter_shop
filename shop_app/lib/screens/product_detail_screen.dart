@@ -7,6 +7,7 @@ import 'package:shop_app/models/product.dart';
 import 'package:shop_app/provider/authProvider.dart';
 import 'package:shop_app/provider/cartProvider.dart';
 import 'package:shop_app/provider/productProvider.dart';
+import 'package:shop_app/provider/userProvider.dart';
 import 'package:shop_app/screens/cartPage.dart';
 
 class ProductDetailScreen extends StatelessWidget {
@@ -14,7 +15,7 @@ class ProductDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productId = ModalRoute.of(context)?.settings.arguments as String;
-    var isFav = Provider.of<AuthProvider>(context).isFav(productId);
+    var isFav = Provider.of<User>(context).isFav(productId);
     final loadedProduct = Provider.of<ProductProvider>(
       context,
       listen: false,
@@ -74,7 +75,7 @@ class ProductDetailScreen extends StatelessWidget {
                 color: isFav ? Colors.red : null,
               ),
               onPressed: () {
-                Provider.of<AuthProvider>(context, listen: false)
+                Provider.of<User>(context, listen: false)
                     .toggleFavorite(loadedProduct);
               },
             ),
