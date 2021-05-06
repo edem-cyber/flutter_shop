@@ -44,8 +44,17 @@ class AdminUserDetailProduct extends StatelessWidget {
           return showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: Text('Are you sure?'),
-              content: Text('Do you want to remove this item?'),
+              title: Text(
+                'Are you sure?',
+                style: Theme.of(context).textTheme.headline6!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black),
+              ),
+              content: Text(
+                'Do you want to remove this item?',
+                style: GoogleFonts.poppins(),
+              ),
               elevation: 20,
               actions: <Widget>[
                 TextButton(
@@ -54,7 +63,8 @@ class AdminUserDetailProduct extends StatelessWidget {
                   },
                   child: Text(
                     'No',
-                    style: TextStyle(color: Theme.of(context).accentColor),
+                    style: GoogleFonts.poppins(
+                        color: Theme.of(context).accentColor),
                   ),
                 ),
                 TextButton(
@@ -70,7 +80,8 @@ class AdminUserDetailProduct extends StatelessWidget {
                     }
                   },
                   child: Text('Yes',
-                      style: TextStyle(color: Theme.of(context).accentColor)),
+                      style: GoogleFonts.poppins(
+                          color: Theme.of(context).accentColor)),
                 )
               ],
             ),

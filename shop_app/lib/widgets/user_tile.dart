@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shop_app/screens/adminScreens/userDetailScreen_admin.dart';
 import 'package:shop_app/models/user.dart' as user;
 
@@ -44,6 +45,50 @@ class UserTile extends StatelessWidget {
     );
     return Dismissible(
       key: Key(_user.id),
+      confirmDismiss: (direction) {
+        return showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(
+              'Confirmation',
+              style: Theme.of(context).textTheme.headline6!.copyWith(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black),
+            ),
+            content: Text('Do you want to delete this user?',
+                style: GoogleFonts.poppins()),
+            actions: [
+              TextButton.icon(
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+                icon: Icon(Icons.cancel_outlined,
+                    color: Theme.of(context).accentColor),
+                label: Text(
+                  'No',
+                  style:
+                      GoogleFonts.poppins(color: Theme.of(context).accentColor),
+                ),
+              ),
+              TextButton.icon(
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+                icon: Icon(
+                  Icons.check_circle_outline,
+                  color: Theme.of(context).accentColor,
+                ),
+                label: Text(
+                  'Yes',
+                  style:
+                      GoogleFonts.poppins(color: Theme.of(context).accentColor),
+                ),
+              )
+            ],
+          ),
+        );
+      },
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: Card(
