@@ -93,6 +93,55 @@ class ProductProvider with ChangeNotifier {
     }
   }
 
+  Future<void> updateProduct(Map<String, String> m) async {
+    try {
+      if (m['path']!.contains('com')) {
+        Uri url = Uri.parse(
+            "https://fluttershop-backend.herokuapp.com/products/withoutImage/${m['id']}");
+        var data = json.encode({
+          'name': m['name'],
+          'price': m['price'],
+          'description': m['description'],
+          'category': m['category'],
+        });
+        var response = await http.patch(url,
+            headers: {'Authorization': 'Bearer $_authToken'}, body: data);
+        var responseData = json.decode(response.body);
+        if (responseData['error'] != null) {
+          throw HttpException(responseData['error']);
+        }
+      } else {
+        Uri url = Uri.parse(
+            "https://fluttershop-backend.herokuapp.com/products/withImage/${m['id']}");
+
+        Map<String, String> headers = <String, String>{
+          'Authorization': "Bearer $_authToken"
+        };
+
+        var request = http.MultipartRequest('POST', url)
+          ..headers.addAll(headers)
+          ..fields['name'] = m['name']!
+          ..fields['price'] = m['price']!
+          ..fields['description'] = m['description']!
+          ..fields['category'] = m['category']!
+          ..fields['sellerId'] = _userId
+          ..files.add(
+            await http.MultipartFile.fromPath(
+              'productImage',
+              m['path']!,
+              contentType: new MediaType('image', 'jpeg'),
+            ),
+          );
+        var response = await request.send();
+        if (response.statusCode > 300) {
+          throw HttpException(response.reasonPhrase!);
+        }
+      }
+    } catch (err) {
+      throw err;
+    }
+  }
+
   List<Product> getByCategory(String category) {
     List<Product> _p =
         products.where((element) => element.category == category).toList();

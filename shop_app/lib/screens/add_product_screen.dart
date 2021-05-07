@@ -27,6 +27,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   bool isEdit = false;
   var isLoading = false;
   Map<String, String> product = {
+    'id': '',
     'name': '',
     'price': '',
     'description': '',
@@ -54,8 +55,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
       isLoading = true;
     });
     try {
-      await Provider.of<ProductProvider>(context, listen: false)
-          .addProduct(product);
+      if (!isEdit) {
+        await Provider.of<ProductProvider>(context, listen: false)
+            .addProduct(product);
+      } else {
+        await Provider.of<ProductProvider>(context, listen: false)
+            .updateProduct(product);
+      }
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -84,7 +90,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
         ),
       );
     } on HttpException catch (err) {
-      print(err);
       openDialog(err.msg);
     }
     setState(() {
@@ -135,6 +140,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         product['description'] = lp.description;
         product['category'] = lp.category;
         product['path'] = lp.image;
+        product['image'] = lp.id;
         print(product);
         setState(() {
           isEdit = true;
