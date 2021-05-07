@@ -8,6 +8,7 @@ import 'package:shop_app/provider/authProvider.dart';
 import 'package:shop_app/provider/cartProvider.dart';
 import 'package:shop_app/provider/productProvider.dart';
 import 'package:shop_app/provider/userProvider.dart';
+import 'package:shop_app/screens/add_product_screen.dart';
 import 'package:shop_app/screens/cartPage.dart';
 
 class ProductDetailScreen extends StatelessWidget {
@@ -16,6 +17,8 @@ class ProductDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final productId = ModalRoute.of(context)?.settings.arguments as String;
     var isFav = Provider.of<User>(context).isFav(productId);
+    var userId = Provider.of<User>(context).userId;
+
     final loadedProduct = Provider.of<ProductProvider>(
       context,
       listen: false,
@@ -86,11 +89,23 @@ class ProductDetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('FlutterStore',
-            style: Theme.of(context).textTheme.headline6!.copyWith(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? null
-                    : Colors.white)),
+        title: Text(
+          'FlutterStore',
+          style: Theme.of(context).textTheme.headline6!.copyWith(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? null
+                  : Colors.white),
+        ),
+        actions: [
+          if (userId == loadedProduct.sellerId)
+            IconButton(
+                icon: Icon(Icons.edit),
+                onPressed: () {
+                  Navigator.of(context).pushReplacementNamed(
+                      AddProductScreen.routeName,
+                      arguments: loadedProduct.id);
+                }),
+        ],
       ),
       body: Container(
         // constraints: BoxConstraints(maxWidth: 1000),

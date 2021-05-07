@@ -1,6 +1,7 @@
 //@dart=2.9
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,6 +23,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
   File _image;
   final picker = ImagePicker();
   String selected = "Grocery";
+  bool isInit = false;
+  bool isEdit = false;
   var isLoading = false;
   Map<String, String> product = {
     'name': '',
@@ -119,6 +122,31 @@ class _AddProductScreenState extends State<AddProductScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    if (!isInit) {
+      var productId = ModalRoute.of(context).settings.arguments as String;
+      if (productId != null) {
+        var lp = Provider.of<ProductProvider>(
+          context,
+          listen: false,
+        ).findById(productId);
+        product['name'] = lp.name;
+        product['price'] = lp.price.toString();
+        product['description'] = lp.description;
+        product['category'] = lp.category;
+        product['path'] = lp.image;
+        print(product);
+        setState(() {
+          isEdit = true;
+          isInit = true;
+        });
+      }
+    }
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -162,16 +190,19 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                     color: Colors.grey.shade400,
                                   ),
                                 ),
-                                child: _image == null
-                                    ? Icon(
-                                        Icons.image_not_supported_outlined,
-                                        color: Colors.grey,
-                                        size: 50,
-                                      )
-                                    : Image.file(
-                                        _image,
-                                        fit: BoxFit.cover,
-                                      ),
+                                child: product['path'] != ''
+                                    ? CachedNetworkImage(
+                                        imageUrl: product['path'])
+                                    : _image == null
+                                        ? Icon(
+                                            Icons.image_not_supported_outlined,
+                                            color: Colors.grey,
+                                            size: 50,
+                                          )
+                                        : Image.file(
+                                            _image,
+                                            fit: BoxFit.cover,
+                                          ),
                               ),
                               SizedBox(
                                 width: 20,
@@ -252,7 +283,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                 value: 'Beauty, Toy & More',
                               ),
                             ],
-                            value: selected,
+                            value: product['category'] != ""
+                                ? product['category']
+                                : selected,
                             onChanged: (value) {
                               setState(() {
                                 selected = value.toString();
@@ -271,6 +304,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12, vertical: 8),
                           child: TextFormField(
+                            initialValue: product['name'],
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.all(
@@ -297,6 +331,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12, vertical: 8),
                           child: TextFormField(
+                            initialValue: product['price'],
                             focusNode: priceScope,
                             onFieldSubmitted: (value) => FocusScope.of(context)
                                 .requestFocus(descriptionScope),
@@ -334,6 +369,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12, vertical: 8),
                           child: TextFormField(
+                            initialValue: product['description'],
                             textInputAction: TextInputAction.next,
                             focusNode: descriptionScope,
                             decoration: InputDecoration(
@@ -365,14 +401,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
         height: 60,
         child: ElevatedButton(
           onPressed: () {
-            if (_image == null) {
+            if (_image == null && product['path'] == '') {
               openDialog('Image not Selected!');
             }
-            product['path'] = _image.path;
+            product['path'] =
+                product['path'] == '' ? _image.path : product['path'];
             submit();
           },
           child: Text(
-            'Submit',
+            isEdit ? "Update" : 'Submit',
             style: GoogleFonts.poppins(fontSize: 18),
           ),
         ),
