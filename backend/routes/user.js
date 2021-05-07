@@ -28,4 +28,6 @@ router.post("/add/:pid",checkAuth,UserController.user_add_fav);
 
 router.post("/remove/:pid",checkAuth,UserController.user_rem_fav);
 
+router.post("/update",checkAuth,UserController.user_update_detail);
+
 module.exports = router;

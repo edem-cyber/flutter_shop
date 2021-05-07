@@ -98,6 +98,11 @@ exports.products_patch_product = (req, res, next) => {
     )
       .exec()
       .then((result) => {
+        if(result.nModified==0){
+          res.status(404).json({
+            error: "Product not found!"
+          })
+        }
         res.status(200).json({
           message: "Product updated successfully",
         });
@@ -115,6 +120,11 @@ exports.products_patch_product = (req, res, next) => {
      )
        .exec()
        .then((result) => {
+          if(result.nModified==0){
+          res.status(404).json({
+            error: "Product not found!"
+          })
+        }
          res.status(200).json({
            message: "Product updated successfully",
          });
