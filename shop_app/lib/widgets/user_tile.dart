@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/provider/userProvider.dart';
 import 'package:shop_app/screens/adminScreens/userDetailScreen_admin.dart';
 import 'package:shop_app/models/user.dart' as user;
 
@@ -74,6 +76,8 @@ class UserTile extends StatelessWidget {
               TextButton.icon(
                 onPressed: () {
                   Navigator.of(context).pop(true);
+                  Provider.of<User>(context, listen: false)
+                      .deleteUser(_user.id);
                 },
                 icon: Icon(
                   Icons.check_circle_outline,

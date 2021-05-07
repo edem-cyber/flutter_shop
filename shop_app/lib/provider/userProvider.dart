@@ -108,6 +108,7 @@ class User with ChangeNotifier {
         throw HttpException(rd['error']);
       }
       var responseData = rd['user'];
+      // print(responseData);
       _currUser['email'] = responseData['email'];
       _currUser['firstname'] = responseData['firstname'];
       _currUser['lastname'] = responseData['lastname'];
@@ -134,5 +135,52 @@ class User with ChangeNotifier {
     } catch (err) {
       print(err);
     }
+  }
+
+  Future<void> updateUser(Map<String, String> info) async {
+    Uri url =
+        Uri.parse("https://fluttershop-backend.herokuapp.com/user/update");
+    var details = json.encode({
+      "email": info['email'],
+      "firstname": info["firstname"],
+      "lastname": info["lastname"],
+      "phone": info["phone"],
+      "address": info["address"]
+    });
+    try {
+      var response = await http.post(url, body: details, headers: {
+        "Authorization": "Bearer $_token",
+        "Content-Type": "application/json"
+      });
+      var responseData = json.decode(response.body);
+      print(responseData);
+      if (responseData['error'] != null) {
+        throw HttpException(responseData['error']);
+      }
+      _currUser = {
+        "email": info['email']!,
+        "firstname": info["firstname"]!,
+        "lastname": info["lastname"]!,
+        "phone": info["phone"]!,
+        "address": info["address"]!,
+      };
+      notifyListeners();
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  Future<void> deleteUser(String id) async {
+    Uri url = Uri.parse("https://fluttershop-backend.herokuapp.com/user/$id");
+    try {
+      var response =
+          await http.delete(url, headers: {"Authorization": "Bearer $_token"});
+      var responseData = json.decode(response.body);
+      if (responseData['error'] != null) {
+        throw HttpException(responseData['error']);
+      }
+      users.removeWhere((element) => element.id == id);
+      notifyListeners();
+    } catch (err) {}
   }
 }

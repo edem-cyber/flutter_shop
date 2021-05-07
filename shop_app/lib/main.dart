@@ -91,7 +91,8 @@ class MyApp extends StatelessWidget {
                 }),
                 textTheme: TextTheme(
                   headline6: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold, color: Colors.white),
+                    fontWeight: FontWeight.bold,
+                  ),
                   bodyText1: GoogleFonts.raleway(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
