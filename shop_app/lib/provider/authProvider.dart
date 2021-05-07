@@ -44,6 +44,8 @@ class AuthProvider with ChangeNotifier {
 
   toggleDark() {
     _isDark = !_isDark;
+
+    secureStroage.writeSecureStorage('isDark', isDark.toString());
     notifyListeners();
   }
 
@@ -105,7 +107,10 @@ class AuthProvider with ChangeNotifier {
     _token = data['token']!;
     _role = int.parse(data['role']!);
     _expiryDate = DateTime.parse(data['expiry']!);
+    _isDark = data['isDark'] == "true" ? true : false;
+
     notifyListeners();
+
     return true;
   }
 

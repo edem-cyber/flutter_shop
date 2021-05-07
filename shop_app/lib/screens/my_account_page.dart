@@ -54,7 +54,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
 
   submit(Map<String, String> info) async {
     if (!_key.currentState!.validate()) {
-      print(_key.currentState);
+      
       return;
     }
     _key.currentState!.save();
@@ -74,7 +74,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
   @override
   Widget build(BuildContext context) {
     var details = Provider.of<User>(context).currUser;
-    print(details);
+    
     return Scaffold(
         appBar: AppBar(
           title: Text('My Account'),
@@ -216,7 +216,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                 height: 60,
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    print(details);
+                    
                     submit(details);
                   },
                   icon: Icon(Icons.check),

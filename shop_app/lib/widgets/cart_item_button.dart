@@ -15,7 +15,6 @@ class CartItemButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        print('saving');
         function();
       },
       child: Container(

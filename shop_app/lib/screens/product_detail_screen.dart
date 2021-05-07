@@ -85,10 +85,16 @@ class ProductDetailScreen extends StatelessWidget {
     );
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('FlutterStore',
+            style: Theme.of(context).textTheme.headline6!.copyWith(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? null
+                    : Colors.white)),
+      ),
       body: Container(
         // constraints: BoxConstraints(maxWidth: 1000),
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: LayoutBuilder(
           builder: (context, constraints) {
             return constraints.maxWidth > 960

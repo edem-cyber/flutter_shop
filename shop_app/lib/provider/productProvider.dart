@@ -32,7 +32,7 @@ class ProductProvider with ChangeNotifier {
             sellerName: p['seller']),
       );
     });
-    print(products);
+
     products = loadedProduct;
     notifyListeners();
     // responeData['products'].fore
@@ -43,7 +43,6 @@ class ProductProvider with ChangeNotifier {
   }
 
   Future<void> deleteItem(String id) async {
-    print(id);
     final Uri url =
         Uri.http("fluttershop-backend.herokuapp.com", 'products/$id');
     try {
@@ -54,7 +53,6 @@ class ProductProvider with ChangeNotifier {
         throw HttpException(responseData['error']);
       }
       products.removeWhere((element) => element.id == id);
-      print(products.length);
       notifyListeners();
     } catch (err) {
       throw err;
@@ -62,7 +60,6 @@ class ProductProvider with ChangeNotifier {
   }
 
   List<Product> findBySeller(String id) {
-    print(products.length);
     return products.where((element) => element.sellerId == id).toList();
   }
 
@@ -71,9 +68,7 @@ class ProductProvider with ChangeNotifier {
     Map<String, String> headers = <String, String>{
       'Authorization': "Bearer $_authToken"
     };
-    // print(m['image']);
-    print(headers['Authorization']);
-    print(_userId);
+
     var request = http.MultipartRequest('POST', url)
       ..headers.addAll(headers)
       ..fields['name'] = m['name']!
