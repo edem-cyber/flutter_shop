@@ -94,10 +94,13 @@ class ProductProvider with ChangeNotifier {
   }
 
   Future<void> updateProduct(Map<String, String> m) async {
+    var id = m['id'];
+    print(id);
     try {
       if (m['path']!.contains('com')) {
+        print('without image');
         Uri url = Uri.parse(
-            "https://fluttershop-backend.herokuapp.com/products/withoutImage/${m['id']}");
+            "https://fluttershop-backend.herokuapp.com/products/withoutImage/$id");
         var data = json.encode({
           'name': m['name'],
           'price': m['price'],
@@ -105,26 +108,29 @@ class ProductProvider with ChangeNotifier {
           'category': m['category'],
         });
         var response = await http.patch(url,
-            headers: {'Authorization': 'Bearer $_authToken'}, body: data);
+            headers: {
+              'Authorization': 'Bearer $_authToken',
+              'Content-Type': 'application/json'
+            },
+            body: data);
         var responseData = json.decode(response.body);
         if (responseData['error'] != null) {
           throw HttpException(responseData['error']);
         }
       } else {
         Uri url = Uri.parse(
-            "https://fluttershop-backend.herokuapp.com/products/withImage/${m['id']}");
+            "https://fluttershop-backend.herokuapp.com/products/withImage/$id");
 
         Map<String, String> headers = <String, String>{
           'Authorization': "Bearer $_authToken"
         };
 
-        var request = http.MultipartRequest('POST', url)
+        var request = http.MultipartRequest('PATCH', url)
           ..headers.addAll(headers)
           ..fields['name'] = m['name']!
           ..fields['price'] = m['price']!
           ..fields['description'] = m['description']!
           ..fields['category'] = m['category']!
-          ..fields['sellerId'] = _userId
           ..files.add(
             await http.MultipartFile.fromPath(
               'productImage',
@@ -137,6 +143,7 @@ class ProductProvider with ChangeNotifier {
           throw HttpException(response.reasonPhrase!);
         }
       }
+      getProducts();
     } catch (err) {
       throw err;
     }

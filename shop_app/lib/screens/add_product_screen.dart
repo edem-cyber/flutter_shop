@@ -140,8 +140,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
         product['description'] = lp.description;
         product['category'] = lp.category;
         product['path'] = lp.image;
-        product['image'] = lp.id;
-        print(product);
+        product['id'] = productId;
+        print(productId);
         setState(() {
           isEdit = true;
           isInit = true;
