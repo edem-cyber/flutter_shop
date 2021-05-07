@@ -1,9 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
 import 'package:shop_app/models/product.dart';
 import 'package:shop_app/provider/productProvider.dart';
-import 'package:shop_app/screens/product_detail_screen.dart';
 import 'package:shop_app/widgets/searchPageProductItem.dart';
 
 class SearchPage extends StatefulWidget {
@@ -39,6 +39,7 @@ class _SearchPageState extends State<SearchPage> {
         title: TextField(
           decoration: InputDecoration(
             hintText: 'Search',
+            hintStyle: GoogleFonts.poppins(color: Colors.white),
             border: InputBorder.none,
           ),
           cursorColor: Colors.white,

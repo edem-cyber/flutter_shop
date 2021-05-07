@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import 'package:shop_app/provider/authProvider.dart';
 import 'package:shop_app/screens/homepage.dart';
 import 'loginpage.dart';
 
@@ -13,7 +11,7 @@ enum ScreenSize {
 }
 
 class MainScreen extends StatelessWidget {
-  var auth;
+  final auth;
   MainScreen(this.auth);
   @override
   Widget build(BuildContext context) {

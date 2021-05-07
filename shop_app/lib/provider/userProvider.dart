@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shop_app/models/HttpException.dart';
 import 'package:shop_app/models/product.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:shop_app/models/user.dart' as user;
 
 class User with ChangeNotifier {

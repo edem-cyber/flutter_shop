@@ -12,16 +12,16 @@ class MyOrderPage extends StatefulWidget {
 }
 
 class _MyOrderPageState extends State<MyOrderPage> {
-  bool Loading = false;
+  bool loading = false;
 
   @override
   void initState() {
     setState(() {
-      Loading = true;
+      loading = true;
     });
     Provider.of<Cart>(context, listen: false).getOrder('').then((value) {
       setState(() {
-        Loading = false;
+        loading = false;
       });
     });
     super.initState();
@@ -37,7 +37,7 @@ class _MyOrderPageState extends State<MyOrderPage> {
           style: Theme.of(context).textTheme.headline6,
         ),
       ),
-      body: Loading
+      body: loading
           ? Center(
               child: CircularProgressIndicator(),
             )

@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:shop_app/models/HttpException.dart';
-import 'package:shop_app/models/product.dart';
+
 import 'package:shop_app/provider/secureStorage.dart';
 
 class AuthProvider with ChangeNotifier {

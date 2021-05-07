@@ -1,10 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/models/HttpException.dart';
+
 import 'package:shop_app/models/order.dart';
 import 'package:shop_app/models/product.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:shop_app/models/user.dart' as user;
 import 'package:shop_app/provider/cartProvider.dart';
 import 'package:shop_app/provider/productProvider.dart';

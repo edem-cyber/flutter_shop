@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shop_app/models/product.dart';
 import 'package:shop_app/screens/product_detail_screen.dart';
 
@@ -37,11 +38,8 @@ class SimpleProductInfo extends StatelessWidget {
           ),
           title: Hero(
             tag: '${product[index].id}-name',
-            child: Text(
-              product[index].name,
-              style:
-                  Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 14),
-            ),
+            child: Text(product[index].name,
+                style: GoogleFonts.poppins(fontSize: 14)),
           ),
         ),
       ),

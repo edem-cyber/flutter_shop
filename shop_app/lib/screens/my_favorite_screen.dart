@@ -72,6 +72,5 @@ class _MyFavScreenState extends State<MyFavScreen> {
               }),
             ),
     );
-    ;
   }
 }

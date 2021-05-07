@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/provider/userProvider.dart';
 import 'package:shop_app/screens/adminScreens/userDetailScreen_admin.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:shop_app/models/user.dart' as user;
 
 class UserTile extends StatelessWidget {
