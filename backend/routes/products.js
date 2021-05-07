@@ -31,7 +31,6 @@ const upload = multer({
   storage: stroage,
   limits: {
     fileSize: 1024 * 1024 * 2,
-    
   },
   // fileFilter: fileFilter,
 });
@@ -55,9 +54,16 @@ router.get("/:id", ProductController.products_get_one);
 
 // patch the requested properties in the given product
 router.patch(
-  "/:id",
+  "/withoutImage/:id",
   auth,
-  ProductController.products_patch_product
+  ProductController.products_patch_product_without_image
+);
+
+router.patch(
+  "/withImage/:id",
+  auth,
+  upload.single("productImage"),
+  ProductController.products_patch_product_with_image
 );
 
 // delete the product
