@@ -21,11 +21,12 @@ class CustomDrawer extends StatefulWidget {
 
 class _CustomDrawerState extends State<CustomDrawer> {
   bool isDark = false;
+  int role = 1;
 
   @override
   void initState() {
     isDark = Provider.of<AuthProvider>(context, listen: false).isDark;
-
+    role = Provider.of<AuthProvider>(context, listen: false).role;
     super.initState();
   }
 
@@ -90,14 +91,16 @@ class _CustomDrawerState extends State<CustomDrawer> {
               Navigator.of(context).pop();
               Navigator.of(context).pushNamed(MyAccountPage.routeName);
             }),
-            option(context, 'My Cart', Icons.shopping_cart, () {
-              Navigator.of(context).pop();
-              Navigator.of(context).pushNamed(CartPage.routeName);
-            }),
-            option(context, 'My Favorite', Icons.favorite, () {
-              Navigator.of(context).pop();
-              Navigator.of(context).pushNamed(MyFavScreen.routeName);
-            }),
+            if (role == 0 || role == 1)
+              option(context, 'My Cart', Icons.shopping_cart, () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(CartPage.routeName);
+              }),
+            if (role == 0 || role == 1)
+              option(context, 'My Favorite', Icons.favorite, () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(MyFavScreen.routeName);
+              }),
             option(context, 'My Products', Icons.list, () {
               Navigator.of(context).pop();
               Navigator.of(context).pushNamed(MyProduct.routeName);
