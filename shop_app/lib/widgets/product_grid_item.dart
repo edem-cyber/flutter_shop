@@ -5,8 +5,10 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/models/product.dart';
 import 'package:shop_app/provider/cartProvider.dart';
+import 'package:shop_app/provider/userProvider.dart';
 import 'package:shop_app/screens/cartPage.dart';
 import 'package:shop_app/screens/mainPage.dart';
+import 'package:shop_app/screens/my_favorite_screen.dart';
 import 'package:shop_app/screens/product_detail_screen.dart';
 
 class ProductGridItem extends StatefulWidget {
@@ -82,7 +84,8 @@ class _ProductGridItemState extends State<ProductGridItem> {
                         constraints: widget.screenSize == ScreenSize.small
                             ? BoxConstraints(
                                 minWidth: 800, minHeight: 200, maxHeight: 200)
-                            : BoxConstraints(minWidth: 800, minHeight: 200),
+                            : BoxConstraints(
+                                minWidth: 800, minHeight: 200, maxHeight: 600),
                         color: Colors.white,
                         child: Hero(
                           tag: widget.product.id,
@@ -108,7 +111,22 @@ class _ProductGridItemState extends State<ProductGridItem> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Provider.of<User>(context, listen: false)
+                                    .toggleFavorite(widget.product);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('Product added to favorite!'),
+                                    action: SnackBarAction(
+                                      label: 'Go to Favorite',
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pushNamed(MyFavScreen.routeName);
+                                      },
+                                    ),
+                                  ),
+                                );
+                              },
                               child: Container(
                                 height: 50,
                                 width: 40,
