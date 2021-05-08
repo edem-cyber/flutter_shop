@@ -92,57 +92,50 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
               .copyWith(color: Colors.white),
         ),
       ),
-      body: Column(
-        children: [
-          Stepper(
-            steps: [
-              Step(
-                title: new Text('Address'),
-                content: Column(
-                  children: <Widget>[
-                    TextFormField(
-                      decoration: InputDecoration(labelText: 'Home Address'),
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(labelText: 'Postcode'),
-                    ),
-                  ],
+      body: Stepper(
+        steps: [
+          Step(
+            title: new Text('Address'),
+            content: Column(
+              children: <Widget>[
+                TextFormField(
+                  decoration: InputDecoration(labelText: 'Home Address'),
                 ),
-                isActive: _currentStep >= 0,
-                state:
-                    _currentStep >= 0 ? StepState.complete : StepState.disabled,
-              ),
-              Step(
-                title: new Text('Products'),
-                content: Column(
-                  children: <Widget>[
-                    ..._cart.map((cartItem) => GenCartItem(cartItem)).toList(),
-                  ],
+                TextFormField(
+                  decoration: InputDecoration(labelText: 'Postcode'),
                 ),
-                isActive: _currentStep >= 0,
-                state:
-                    _currentStep >= 1 ? StepState.complete : StepState.disabled,
-              ),
-              Step(
-                title: new Text('Payment Method'),
-                content: Column(
-                  children: <Widget>[
-                    paymentOption('Cash on Delivery'),
-                    paymentOption('Credit / Debit Card'),
-                    paymentOption('UPI / Wallet'),
-                  ],
-                ),
-                isActive: _currentStep >= 0,
-                state:
-                    _currentStep >= 2 ? StepState.complete : StepState.disabled,
-              ),
-            ],
-            currentStep: _currentStep,
-            onStepCancel: cancel,
-            onStepTapped: tapped,
-            onStepContinue: continued,
+              ],
+            ),
+            isActive: _currentStep >= 0,
+            state: _currentStep >= 0 ? StepState.complete : StepState.disabled,
+          ),
+          Step(
+            title: new Text('Products'),
+            content: Column(
+              children: <Widget>[
+                ..._cart.map((cartItem) => GenCartItem(cartItem)).toList(),
+              ],
+            ),
+            isActive: _currentStep >= 0,
+            state: _currentStep >= 1 ? StepState.complete : StepState.disabled,
+          ),
+          Step(
+            title: new Text('Payment Method'),
+            content: Column(
+              children: <Widget>[
+                paymentOption('Cash on Delivery'),
+                paymentOption('Credit / Debit Card'),
+                paymentOption('UPI / Wallet'),
+              ],
+            ),
+            isActive: _currentStep >= 0,
+            state: _currentStep >= 2 ? StepState.complete : StepState.disabled,
           ),
         ],
+        currentStep: _currentStep,
+        onStepCancel: cancel,
+        onStepTapped: tapped,
+        onStepContinue: continued,
       ),
     );
   }
