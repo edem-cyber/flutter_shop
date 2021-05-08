@@ -5,6 +5,9 @@ import 'package:provider/provider.dart';
 
 import 'package:shop_app/models/cart.dart';
 import 'package:shop_app/provider/cartProvider.dart';
+import 'package:shop_app/provider/productProvider.dart';
+import 'package:shop_app/provider/userProvider.dart';
+import 'package:shop_app/screens/my_favorite_screen.dart';
 import 'package:shop_app/widgets/cart_item_button.dart';
 import 'package:shop_app/widgets/quantity_control.dart';
 
@@ -57,7 +60,26 @@ class GenCartItem extends StatelessWidget {
               generateRow(
                   totalPricrPerItem, QuantityControl(cartItem: cartItem), 3, 2),
               generateRow(
-                CartItemButton(title: 'Save for later', function: () {}),
+                CartItemButton(
+                    title: 'Save for later',
+                    function: () {
+                      var p =
+                          Provider.of<ProductProvider>(context, listen: false)
+                              .findById(cartItem.id);
+                      Provider.of<User>(context, listen: false)
+                          .toggleFavorite(p);
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('Product saved to favorites'),
+                        action: SnackBarAction(
+                          label: 'Okay',
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ));
+                      Provider.of<Cart>(context, listen: false)
+                          .remove(cartItem.id);
+                    }),
                 CartItemButton(
                     title: 'Remove',
                     function: () {

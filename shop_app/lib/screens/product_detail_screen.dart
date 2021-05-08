@@ -169,7 +169,15 @@ class ProductDetailScreen extends StatelessWidget {
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.green),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Provider.of<Cart>(context, listen: false).addItem(
+                  loadedProduct.id,
+                  loadedProduct.price,
+                  loadedProduct.name,
+                  loadedProduct.image,
+                );
+                Navigator.of(context).pushNamed(CartPage.routeName);
+              },
               child: Container(
                 height: 60,
                 child: Center(child: Text('Buy')),
