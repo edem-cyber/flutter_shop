@@ -119,6 +119,7 @@ class AuthProvider with ChangeNotifier {
     _role = -1;
     _token = "";
     _userId = "";
+    _isDark = false;
     notifyListeners();
     secureStroage.deleteStorage();
   }
