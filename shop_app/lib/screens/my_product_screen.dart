@@ -16,7 +16,16 @@ class MyProduct extends StatelessWidget {
         Provider.of<AuthProvider>(context, listen: false).userId;
     List<Product> _p = Provider.of<ProductProvider>(context).findBySeller(user);
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(
+          'My Products',
+          style: Theme.of(context).textTheme.headline6!.copyWith(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? null
+                    : Colors.white,
+              ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: LayoutBuilder(builder: (context, constraints) {

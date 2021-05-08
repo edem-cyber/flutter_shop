@@ -53,7 +53,11 @@ class CartPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Cart',
-          style: Theme.of(context).textTheme.headline6,
+           style: Theme.of(context).textTheme.headline6!.copyWith(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? null
+                          : Colors.white,
+                    ),
         ),
       ),
       body: Container(

@@ -36,7 +36,16 @@ class _MyFavScreenState extends State<MyFavScreen> {
   Widget build(BuildContext context) {
     List<Product> _p = Provider.of<User>(context).favs;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(
+          'My Favorites',
+          style: Theme.of(context).textTheme.headline6!.copyWith(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? null
+                    : Colors.white,
+              ),
+        ),
+      ),
       body: isLoading
           ? Center(
               child: CircularProgressIndicator(),

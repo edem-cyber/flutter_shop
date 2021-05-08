@@ -158,7 +158,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
       appBar: AppBar(
         title: Text(
           'Add Product',
-          style: GoogleFonts.poppins(),
+          style: Theme.of(context).textTheme.headline6.copyWith(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? null
+                    : Colors.white,
+              ),
         ),
       ),
       body: isLoading

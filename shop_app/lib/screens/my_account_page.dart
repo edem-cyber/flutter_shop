@@ -54,7 +54,6 @@ class _MyAccountPageState extends State<MyAccountPage> {
 
   submit(Map<String, String> info) async {
     if (!_key.currentState!.validate()) {
-      
       return;
     }
     _key.currentState!.save();
@@ -74,10 +73,17 @@ class _MyAccountPageState extends State<MyAccountPage> {
   @override
   Widget build(BuildContext context) {
     var details = Provider.of<User>(context).currUser;
-    
+
     return Scaffold(
         appBar: AppBar(
-          title: Text('My Account'),
+          title: Text(
+            'My Account',
+            style: Theme.of(context).textTheme.headline6!.copyWith(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? null
+                      : Colors.white,
+                ),
+          ),
         ),
         body: isLoading
             ? Center(
@@ -216,7 +222,6 @@ class _MyAccountPageState extends State<MyAccountPage> {
                 height: 60,
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    
                     submit(details);
                   },
                   icon: Icon(Icons.check),
