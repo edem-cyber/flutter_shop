@@ -14,22 +14,27 @@ class ProductProvider with ChangeNotifier {
   ProductProvider(this._authToken, this._userId, this.products);
 
   Future<void> getProducts() async {
-    final Uri url = Uri.http("fluttershop-backend.herokuapp.com", 'products');
+    final Uri url = Uri.https(
+      "sg-web-backend.herokuapp.com",
+      '/api/v1/products',
+    );
     final response = await http.get(url);
     final responeData = json.decode(response.body);
-    final productData = responeData['products'] as List<dynamic>;
+    final productData = responeData['payload'] as List<dynamic>;
     final List<Product> loadedProduct = [];
     productData.forEach((p) {
       loadedProduct.add(
         Product(
-            id: p['id'],
-            name: p['name'],
-            price: p['price'],
-            description: p['description'],
-            image: p['productImage'],
-            category: p['category'],
-            sellerId: p['sellerId'],
-            sellerName: p['seller']),
+          id: p['id'],
+          name: p['name'],
+          price: p['price'],
+          description: p['description'],
+          // image: p['productImage'],
+          category: p['category']['name'],
+          sellerId: p['user']['id'],
+          image: p['assets[0]'],
+          sellerName: p['user']['company']["name"],
+        ),
       );
     });
 

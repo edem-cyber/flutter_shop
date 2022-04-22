@@ -65,6 +65,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
+          
           title: Text(
             'Successful',
             style: TextStyle(
@@ -355,7 +356,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 4),
                                 child: Text(
-                                  '₹',
+                                  '\$',
                                   style: TextStyle(
                                       fontSize: 28,
                                       color: Theme.of(context).brightness ==

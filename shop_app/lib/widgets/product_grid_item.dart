@@ -116,6 +116,7 @@ class _ProductGridItemState extends State<ProductGridItem> {
                                     .toggleFavorite(widget.product);
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
+                                    duration: Duration(seconds: 1),
                                     content: Text('Product added to favorite!'),
                                     action: SnackBarAction(
                                       label: 'Go to Favorite',
@@ -146,6 +147,7 @@ class _ProductGridItemState extends State<ProductGridItem> {
                                         widget.product.image);
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
+                                    duration: Duration(seconds: 1),
                                     content: Text('Product added to cart!'),
                                     action: SnackBarAction(
                                       label: 'Go to Cart',
@@ -182,7 +184,7 @@ class _ProductGridItemState extends State<ProductGridItem> {
                     widget.product.name,
                     style: Theme.of(context)
                         .textTheme
-                        .subtitle2!
+                        .caption!
                         .copyWith(fontSize: 18),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -194,8 +196,8 @@ class _ProductGridItemState extends State<ProductGridItem> {
                     ? const EdgeInsets.only(left: 10, bottom: 8, right: 10)
                     : const EdgeInsets.only(left: 16, bottom: 8, right: 16),
                 child: Text(
-                  '₹ ${widget.product.price.toString()}',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  '\$ ${widget.product.price.toString()}',
+                  style: Theme.of(context).textTheme.bodyText2,
                   textAlign: TextAlign.center,
                 ),
               ),

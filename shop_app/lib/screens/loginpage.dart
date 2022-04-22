@@ -113,12 +113,12 @@ class _LoginPageState extends State<LoginPage>
             colors: Theme.of(context).brightness == Brightness.dark
                 ? [
                     // Colors.blueAccent,
-                    Colors.cyan.withOpacity(0.4),
-                    Color(0xFF0D47A1),
+                    Colors.green.withOpacity(0.4),
+                    Color(0xFFB09C19),
                   ]
                 : [
-                    Colors.purple,
-                    Colors.blue,
+                    Colors.yellow,
+                    Colors.green,
                   ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,

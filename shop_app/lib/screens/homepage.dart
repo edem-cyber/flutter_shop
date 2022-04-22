@@ -39,9 +39,10 @@ class _HomePageState extends State<HomePage> {
     "Electronics",
     "Home",
     "Appliances",
+    "Appliances",
     "Beauty, Toy & More",
   ];
-  int selected = 2;
+  int selected = 0;
   var sort = -1;
   @override
   void initState() {
@@ -67,7 +68,7 @@ class _HomePageState extends State<HomePage> {
           ? null
           : AppBar(
               title: Text(
-                'FlutterStore',
+                'Home',
                 style: Theme.of(context).textTheme.headline6!.copyWith(
                       color: Theme.of(context).brightness == Brightness.dark
                           ? null
@@ -145,7 +146,7 @@ class _HomePageState extends State<HomePage> {
                                                 : BoxConstraints(minWidth: 200),
                                         decoration: BoxDecoration(
                                             color: selected == index
-                                                ? Colors.blue.shade200
+                                                ? Colors.green.shade200
                                                 : null,
                                             borderRadius:
                                                 BorderRadius.circular(4)),
@@ -192,7 +193,7 @@ class _HomePageState extends State<HomePage> {
                           : null,
                     ),
                     labelColor: Colors.white,
-                    labelBackgroundColor: Colors.blue,
+                    labelBackgroundColor: Colors.green,
                   ),
                   HawkFabMenuItem(
                     label: 'Price: Low to High',
@@ -203,7 +204,7 @@ class _HomePageState extends State<HomePage> {
                     },
                     icon: Icon(Icons.arrow_downward),
                     color: Theme.of(context).accentColor,
-                    labelColor: Colors.blue,
+                    labelColor: Colors.green,
                   ),
                 ],
               ),

@@ -75,7 +75,7 @@ class ProductDetailScreen extends StatelessWidget {
             child: IconButton(
               icon: Icon(
                 Icons.favorite,
-                color: isFav ? Colors.red : null,
+                color: isFav ? Colors.yellow : null,
               ),
               onPressed: () {
                 Provider.of<User>(context, listen: false)
@@ -149,6 +149,7 @@ class ProductDetailScreen extends StatelessWidget {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text('Product added to cart!'),
+                    duration: Duration(seconds: 1),
                     action: SnackBarAction(
                       label: 'Go to Cart',
                       onPressed: () {
@@ -204,11 +205,11 @@ class ProductDetailScreen extends StatelessWidget {
             style:
                 GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w600),
           ),
-          Text('₹ ${loadedProduct.price}',
+          Text('\$ ${loadedProduct.price}',
               style: GoogleFonts.poppins(
                   fontSize: 18, fontWeight: FontWeight.bold)),
           Text('Seller - ${loadedProduct.sellerName}',
-              style: GoogleFonts.poppins(fontSize: 16, color: Colors.blue)),
+              style: GoogleFonts.poppins(fontSize: 16, color: Colors.green)),
           SizedBox(
             height: 16,
           ),

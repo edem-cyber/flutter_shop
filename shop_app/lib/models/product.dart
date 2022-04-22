@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 class Product {
   final String id;
   final String name;
@@ -7,8 +9,14 @@ class Product {
   final String image;
   final String sellerId;
   final String sellerName;
+  final int? dollarPrice;
+  final int? discountPercent;
+  final List<String>? assets;
 
   Product({
+    this.discountPercent,
+    this.dollarPrice,
+    this.assets,
     required this.id,
     required this.name,
     required this.price,

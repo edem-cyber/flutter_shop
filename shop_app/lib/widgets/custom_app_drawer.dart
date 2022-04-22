@@ -43,11 +43,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
       height: 230,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       width: double.infinity,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('assets/images/app_drawer.jpg'),
-            fit: BoxFit.cover),
-      ),
+      // decoration: BoxDecoration(
+      //   image: DecorationImage(
+      //       image: AssetImage('assets/images/app_drawer.jpg'),
+      //       fit: BoxFit.cover),
+      // ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,18 +111,18 @@ class _CustomDrawerState extends State<CustomDrawer> {
               Provider.of<AuthProvider>(context, listen: false).logout();
             }),
             Spacer(),
-            ListTile(
-              title: Text(
-                'Switch Mode',
-                style: GoogleFonts.poppins(fontSize: 14),
-              ),
-              trailing: DayNightSwitcher(
-                isDarkModeEnabled: isDark,
-                onStateChanged: (isDarkModeEnabled) {
-                  toggleDark();
-                },
-              ),
-            ),
+            // ListTile(
+            //   title: Text(
+            //     'Switch Mode',
+            //     style: GoogleFonts.poppins(fontSize: 14),
+            //   ),
+            //   trailing: DayNightSwitcher(
+            //     isDarkModeEnabled: isDark,
+            //     onStateChanged: (isDarkModeEnabled) {
+            //       toggleDark();
+            //     },
+            //   ),
+            // ),
           ],
         ),
       ),

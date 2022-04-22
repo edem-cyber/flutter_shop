@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
               title: 'SoulShop',
               darkTheme: ThemeData(
                 brightness: Brightness.dark,
-                primarySwatch: Colors.indigo,
+                primarySwatch: Colors.green,
                 accentColor: Colors.amber,
                 fontFamily: 'Poppins',
                 pageTransitionsTheme: PageTransitionsTheme(builders: {
@@ -84,8 +84,8 @@ class MyApp extends StatelessWidget {
               ),
               themeMode: auth.isDark ? ThemeMode.dark : ThemeMode.light,
               theme: ThemeData(
-                primarySwatch: Colors.indigo,
-                accentColor: Colors.amber,
+                primarySwatch: Colors.amber,
+                accentColor: Colors.greenAccent,
                 fontFamily: 'Poppins',
                 pageTransitionsTheme: PageTransitionsTheme(builders: {
                   TargetPlatform.android: ZoomPageTransitionsBuilder()

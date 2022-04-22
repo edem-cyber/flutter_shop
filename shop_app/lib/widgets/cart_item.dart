@@ -31,7 +31,7 @@ class GenCartItem extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Center(
         child: Text(
-          "₹ ${cartItem.price * cartItem.quantity}",
+          "\$ ${cartItem.price * cartItem.quantity}",
           style: Theme.of(context).textTheme.bodyText1,
         ),
       ),

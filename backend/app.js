@@ -13,10 +13,9 @@ const app = express();
 
 //Connecting mongo Atlas
 mongoose
+  // mongodb+srv://edem:cYEdLzur4CjUZyNe@go.jjn6u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
   .connect(
-    "mongodb+srv://aman:" +
-      process.env.MONGO_ATLAS_PW +
-      "@flutterdb.qau8e.mongodb.net/FlutterDB?retryWrites=true&w=majority",
+    "mongodb+srv://edem:cYEdLzur4CjUZyNe@go.jjn6u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -27,7 +26,7 @@ mongoose
     console.log("Connected to the database"); // successful connection to mongo atlas
   })
   .catch(() => {
-    console.log("Failed"); // unsuccessful
+    console.log("Failed to connect to MongoDB"); // unsuccessful
   });
 
 //Setting up parser to parse the body  (express.json replaced old body-parser)
@@ -71,7 +70,7 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.json({
-    error: err.message
+    error: err.message,
   });
 });
 
